@@ -366,20 +366,22 @@ Mask - 'm'
         char_file.close()
     
     # add custom message here!!
-    print(f"\nCharacter created successfully! Welcome to the game, {new_username, category, gender, hair_colour, hat, boots, equipment}")
+    print(f"\nCharacter created successfully! Welcome to the game, {new_username}. You're a {gender} {category} with {hair_colour} hair, a {hat}, {boots} and a {equipment}")
     
     
     load_progress(new_username)
     
 
-def puzzle_one():
+def puzzle_one(username):
     print("\nAlright, here's your first challenge:")
     answer = input("What is the capital of England? ").lower().strip()
     
     # Check if the answer is correct
     if answer == "london":
-        print("Correct! London is the capital of itself. You're moving on to the next challenge!")
+        print("Correct! London is the capital of England. You're moving on to the next challenge!")
         return True
+        #save_progress(username)
+        #load_progress(username)
     else:
         print("Oops! That's not quite right. Try again!")
         return False

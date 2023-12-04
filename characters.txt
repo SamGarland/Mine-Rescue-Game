@@ -1,0 +1,1 @@
+john,gunslinger,female,red,red hat,fashion boots,hammer,puzzle_one
