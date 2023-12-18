@@ -140,30 +140,84 @@ def login():
     load_progress(username)
     
 def load_progress(username):
-    # Check for character
     with open('characters.txt', 'r') as char_file:
         lines = char_file.readlines()
 
     character_found = False
-    for line in lines:
-        if username == line.strip().split(',')[0]:
-            character_found = True
 
-            # If found, check for current puzzle
-            current_puzzle = line.strip().split(',')[-1]
-            print(f"Howdy {username.title()}! Time to get ya back to {current_puzzle}, the miners aint wait'n forever")
+    for line in lines:
+        items = line.strip().split(',')
+        if items[0] == username:
+            character_found = True
+            current_puzzle = items[-1]
+            print(f"\nHowdy {username.title()}! Time to carry on to {current_puzzle}, the miners ain't wait'n forever")
 
             # Redirect to respective puzzle based on current_puzzle value
             if current_puzzle == "puzzle_one":
-                puzzle_one()
+                puzzle_one(username)
             elif current_puzzle == "puzzle_two":
                 puzzle_two()
-            # Add remaining puzzles
+           # elif current_puzzle == "puzzle_three":
+           #     puzzle_three()
+           # elif current_puzzle == "puzzle_four":
+           #     puzzle_four()
+           # elif current_puzzle == "puzzle_five":
+           #     puzzle_five()
+            #elif current_puzzle == "puzzles_completed":
+           #     print("Seems you already completed this fella!Let's see how you did\n")
+           #     take to leaderboard
             break
 
     if not character_found:
         print("\nWell well, we ain't got no record of ya partner. Time to saddle up and create yer character!")
         create_character(username)
+    
+    char_file.close()
+
+def save_progress(username):
+    with open('characters.txt', 'r') as char_file:
+        lines = char_file.readlines()
+
+    character_found = False
+    new_lines = [] #Create empty list to hold new lines
+
+    for line in lines:
+        items = line.strip().split(',')
+        if items[0] == username: #Check for username
+            character_found = True
+            current_puzzle = items[-1] #Store current puzzle
+            
+            # Update to the next puzzle based on the current puzzle
+            if current_puzzle == "puzzle_one":
+                items[-1] = "puzzle_two"
+            elif current_puzzle == "puzzle_two":
+                items[-1] = "puzzle_three"
+            elif current_puzzle == "puzzle_three":
+                items[-1] = "puzzle_four"
+            elif current_puzzle == "puzzle_four":
+                items[-1] = "puzzle_five"
+            elif current_puzzle == "puzzle_five":
+                items[-1] = "puzzles_completed"
+                #Take player to leaderboard
+            else:
+                print("puzzle name not found, file error")
+                
+            new_line = ','.join(items)
+        else:
+            new_line = line.strip() #keep lines same if user not found
+
+        new_lines.append(new_line) #append empty list with updated line
+
+    if character_found:
+        # Write the updated lines back to the file
+        with open('characters.txt', 'w') as file:
+            for line in new_lines:
+                file.write(line + '\n')
+    else:
+        # Print a message if the user was not found in the file
+        print(f"User '{username}' not found in file. Unable to load progress.")
+
+    char_file.close()
 
 
 def create_character(new_username):
@@ -362,7 +416,7 @@ Mask - 'm'
     
     with open('characters.txt', 'a') as char_file:
         
-        char_file.write(f"{new_character},puzzle_one")
+        char_file.write(f"{new_character},puzzle_one\n")
         char_file.close()
     
     # add custom message here!!
@@ -379,9 +433,8 @@ def puzzle_one(username):
     # Check if the answer is correct
     if answer == "london":
         print("Correct! London is the capital of England. You're moving on to the next challenge!")
-        return True
-        #save_progress(username)
-        #load_progress(username)
+        save_progress(username)
+        load_progress(username)
     else:
         print("Oops! That's not quite right. Try again!")
         return False
