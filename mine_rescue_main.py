@@ -5,23 +5,6 @@ FILES REQUIRED :
     - "users.txt" - this takes and saves username and password as: username, password per line.
     - "characters.txt" - this takes username, character info and equipment.
     - "leaderboard.txt" - this takes username and puzzle timestamps (positions and timestamp aggregations can be worked out later)
-    
-CLASSES:
-    
-    -character:
-        
-        -self.name
-        -self.category
-        -self.gender
-        -self.hair_colour
-        -self.hat
-        -self.boots
-        -self.equipment
-        
-        a bunch of methods:
-            - load_progress()
-            - save_progress()
-            - character_stats()
 
 FUNCTIONS:
     
@@ -39,29 +22,17 @@ FUNCTIONS:
     
 '''
 
-#===== CLASSES =====#
-
-class Character():
-    
-    def __init__(self, name, category, gender, hair_colour, hat, boots, equipment):
-        
-        self._name = name
-        self._category = category
-        self._gender = gender
-        self._hair_colour = hair_colour
-        self._hat = hat
-        self._boots = boots
-        self._equipment = equipment
-        
-        
-    def __str__(self):
-        return (f"{self._name},{self._category},{self._gender},{self._hair_colour},{self._hat},{self._boots},{self._equipment}")
-
-    
-    
+import Character
+import Location
+import Leaderboard
+import Puzzle
+import Avatar
 
 #===== FUNCTIONS =====#
 
+class main():
+    pass
+    #Add the main file functions to this class.
 
 def register_user():
     
@@ -170,6 +141,7 @@ def load_progress(username):
 
     if not character_found:
         print("\nWell well, we ain't got no record of ya partner. Time to saddle up and create yer character!")
+<<<<<<< Updated upstream
         create_character(username)
     
     char_file.close()
@@ -424,6 +396,10 @@ Mask - 'm'
     
     
     load_progress(new_username)
+=======
+        Character.create_character(username)
+
+>>>>>>> Stashed changes
     
 
 def puzzle_one(username):
