@@ -1,7 +1,18 @@
 
 """
 This is the Leaderboard class
-
+ if len(line_set) > 0:
+     with open("Leaderboard.txt", "w") as lb:
+         
+         for ele in line_set:
+                 
+             if username != ele[0]:
+                 
+                 new_lb.write(f"{ele}\n")
+             else:
+                 continue
+ 
+ lb.close()
 """
 
 import time
@@ -24,65 +35,71 @@ class Leaderboard():
 
 
     def update_leaderboard(username, puzzle, count_time):
-        # This isn't working as expected: the issue is that it can't find lines that are not new to the file, but don't have the username being looked for to tranfer
-        #them to the new file...
+        
         usernames = []
-        line_set = []
         
-        with open("leaderboard.txt", "r+") as lb, open("new_leaderboard.txt", "a+") as new_lb:
-            
-            lines = lb.readlines()
-            
-            for line in lines:
-                                
-                line = line.strip("\n").split(",")
+        try:
+
+            with open("leaderboard.txt", "r") as lb, open("new_leaderboard.txt", "a") as new_lb:
                 
-                usernames.append(line[0])
-                line_set.append(line)
-                print(usernames)
-                print(line_set)
+                lines = lb.readlines()
                 
-                if line[0] == username:
+                for line in lines:
+                                    
+                    line = line.strip("\n").split(",")
                     
-                    agg_time = float(line[3]) + float(count_time)
+                    usernames.append(line[0])
                     
-                    update = Leaderboard(username, puzzle, count_time, agg_time)
-                    
-                    new_lb.write(f"{str(update)}\n")
-                    
-                else:
-                    continue
+                    if line[0] == username:
+                        
+                        agg_time = float(line[3]) + float(count_time)
+                        
+                        update = Leaderboard(username, puzzle, count_time, agg_time)
+                        
+                        new_lb.write(f"{str(update)}\n")
+                        
+                    elif line != username:
+                        user = line[0]
+                        status = line[1]
+                        puzzle_time = line[2]
+                        time = line[3]
+                        new_lb.write(f"{user},{status},{puzzle_time},{time}\n")
+                        
+            os.remove("Leaderboard.txt")
+            os.rename("new_leaderboard.txt", "Leaderboard.txt")
         
-            for line in line_set:
-                
-                if line[0] != username:
-                
-                    new_lb.write(f"{line[0]},{line[1]},{line[2]},{line[3]}\n")
-                
-                else:
-                    continue
-            
-        os.remove("Leaderboard.txt")
-        os.rename("new_leaderboard.txt", "Leaderboard.txt")
+            lb.close()
         
+        except:
+            pass
         
         with open("leaderboard.txt", "r+") as lb:
-            
-            new_entry = Leaderboard(username, puzzle, count_time, count_time)
-            
-            try:    
-                if len(usernames) == 0:
-                    
-                    lb.write(f"{str(new_entry)}\n")
-                
-                else:
-                    try:
-                        if username not in usernames: 
-                            lb.write(f"{str(new_entry)}\n")
-                    except:
-                        print("We got an issue updating the leaderboard!")
-            except:
-                pass
+             
+             lines = lb.readlines()
+             
+             for line in lines:
+                                 
+                 line = line.strip("\n").split(",")
+                 
+                 usernames.append(line[0])
+             
+             new_entry = Leaderboard(username, puzzle, count_time, count_time)
+             
+             try:    
+                 if len(usernames) == 0:
+                     
+                     lb.write(f"{str(new_entry)}\n")
+                 
+                 else:
+                     try:
+                         if username not in usernames: 
+                             lb.write(f"{str(new_entry)}\n")
+                     except:
+                         print("We got an issue updating the leaderboard!")
+             except:
+                 pass
+           
+       
         
         lb.close()
         
@@ -126,6 +143,6 @@ class Leaderboard():
 
 
 
-Leaderboard.update_leaderboard("John", "puzzle_two", time.time())
+#Leaderboard.update_leaderboard("Jim", "puzzle_two", time.time())
 
-#Leaderboard.show_Leaderboard()
+Leaderboard.show_Leaderboard()

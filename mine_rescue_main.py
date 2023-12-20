@@ -23,10 +23,10 @@ FUNCTIONS:
 '''
 
 import Character
-import Location
-import Leaderboard
-import Puzzle
-import Avatar
+#import Location
+#import Leaderboard
+#import Puzzle
+#import Avatar
 
 #===== FUNCTIONS =====#
 
@@ -141,8 +141,8 @@ def load_progress(username):
 
     if not character_found:
         print("\nWell well, we ain't got no record of ya partner. Time to saddle up and create yer character!")
-<<<<<<< Updated upstream
-        create_character(username)
+
+        Character.create_character(username)
     
     char_file.close()
 
@@ -224,13 +224,15 @@ if __name__ == "__main__":
 
 #===== Start Menu =====#
 
+    Character.Character.create_character("Dave")
+
 # This menu allows users to either register, login or exit the game. 
-    
+  
     while True:
         
-        user_selection = input('''\nNow what are you wanting to do partner?
-    Register - "r"
-    Login - "l"\n''')
+        user_selection = input('''#\nNow what are you wanting to do partner?
+    #Register - "r"
+    #Login - "l"\n''')
     
         user_selection = user_selection.lower().strip(" ")
         
