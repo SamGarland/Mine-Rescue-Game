@@ -1,26 +1,14 @@
 
 """
 This is the Leaderboard class
- if len(line_set) > 0:
-     with open("Leaderboard.txt", "w") as lb:
-         
-         for ele in line_set:
-                 
-             if username != ele[0]:
-                 
-                 new_lb.write(f"{ele}\n")
-             else:
-                 continue
  
- lb.close()
 """
 
 import time
 import os
 
 class Leaderboard():
-    #This class need to have a function that displays a status bar.
-    #It also needs to be able to agregate timestamps to add to the leaderboard and display the leaderboard. 
+    
     pass
 
     def __init__(self, username, status, puzzle_time, agg_time):
@@ -110,12 +98,12 @@ class Leaderboard():
         def underline(text):
             print("\u0332".join(text))
         
+        file_set = []
+        agg_times_set = []
+        
         with open("Leaderboard.txt", "r") as lb:
             
             lines = lb.readlines()
-            
-            file_set = []
-            agg_times_set = []
             
             for line in lines:
                 line = line.strip("\n").split(",")
@@ -128,8 +116,9 @@ class Leaderboard():
             underline(text)
             
             count = 1
-            for item in file_set:
-                for ele in agg_times_set:
+            
+            for ele in agg_times_set:
+                for item in file_set:
                     if item[3] == ele:
                         print(f" #{count}          {item[0]}    {item[1]}  {item[2]}  {item[3]}\n")
                         count += 1
@@ -140,9 +129,18 @@ class Leaderboard():
         puzzle_time = end_time - start_time
         
         return puzzle_time
+    
+    def status_bar(puzzle):
 
-
-
-#Leaderboard.update_leaderboard("Jim", "puzzle_two", time.time())
-
-Leaderboard.show_Leaderboard()
+        if puzzle == "puzzle_one":
+            print("\nStatus :  " + "[" + "-" * 10 + "]" + "  0% complete\n")
+        elif puzzle == "puzzle_two":
+            print("\nStatus :  " + "[" + "■"*2 + "-" * 8 + "]" + "  20% complete\n")
+        elif puzzle == "puzzle_three":
+            print("\nStatus :  " + "[" + "■"*4 + "-" * 6 + "]" + "  40% complete\n")
+        elif puzzle == "puzzle_four":
+            print("\nStatus :  " + "[" + "■"*6 + "-" * 4 + "]" + "  60% complete\n")
+        elif puzzle == "puzzle_five":
+            print("\nStatus :  " + "[" + "■"*8 + "-" * 2 + "]" + "  80% complete\n")
+        elif puzzle == "finished":
+            print("\nStatus :  " + "[" + "■"*10 + "]" + "  100% complete\n")
