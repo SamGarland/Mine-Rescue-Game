@@ -23,10 +23,10 @@ FUNCTIONS:
 '''
 
 import Character
-import Location
-import Leaderboard
-from Puzzle import Puzzle
-import Avatar
+#import Location
+#import Leaderboard
+#import Puzzle
+#import Avatar
 
 #===== FUNCTIONS =====#
 
@@ -120,15 +120,14 @@ def load_progress(username):
         items = line.strip().split(',')
         if items[0] == username:
             character_found = True
-            current_puzzle = items[-1] #store puzzle number in a variable
-            
-            game_puzzle = Puzzle(username) #make an instance of Puzzle
-            
-            # Redirect to puzzle based on current_puzzle value
+            current_puzzle = items[-1]
+            print(f"\nHowdy {username.title()}! Time to carry on to {current_puzzle}, the miners ain't wait'n forever")
+
+            # Redirect to respective puzzle based on current_puzzle value
             if current_puzzle == "puzzle_one":
-                game_puzzle.puzzle_one()
+                puzzle_one(username)
             elif current_puzzle == "puzzle_two":
-                game_puzzle.puzzle_two()
+                puzzle_two()
            # elif current_puzzle == "puzzle_three":
            #     puzzle_three()
            # elif current_puzzle == "puzzle_four":
@@ -142,6 +141,7 @@ def load_progress(username):
 
     if not character_found:
         print("\nWell well, we ain't got no record of ya partner. Time to saddle up and create yer character!")
+
         Character.create_character(username)
     
     char_file.close()
@@ -187,10 +187,35 @@ def save_progress(username):
                 file.write(line + '\n')
     else:
         # Print a message if the user was not found in the file
-        print(f"Username '{username}' not found in characters.txt")
+        print(f"User '{username}' not found in file. Unable to load progress.")
 
     char_file.close()
+    
 
+def puzzle_one(username):
+    print("\nAlright, here's your first challenge:")
+    answer = input("What is the capital of England? ").lower().strip()
+    
+    # Check if the answer is correct
+    if answer == "london":
+        print("Correct! London is the capital of England. You're moving on to the next challenge!")
+        save_progress(username)
+        load_progress(username)
+    else:
+        print("Oops! That's not quite right. Try again!")
+        return False
+
+def puzzle_two():
+    print("\nHere comes your second challenge:")
+    answer = input("What is the capital of Japan? ").lower().strip()
+    
+    # Check if the answer is correct
+    if answer == "tokyo":
+        print("Correct! Tokyo is indeed the capital of Japan. You're doing great!")
+        return True
+    else:
+        print("That's not the right answer. Give it another shot!")
+        return False
 
 
 #==== Main execution file =====
@@ -199,13 +224,15 @@ if __name__ == "__main__":
 
 #===== Start Menu =====#
 
+    Character.Character.create_character("Dave")
+
 # This menu allows users to either register, login or exit the game. 
-    
+  
     while True:
         
-        user_selection = input('''\nNow what are you wanting to do partner?
-    Register - "r"
-    Login - "l"\n''')
+        user_selection = input('''#\nNow what are you wanting to do partner?
+    #Register - "r"
+    #Login - "l"\n''')
     
         user_selection = user_selection.lower().strip(" ")
         
