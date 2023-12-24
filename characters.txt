@@ -1,1 +1,2 @@
-john,gunslinger,female,red,red hat,fashion boots,hammer,puzzle_two
+john,gunslinger,female,red,red hat,fashion boots,lasso,puzzle_one
+sam,sheriff,male,brown,black hat,work boots,mask,puzzle_three
