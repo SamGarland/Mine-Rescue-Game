@@ -121,21 +121,18 @@ def load_progress(username):
         if items[0] == username:
             character_found = True
             current_puzzle = items[-1]
-          #print(f"\nHowdy {username.title()}! Time to carry on to {current_puzzle}, the miners ain't wait'n forever")
-            
-            game_puzzle = Puzzle(username)
             
             # Redirect to respective puzzle based on current_puzzle value
             if current_puzzle == "puzzle_one":
-                game_puzzle.puzzle_one()
+                Puzzle(username).puzzle_one()
             elif current_puzzle == "puzzle_two":
-                game_puzzle.puzzle_two()
+                Puzzle(username).puzzle_two()
             elif current_puzzle == "puzzle_three":
-                game_puzzle.puzzle_three()
+                Puzzle(username).puzzle_three()
             elif current_puzzle == "puzzle_four":
-                game_puzzle.puzzle_four()
+                Puzzle(username).puzzle_four()
             elif current_puzzle == "puzzle_five":
-                game_puzzle.puzzle_five()
+                Puzzle(username).puzzle_five()
             elif current_puzzle == "finished":
                 print("Seems you already completed this fella!Let's see how you did\n")
                 #take to leaderboard

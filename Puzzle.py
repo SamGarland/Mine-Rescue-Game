@@ -119,7 +119,7 @@ class Puzzle:
         
             if choice == "y":
                 if self.has_required_epuipment(puzzle_two_item):
-                    print(f"{self.avatar.get_hint('railwayman_two', self.username)}")
+                    print(f"{self.avatar.get_hint('railwayman_two')}")
                     self.update_equipment()
                     break
                 else:
