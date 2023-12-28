@@ -1,38 +1,13 @@
 '''
  ===== This programme is for MUD Game CW 2 APP PROG sem 1 =====
-
-FILES REQUIRED :
-    - "users.txt" - this takes and saves username and password as: username, password per line.
-    - "characters.txt" - this takes username, character info and equipment.
-    - "leaderboard.txt" - this takes username and puzzle timestamps (positions and timestamp aggregations can be worked out later)
-
-FUNCTIONS:
-    
-    -register_user(username, password)
-    -login(username, password)
-    -load_progress(username)
-    -create_character(username)
-    -save_progress(username)
-    -show_leaderboard()
-    -puzzle_one()
-    -puzzle_two()
-    -puzzle_three()
-    -puzzle_four()
-    -puzzle_five()
     
 '''
-
-import Character
-import Location
-import Leaderboard
-from Puzzle import Puzzle
-import Avatar
+import time
+import character
+import leaderboard
+import puzzle
 
 #===== FUNCTIONS =====#
-
-class main():
-    pass
-    #Add the main file functions to this class.
 
 def register_user():
     
@@ -104,11 +79,29 @@ def login():
     
         if authenticated == True:
             print("\nThat's right my friend!\n\nWelcome to the game!")
+            load_progress(username)
         else:
-            print("\nSorry partner! Have another go...")
+            options = input('''\n\nSeems you either entered it wrong or you aint registered! What do ya'll wana do?
+Have another go - 1
+Register - 2
+Exit - e
+:''')
+            options = options.lower().strip(" ")
+            
+            if options == "1":    
+                print("\nAlright partner! Have another go...\n\n")
+                time.sleep(2)
+                continue
+            elif options == "2":
+                register_user()
+            elif options == "e":
+                break
+            else:
+                time.sleep(2)
+                print("\nDo'ya know what? I don't understand a thang you just said... Have another go!\n")
+                continue
                 
     f.close()
-    load_progress(username)
     
 def load_progress(username):
     with open('characters.txt', 'r') as char_file:
@@ -124,23 +117,23 @@ def load_progress(username):
             
             # Redirect to respective puzzle based on current_puzzle value
             if current_puzzle == "puzzle_one":
-                Puzzle(username).puzzle_one()
+                puzzle.Puzzle(username).puzzle_one()
             elif current_puzzle == "puzzle_two":
-                Puzzle(username).puzzle_two()
+                puzzle.Puzzle(username).puzzle_two()
             elif current_puzzle == "puzzle_three":
-                Puzzle(username).puzzle_three()
+                puzzle.Puzzle(username).puzzle_three()
             elif current_puzzle == "puzzle_four":
-                Puzzle(username).puzzle_four()
+                puzzle.Puzzle(username).puzzle_four()
             elif current_puzzle == "puzzle_five":
-                Puzzle(username).puzzle_five()
+                puzzle.Puzzle(username).puzzle_five()
             elif current_puzzle == "finished":
-                print("Seems you already completed this fella!Let's see how you did\n")
-                #take to leaderboard
+                print("Seems you already completed this fella!Let's see how you did\n\n")
+                leaderboard.Leaderboard.show_Leaderboard()
             break
 
     if not character_found:
         print("\nWell well, we ain't got no record of ya partner. Time to saddle up and create yer character!")
-        Character.Character.create_character(username)
+        character.Character.create_character(username)
     
     char_file.close()
 
@@ -219,79 +212,3 @@ if __name__ == "__main__":
         else:
             print("\nDo'ya know what? I don't understand a thang you just said... Have another go!\n")
             continue
-
-
-#===== Gameplay Conditional =====#
-
-
-
-'''- This function takes username and checks "character.txt" to find puzzle_no.
-
-if username not in "character.txt"
-    create_character(username)
-    this uses the character class to create a new character and saves it to 
-    "character.txt" with default puzzle_one
-elif username in "character.txt":
-    load_character(username)
-    this loads character stats from "character.txt" in a readable way
-    and takes user to saved puzzle. 
-    it also loads timestamp progress. '''
- 
-'''
-while True:
-    
-    if user_character[puzzle] == "puzzle_one":
-    
-        pass
-        puzzle_one() 
-        at the end of puzzle_one: 
-            - save progress to character.txt as puzzle_two and 
-            take away any equipment used
-            - update "leaderboard.txt"
-            - load_progress()
-            
-    elif user_character[puzzle] == "puzzle_two":
-        
-       puzzle_two() 
-        at the end of puzzle_two: 
-            - save progress to character.txt as puzzle_three and 
-            take away any equipment used
-            - update "leaderboard.txt"
-            - load_progress()
-    
-    elif user_character[puzzle] == "puzzle_three":
-    
-       puzzle_three() 
-        at the end of puzzle_three: 
-            - save progress to character.txt as puzzle_four and 
-            take away any equipment used
-            - update "leaderboard.txt"
-            - load_progress()
-        
-    elif user_character[puzzle] == "puzzle_four":
-    
-        puzzle_four() 
-        at the end of puzzle_four: 
-            - save progress to character.txt as puzzle_five and 
-            take away any equipment used
-            - update "leaderboard.txt"
-            - load_progress()
-    
-    elif user_character[puzzle] == "puzzle_five":
-    
-       puzzle_five() 
-        at the end of puzzle_five: 
-            - save progress to character.txt as puzzles_finished and 
-            take away any equipment used
-            - update "leaderboard.txt"
-            - load_leaderboard()
-            break and print leaving statement
-    
-    elif user_character[puzzle] == "puzzles_finished":
-        print("You've already finished the game partner. Want to try again?")
-    
-    else:
-        print("My sincerest condolences partner, we are having trouble loading your progress. Let's try again.")
-        load_progress(username)
-
-'''

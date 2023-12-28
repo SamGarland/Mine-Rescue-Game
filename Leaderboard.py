@@ -3,26 +3,31 @@
 This is the Leaderboard class
  
 """
-
-import time
+import datetime
+import math
 import os
 
-class Leaderboard():
-    
-    pass
+class Leaderboard:
 
-    def __init__(self, username, status, puzzle_time, agg_time):
+    def __init__(self, username, puzzle, count_time):
         
-        self._username = username
-        self._status = status
-        self._puzzle_time = puzzle_time
-        self._agg_time = agg_time
+        self.username = username
+        self.puzzle = puzzle
+        self.count_time = count_time
     
-    def __str__(self):
-        return (f"{self._username},{self._status},{self._puzzle_time},{self._agg_time}")
+    def __str__(self,  agg_time):
+        return (f"{self.username},{self.puzzle},{self.count_time},{agg_time}\n")
 
-
-    def update_leaderboard(username, puzzle, count_time):
+    def count_time(start_time, end_time):
+        
+        start_time = math.trunc(start_time)
+        end_time = math.trunc(end_time)
+        
+        count_time = (end_time) - (start_time)
+        
+        return count_time
+    
+    def update_leaderboard(self):
         
         usernames = []
         
@@ -38,15 +43,14 @@ class Leaderboard():
                     
                     usernames.append(line[0])
                     
-                    if line[0] == username:
+                    if line[0] == self.username:
                         
-                        agg_time = float(line[3]) + float(count_time)
+                        agg_time = float(line[3]) + float(self.count_time)
                         
-                        update = Leaderboard(username, puzzle, count_time, agg_time)
+                        update = Leaderboard(self.username, self.puzzle, self.count_time)
+                        new_lb.write(str(f"{Leaderboard.__str__(update, agg_time)}" + "\n"))
                         
-                        new_lb.write(f"{str(update)}\n")
-                        
-                    elif line != username:
+                    elif line != self.username and line[0] in usernames:
                         user = line[0]
                         status = line[1]
                         puzzle_time = line[2]
@@ -70,24 +74,21 @@ class Leaderboard():
                  line = line.strip("\n").split(",")
                  
                  usernames.append(line[0])
-             
-             new_entry = Leaderboard(username, puzzle, count_time, count_time)
+                 
+             agg_time = self.count_time
+             new_entry = Leaderboard(self.username, self.puzzle, self.count_time)
              
              try:    
-                 if len(usernames) == 0:
-                     
-                     lb.write(f"{str(new_entry)}\n")
-                 
+                 if len(usernames) == 0:       
+                     lb.write(str(f"{Leaderboard.__str__(new_entry, agg_time)}") + "\n")
                  else:
                      try:
-                         if username not in usernames: 
-                             lb.write(f"{str(new_entry)}\n")
+                         if self.username not in usernames:
+                             lb.write(str(f"{Leaderboard.__str__(new_entry, agg_time)}") + "\n")
                      except:
                          print("We got an issue updating the leaderboard!")
              except:
                  pass
-           
-       
         
         lb.close()
         
@@ -109,10 +110,13 @@ class Leaderboard():
                 line = line.strip("\n").split(",")
                 file_set.append(line)
                 agg_times_set.append(line[3])
-            
+                
+            #this isn't working as intended
             agg_times_set.sort()
+            #print(agg_times_set)
+            #this isnt as good as it could be and could do with some more work
             
-            text = f"\n\nPosition    Username   Status    Current_Puzzle_Time  Total_Puzzle_Time\n"
+            text = "\n\nPosition    Username   Status    Current_Puzzle_Time  Total_Puzzle_Time\n"
             underline(text)
             
             count = 1
@@ -120,15 +124,10 @@ class Leaderboard():
             for ele in agg_times_set:
                 for item in file_set:
                     if item[3] == ele:
-                        print(f" #{count}          {item[0]}    {item[1]}  {item[2]}  {item[3]}\n")
+                        print(f" #{count}          {item[0]}      {item[1]}     {str(datetime.timedelta(seconds = int(item[2])))}              {str(datetime.timedelta(seconds = int(ele)))}\n")
                         count += 1
         lb.close()
-            
-    def count_time(start_time, end_time):
-        
-        puzzle_time = end_time - start_time
-        
-        return puzzle_time
+
     
     def status_bar(puzzle):
 

@@ -7,36 +7,36 @@ make equipment a subclass
 
 """
 
-import mine_rescue_main
+import mine_rescue_main as main
 
-class Character():
+class Character:
     
-    def __init__(self, name, category, gender, hair_colour, hat, boots, equipment):
+    def __init__(self, username, category, gender, hair_colour, hat, boots, equipment):
         
-        self._name = name
-        self._category = category
-        self._gender = gender
-        self._hair_colour = hair_colour
-        self._hat = hat
-        self._boots = boots
-        self._equipment = equipment
+        self.username = username
+        self.category = category
+        self.gender = gender
+        self.hair_colour = hair_colour
+        self.hat = hat
+        self.boots = boots
+        self.equipment = equipment
         
         
     def __str__(self):
-        return (f"{self._name},{self._category},{self._gender},{self._hair_colour},{self._hat},{self._boots},{self._equipment}")
+        return (f"{self.username},{self.category},{self.gender},{self.hair_colour},{self.hat},{self.boots},{self.equipment}")
 
-    def create_character(new_username):
+    def create_character(username):
         print("\nYou'd better choose ya'll a character! Now let's see to that.\n")
-
+        
         # Category selection
         while True:
             category_select = input('''Now, choose your type of character from the list:
-    Sherrif - "s"
-    Gunslinger - "g"
-    Cowgirl - "c"
-    Blacksmith - "b"
-    :
-    ''')
+Sherrif - "s"
+Gunslinger - "g"
+Cowgirl - "c"
+Blacksmith - "b"
+:
+''')
             category_select = category_select.lower().strip(" ")
             
             if category_select == "s":
@@ -215,17 +215,17 @@ class Character():
                 print("\nWhoa there, partner! That ain't somethin' you can pick.\n")
         
         # Create a new character instance
-        new_character = Character(new_username, category, gender, hair_colour, hat, boots, equipment)
+        new_character = Character(username, category, gender, hair_colour, hat, boots, equipment)
         
         # Write the character's information to file.
         
         with open('characters.txt', 'a') as char_file:
             
-            char_file.write(f"{new_character},puzzle_one")
+            char_file.write(f"{Character.__str__(new_character)},puzzle_one\n")
             char_file.close()
         
         # add custom message here!!
-        print(f"\nCharacter created successfully! Welcome to the game, {new_username}. You're a {gender} {category} with {hair_colour} hair, a {hat}, {boots} and a {equipment}")
+        print(f"\nCharacter created successfully! Welcome to the game, {username}. You're a {gender} {category} with {hair_colour} hair, a {hat}, {boots} and a {equipment}\n\n")
         
         
-        mine_rescue_main.load_progress(new_username)
+        main.load_progress(username)
