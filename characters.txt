@@ -1,1 +1,1 @@
-sam,sheriff,male,red,red hat,fashion boots,lasso,puzzle_one
+sam,sheriff,male,red,red hat,fashion boots,None,finished

@@ -112,7 +112,6 @@ Save and Exit - e
         
                 if options == "1":
                     start_time = time.perf_counter()
-                    print(start_time)
                     
                     while True:
                         shift = random.randint(1, 25)  # Random shift value
@@ -129,7 +128,6 @@ Save and Exit - e
                         if user_input == answer:
                             
                             end_time = time.perf_counter()
-                            print(end_time)
                             print(f"\nWell done {self.username.title()}! You found the way.\n\n\n")
                             
                             count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
@@ -177,8 +175,8 @@ Exit - "e"
                                 end_time = time.perf_counter()
                                 
                                 count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                leaderboard.Leaderboard.update_leaderboard(self.username, "puzzle_one", count_time)
-                                
+                                leaderboard.Leaderboard(self.username, "puzzle_one", count_time).update_leaderboard()
+
                                 break
                             
                             else:
@@ -291,7 +289,7 @@ Save and Exit - e
                                 print(f"\nYou've only gone and done it {self.username.title()}, seems our cart is about a metre long so we'll make it over\n")
                             
                                 count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                leaderboard.Leaderboard.update_leaderboard(self.username, "puzzle_three", count_time)
+                                leaderboard.Leaderboard(self.username, "puzzle_three", count_time).update_leaderboard()
                                 
                                 leaderboard.Leaderboard.show_Leaderboard()
                                 
@@ -332,7 +330,7 @@ Exit - "e"
                                     end_time = time.perf_counter()
                                     
                                     count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                    leaderboard.Leaderboard.update_leaderboard(self.username, "puzzle_two", count_time)
+                                    leaderboard.Leaderboard(self.username, "puzzle_two", count_time).update_leaderboard()
                                     
                                     break
                                 
@@ -457,7 +455,7 @@ Save and Exit - e
                             print("[The miner swiftly breaks the links, joins the chain, and pulls you through the space.]\n\n")
 
                             count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                            leaderboard.Leaderboard.update_leaderboard(self.username, "puzzle_four", count_time)
+                            leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
                             
                             leaderboard.Leaderboard.show_Leaderboard()
                             
@@ -500,7 +498,7 @@ Exit - "e"
                                 end_time = time.perf_counter()
                                 
                                 count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                leaderboard.Leaderboard.update_leaderboard(self.username, "puzzle_three", count_time)
+                                leaderboard.Leaderboard(self.username, "puzzle_three", count_time).update_leaderboard()
                                 
                                 break
                             
@@ -642,7 +640,7 @@ Save and Exit - e
                             
                             # Save progress and move to next puzzle
                             count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                            leaderboard.Leaderboard.update_leaderboard(self.username, "puzzle_five", count_time)
+                            leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
                             
                             leaderboard.Leaderboard.show_Leaderboard()
                             
@@ -668,7 +666,7 @@ Exit - "e"
                                 print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
                                 continue
                             break
-                        
+                        #=== commented out because I didn't understand and I wanted to run the whole programme through ===#
                         # Check input length
                        # elif len(player_input) != len(solution):
                             #time.sleep(3)
@@ -702,7 +700,7 @@ Exit - "e"
                                 end_time = time.perf_counter()
                                 
                                 count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                leaderboard.Leaderboard.update_leaderboard(self.username, "puzzle_four", count_time)
+                                leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
                                 
                                 break
                         else:
@@ -858,7 +856,7 @@ Save and Exit - e
                     end_time = time.perf_counter()
                     
                     count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                    leaderboard.Leaderboard.update_leaderboard(self.username, "finished", count_time)
+                    leaderboard.Leaderboard(self.username, "finished", count_time).update_leaderboard()
                     
                     main.save_progress(self.username)
                                     
@@ -888,7 +886,7 @@ Save and Exit - e
                         end_time = time.perf_counter()
                         
                         count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                        leaderboard.Leaderboard.update_leaderboard(self.username, "puzzle_five", count_time)
+                        leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
                         
                         break
 
