@@ -33,7 +33,7 @@ class Leaderboard:
         
         try:
 
-            with open("leaderboard.txt", "r") as lb, open("new_leaderboard.txt", "a") as new_lb:
+            with open("leaderboard.txt", "r") as lb, open("new_leaderboard.txt", "a+") as new_lb:
                 
                 lines = lb.readlines()
                 
@@ -42,15 +42,14 @@ class Leaderboard:
                     line = line.strip("\n").split(",")
                     
                     usernames.append(line[0])
-                    
                     if line[0] == self.username:
-                        
-                        agg_time = float(line[3]) + float(self.count_time)
-                        
+                        a_t = float(line[3])
+                        c_t = float(self.count_time)
+                        agg_time = math.floor(a_t) + math.floor(c_t)
                         update = Leaderboard(self.username, self.puzzle, self.count_time)
-                        new_lb.write(str(f"{Leaderboard.__str__(update, agg_time)}" + "\n"))
+                        new_lb.write(str(f"{Leaderboard.__str__(update, agg_time)}"))
                         
-                    elif line != self.username and line[0] in usernames:
+                    elif line != self.username:
                         user = line[0]
                         status = line[1]
                         puzzle_time = line[2]
@@ -63,7 +62,7 @@ class Leaderboard:
             lb.close()
         
         except:
-            pass
+            print("Failure to update the leaderboard!")
         
         with open("leaderboard.txt", "r+") as lb:
              
@@ -80,15 +79,15 @@ class Leaderboard:
              
              try:    
                  if len(usernames) == 0:       
-                     lb.write(str(f"{Leaderboard.__str__(new_entry, agg_time)}") + "\n")
+                     lb.write(str(f"{Leaderboard.__str__(new_entry, agg_time)}"))
                  else:
                      try:
                          if self.username not in usernames:
-                             lb.write(str(f"{Leaderboard.__str__(new_entry, agg_time)}") + "\n")
+                             lb.write(str(f"{Leaderboard.__str__(new_entry, agg_time)}"))
                      except:
                          print("We got an issue updating the leaderboard!")
              except:
-                 pass
+                 print("Failure to update the leaderboard!")
         
         lb.close()
         
@@ -109,23 +108,52 @@ class Leaderboard:
             for line in lines:
                 line = line.strip("\n").split(",")
                 file_set.append(line)
-                agg_times_set.append(line[3])
+                a_t = float(line[3])
+                agg_times_set.append(int(a_t))
                 
-            #this isn't working as intended
             agg_times_set.sort()
-            #print(agg_times_set)
-            #this isnt as good as it could be and could do with some more work
             
             text = "\n\nPosition    Username   Status    Current_Puzzle_Time  Total_Puzzle_Time\n"
             underline(text)
-            
             count = 1
             
             for ele in agg_times_set:
-                for item in file_set:
-                    if item[3] == ele:
-                        print(f" #{count}          {item[0]}      {item[1]}     {str(datetime.timedelta(seconds = int(item[2])))}              {str(datetime.timedelta(seconds = int(ele)))}\n")
-                        count += 1
+               for item in file_set: 
+                    if item[1] == "finished":
+                        if math.floor(float(item[3])) == ele:
+                            print(f" #{count}          {item[0]}       {item[1]}       {str(datetime.timedelta(seconds = int(item[2])))}              {str(datetime.timedelta(seconds = int(ele)))}\n")
+                            count += 1
+            for ele in agg_times_set:
+               for item in file_set: 
+                    if item[1] == "puzzle_five":
+                        if math.floor(float(item[3])) == ele:
+                            print(f" #{count}          {item[0]}       {item[1]}       {str(datetime.timedelta(seconds = int(item[2])))}              {str(datetime.timedelta(seconds = int(ele)))}\n")
+                            count += 1
+            for ele in agg_times_set:
+               for item in file_set: 
+                    if item[1] == "puzzle_four":
+                        if math.floor(float(item[3])) == ele:
+                            print(f" #{count}          {item[0]}       {item[1]}       {str(datetime.timedelta(seconds = int(item[2])))}              {str(datetime.timedelta(seconds = int(ele)))}\n")
+                            count += 1
+            for ele in agg_times_set:
+               for item in file_set: 
+                    if item[1] == "puzzle_three":
+                        if math.floor(float(item[3])) == ele:
+                            print(f" #{count}          {item[0]}       {item[1]}       {str(datetime.timedelta(seconds = int(item[2])))}              {str(datetime.timedelta(seconds = int(ele)))}\n")
+                            count += 1
+            for ele in agg_times_set:
+                for item in file_set:                
+                    if item[1] == "puzzle_two":
+                        if math.floor(float(item[3])) == ele:
+                            print(f" #{count}          {item[0]}       {item[1]}       {str(datetime.timedelta(seconds = int(item[2])))}              {str(datetime.timedelta(seconds = int(ele)))}\n")
+                            count += 1
+            for ele in agg_times_set:
+               for item in file_set:                 
+                    if item[1] == "puzzle_one":
+                        if math.floor(float(item[3])) == ele:
+                            print(f" #{count}          {item[0]}       {item[1]}       {str(datetime.timedelta(seconds = int(item[2])))}              {str(datetime.timedelta(seconds = int(ele)))}\n")
+                            count += 1
+        
         lb.close()
 
     
