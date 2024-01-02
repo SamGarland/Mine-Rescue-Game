@@ -557,7 +557,7 @@ Exit - "e"
         time.sleep(3)
         text.Colour(f"\n\nHowdy {self.username.title()}! You've just gotten to some kinda underground lake.\n\n").cyan()
         time.sleep(2)
-        text.Colour("That smells funny...\n\n\n").cyan()
+        text.Colour("That smells funny...\n\n").cyan()
         time.sleep(2)
         text.Colour("Is that gas?! Y'all gotta find a way out!!\n\n").cyan()
         time.sleep(2)
@@ -567,7 +567,7 @@ Exit - "e"
         time.sleep(2)
         text.Typed.image_four()
         time.sleep(2)
-        text.Colour("I reckon ya'll gotta get em all across to the other side before the whole place floods!\n\n").cyan()
+        text.Colour("\nI reckon ya'll gotta get em all across to the other side before the whole place floods!\n\n").cyan()
         time.sleep(2)
         
         # Use Avatar class for intro speech
@@ -642,7 +642,7 @@ Save and Exit - e
                     try:
                         for correct_action in solution:
                             time.sleep(1)
-                            action = input(text.Colour("\nTime's wastin', what's yer move friend? (A/B/C/D): ").input_cyan()).upper().strip()
+                            action = input(text.Colour("\nTime's wastin', enter yer moves, one at a time friend. Real slow-like (A/B/C/D): ").input_cyan()).upper().strip()
                             time.sleep(2)
                             if action == correct_action:
                                 player_input += action
@@ -689,7 +689,9 @@ Exit - "e"
                                 
                                 time.sleep(3)
                                 text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
-    
+                                
+                                player_input = ""
+                                
                                 time.sleep(3)
                                 cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
                                 
@@ -862,9 +864,12 @@ Save and Exit - e
     
             if options == "1":
                 start_time = time.perf_counter()
-                answer = input(text.Colour("\nSo what's your answer partner?\nEnter it here:").input_cyan())
+                answer = input(text.Colour("\nSo what's your answer partner?\nYou got 98, 7, 6, 5, 4, 3, 2, 1, + and - to work with\nEnter one stage at q time:").input_cyan())
+                solution = ['98','-','7','-','6','+','5','+','4','+','3','+','2','+','1']
+                input_set = []
                 
-                if answer == "98-7-6+5+4+3+2+1":
+                
+                if answer == solution:
                     end_time = time.perf_counter()
                     
                     count_time = leaderboard.Leaderboard.count_time(start_time, end_time)

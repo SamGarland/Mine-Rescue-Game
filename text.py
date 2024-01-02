@@ -73,7 +73,7 @@ So gather your resolve explorer, and prepare to venture into the unknown. The my
         ############################################################
         ############################################################
         ############################################################
-""")
+ """)
         
     def image_two():
         #Puzzle_Two_Image_One

@@ -32,7 +32,7 @@ def register_user():
               
               if new_username == "e":
                   text.Colour("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n").cyan()
-                  break
+                  return False
               elif new_username in usernames:
                  text.Colour("\nWell dang! That name is taken...Have another go.\n").cyan()
               else:
