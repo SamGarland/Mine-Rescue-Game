@@ -2,7 +2,6 @@
 This is the Avatar class
 
 """
-
 class Avatar:
     
     def __init__(self):

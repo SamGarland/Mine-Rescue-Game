@@ -8,6 +8,7 @@ import avatar
 import mine_rescue_main as main
 import location
 import leaderboard
+import text
 
 class Puzzle:
     
@@ -83,16 +84,20 @@ class Puzzle:
 
     def puzzle_one(self):
         
+        text.Typed.intro()
+        text.Typed.intro_image()
         
-        time.sleep(8)
-        print(f"\n\nWhoa there, who's that fella running at you from the entrace of the mine {self.username.title()}?\n\n")
-        time.sleep(4)
-        print("[A mine worker runs up to you speaking an unknown language.]\n\n")
+        time.sleep(3)
+        text.Colour(f"\n\nWhoa there, who's that fella running at you from the entrace of the mine {self.username.title()}?\n\n").cyan()
+        time.sleep(2)
+        text.Colour("[A mine worker runs up to you speaking an unknown language.]\n\n").magenta()
         # Use Avatar class for intro speech
-        print(f"[He babbles:] {self.avatar.get_intro('railwayman_one')}\n\n")
-        time.sleep(4)
-        print("[He then hands you a piece of paper with words on it and points towards the mine.]\n\n")
-        time.sleep(5)
+        text.Colour(f"[He babbles:] {self.avatar.get_intro('railwayman_one')}\n\n").magenta()
+        time.sleep(3)
+        text.Colour("[He then hands you a piece of paper with words on it and points towards the mine.]\n\n").magenta()
+        time.sleep(2)
+        text.Typed.image_one()
+        time.sleep(3)
                 
         original_sentence = "To make your way into the tunnel, you\'re gona need to get on a MINECART"
         answer = "minecart"
@@ -100,13 +105,13 @@ class Puzzle:
 
         while True:
                 
-                options = input('''\nI wonder what that was all about...Maybe there's a puzzle to solve?\n\n
+                options = input(text.Colour('''\nI wonder what that was all about...Maybe there's a puzzle to solve?\n\n
 Solve puzzle - 1
 Hear again - 2
 Look around - 3
 See status - 4
 Save and Exit - e                           
-\n''')
+''').input_cyan())
                 
                 options = options.lower().strip(" ")
         
@@ -116,11 +121,11 @@ Save and Exit - e
                     while True:
                         shift = random.randint(1, 25)  # Random shift value
                         ciphered_text = self.caesar_cipher(original_sentence, shift)
-                        print(f"[The writing says:]'{ciphered_text}'\n\n\n")
+                        text.Colour(f"[The writing says:]'{ciphered_text}'\n\n\n").magenta()
                         
                         time.sleep(5)
                         
-                        user_input = input("Looks like you gotta make some sense of this and figure out the key word\nEnter the key:\n\n\n").strip().lower()
+                        user_input = input(text.Colour("Looks like you gotta make some sense of this and figure out the key word\nEnter the key:\n\n\n").input_cyan()).strip().lower()
                         
                         time.sleep(5)
                         
@@ -128,7 +133,7 @@ Save and Exit - e
                         if user_input == answer:
                             
                             end_time = time.perf_counter()
-                            print(f"\nWell done {self.username.title()}! You found the way.\n\n\n")
+                            text.Colour(f"\nWell done {self.username.title()}! You found the way.\n\n\n").cyan()
                             
                             count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                             leaderboard.Leaderboard(self.username, "puzzle_two", count_time).update_leaderboard()
@@ -137,10 +142,10 @@ Save and Exit - e
                             
                             main.save_progress(self.username)
                             
-                            options = input('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
+                            options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
 Continue - "c"
 Exit - "e"
-:''')
+:''').input_cyan())
                             options = options.lower().strip(" ")
                             
                             if options == "c":
@@ -150,21 +155,21 @@ Exit - "e"
                             
                             elif options == "e":
                                 time.sleep(2)
-                                print("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n")
-                                break
+                                text.Colour("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n").cyan()
+                                return False
                             
                             else:
                                 time.sleep(2)
-                                print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
+                                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
                                 continue
                                 
                         elif user_input != answer:
                             
-                            print("Oh dust!, the writing changed?!\n\n\n")
+                            text.Colour("Oh dust!, the writing changed?!\n\n\n").cyan()
                             
-                            time.sleep(3)
+                            time.sleep(2)
                             
-                            cont = input("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:")
+                            cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
                             
                             cont = cont.lower().strip(" ")
                             
@@ -180,23 +185,24 @@ Exit - "e"
                                 break
                             
                             else:
-                                print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
+                                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
                                 continue
                             
                         else:
-                            print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
+                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
                             continue
         
                 elif options == "2":
                     
-                     print(f"Whoa there, who's that fella running at you from the entrace of the mine {self.username.title()}?\n\n")
-                     time.sleep(4)
-                     print("[A mine worker runs up to you speaking an unknown language.]\n\n")
-                     # Use Avatar class for intro speech
-                     print(f"[He babbles:] {self.avatar.get_intro('railwayman_one')}\n\n")
-                     time.sleep(4)
-                     print("[He then hands you a piece of paper with words on it and points towards the mine.]\n\n")
-                     time.sleep(5)
+                    time.sleep(3)
+                    text.Colour(f"\n\nWhoa there, who's that fella running at you from the entrace of the mine {self.username.title()}?\n\n").cyan()
+                    time.sleep(2)
+                    text.Colour("[A mine worker runs up to you speaking an unknown language.]\n\n").magenta()
+                    # Use Avatar class for intro speech
+                    text.Colour(f"[He babbles:] {self.avatar.get_intro('railwayman_one')}\n\n").magenta()
+                    time.sleep(2)
+                    text.Colour("[He then hands you a piece of paper with words on it and points towards the mine.]\n\n").magenta()
+                    time.sleep(2)
         
                 elif options == "3":
                     
@@ -210,64 +216,64 @@ Exit - "e"
                     main.save_progress(self.username)
                     break
                 else:
-                    print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
+                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
 
 #==== Second Puzzle - Railway Expansion ====#
 
     def puzzle_two(self):
         
-        time.sleep(8)
-        print("\n\n[As you mosey along the rusty old railway, you hear someone shouting at you to stop.]\n\n Who's that dusty man?\n\n")
-        time.sleep(4)
+        time.sleep(3)
+        text.Colour("\n\n[As you mosey along the rusty old railway, you hear someone shouting at you to stop.]\n\n Who's that dusty man?\n\n").cyan()
+        time.sleep(2)
         
         # Use Avatar class for intro speech
-        print(f"[A railwayman runs up to you and says:]\n\n{self.avatar.get_intro('railwayman_two')}\n\n")
-        time.sleep(3)
+        text.Colour(f"[A railwayman runs up to you and says:]\n\n{self.avatar.get_intro('railwayman_two')}\n\n").magenta()
+        time.sleep(2)
         
         # Set the required item for the puzzle
         puzzle_two_item = "hammer"
         
         # Pompting for a hint
-        print(f"{self.avatar.get_prompt('railwayman_two')}\n")
+        text.Colour(f"{self.avatar.get_prompt('railwayman_two')}\n").magenta()
         while True: 
-            choice = input('''How'd you wana respond partner?
+            choice = input(text.Colour('''How'd you wana respond partner?
 Yes - "y"
 No - "n"
 Check inventory - "c"
-''')
+''').input_cyan())
             choice = choice.lower().strip(" ")
         
             if choice == "y":
                 if self.has_required_epuipment(puzzle_two_item):
                     time.sleep(3)
-                    print(f"\n\n{self.avatar.get_hint('railwayman_two')}\n\n")
+                    text.Colour(f"\n\n{self.avatar.get_hint('railwayman_two')}\n\n").magenta()
                     self.update_equipment()
                     break
                 else:
                     time.sleep(3)
-                    print("\n\nNow now, No need to tell a lie my friend, I see you ain't got no hammer!\n\n")
+                    text.Colour("\n\nNow now, No need to tell a lie my friend, I see you ain't got no hammer!\n\n").cyan()
                     break
             elif choice == "n":
                 time.sleep(3)
-                print("\n\nOh riddens, that hammer sure would've been handy\n\n")
+                text.Colour("\n\nOh riddens, that hammer sure would've been handy\n\n").cyan()
                 break
             elif choice == "c":
                 time.sleep(3)
-                print(f"\n\nYour equipment: {self.get_inventory_item()}\n\n")
+                text.Colour(f"\n\nYour equipment: {self.get_inventory_item()}\n\n").green()
                 continue
             else:
-                print("\nThat aint a choice my friend...Try again.\n\n")
-                time.sleep(6)
+                text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
+                time.sleep(3)
                 
         while True:
                 
-                options = input('''\nI wonder what that was all about...Maybe there's a puzzle to solve?\n\n
+                options = input(text.Colour('''\nI wonder what that was all about...Maybe there's a puzzle to solve?\n\n
 Solve puzzle - 1
 Hear again - 2
 Look around - 3
 See status - 4
 Save and Exit - e                           
-\n''')
+\n''').input_cyan())
                 
                 options = options.lower().strip(" ")
         
@@ -277,16 +283,18 @@ Save and Exit - e
                     #Puzzle Logic
                     while True:
                         
-                        answer = input("\nWhat's the height of the arch at the center of the railway track? Enter your answer in centimetres:\n\n")
+                        text.Typed.image_two()
+                        
+                        answer = input(text.Colour("\nWhat's the height of the arch at the center of the railway track? Enter your answer in centimetres:\n\n").input_cyan())
                         answer = int(answer)
                         
                         try:
                             
-                            if answer >= 708 or answer <= 709:
+                            if answer >= 708 and answer <= 709:
                                 end_time = time.perf_counter()
                                 
-                                time.sleep(3)
-                                print(f"\nYou've only gone and done it {self.username.title()}, seems our cart is about a metre long so we'll make it over\n")
+                                time.sleep(2)
+                                text.Colour(f"\nYou've only gone and done it {self.username.title()}, seems our cart is about a metre long so we'll make it over\n").cyan()
                             
                                 count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                 leaderboard.Leaderboard(self.username, "puzzle_three", count_time).update_leaderboard()
@@ -295,10 +303,10 @@ Save and Exit - e
                                 
                                 main.save_progress(self.username)
                                 
-                                options = input('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
+                                options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
 Continue - "c"
 Exit - "e"
-:''')
+:''').input_cyan())
                                 options = options.lower().strip(" ")
                                 
                                 if options == "c":
@@ -308,18 +316,18 @@ Exit - "e"
                                 
                                 elif options == "e":
                                     time.sleep(2)
-                                    print("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n")
-                                    break
+                                    text.Colour("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n").cyan()
+                                    return False
                                 else:
                                     time.sleep(2)
-                                    print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
+                                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
                                     continue
                                     
-                            elif answer < 708 or answer >709:
+                            elif answer < 708 and answer > 709:
                                 
-                                time.sleep(3)
+                                time.sleep(2)
                                 
-                                cont = input("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:")
+                                cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
                                 
                                 cont = cont.lower().strip(" ")
                                 
@@ -332,28 +340,28 @@ Exit - "e"
                                     count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                     leaderboard.Leaderboard(self.username, "puzzle_two", count_time).update_leaderboard()
                                     
-                                    break
+                                    return False
                                 
                                 else:
                                     time.sleep(2)
-                                    print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
+                                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
                                     continue
                             else:
-                                time.sleep(3)
-                                print("\nHmm, that don't seem quite right, have another go eh?\n\n")
+                                time.sleep(2)
+                                text.Colour("\nHmm, that don't seem quite right, have another go eh?\n\n").red()
                         except ValueError:
                             time.sleep(2)
-                            print("\nNow now, enter a number, not some gibberish you fool!\n\n") #if input is not an integer prompt to retry
+                            text.Colour("\nNow now, enter a number, not some gibberish you fool!\n\n").red() #if input is not an integer prompt to retry
                 
                 elif options == "2":
                     
-                    time.sleep(8)
-                    print("\n\n[As you mosey along the rusty old railway, you hear someone shouting at you to stop.]\n\n Who's that dusty man?\n\n")
-                    time.sleep(4)
+                    time.sleep(2)
+                    text.Colour("\n\n[As you mosey along the rusty old railway, you hear someone shouting at you to stop.]\n\n Who's that dusty man?\n\n").cyan()
+                    time.sleep(2)
                     
                     # Use Avatar class for intro speech
-                    print(f"[A railwayman runs up to you and says:]\n\n{self.avatar.get_intro('railwayman_two')}\n\n")
-                    time.sleep(3)
+                    text.Colour(f"[A railwayman runs up to you and says:]\n\n{self.avatar.get_intro('railwayman_two')}\n\n").magenta()
+                    time.sleep(2)
                     
                 elif options == "3":
                     
@@ -367,69 +375,71 @@ Exit - "e"
                     main.save_progress(self.username)
                     break
                 else:
-                    print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
+                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
 
 #==== Third Puzzle - Break the links ====#
 
     def puzzle_three(self):
         
         
-        time.sleep(8)
-        print(f"\n\nOh no {self.username.title()}! The tunnel ahead has collapsed, that's the end of this track...\n\n")
-        time.sleep(5)
-        print("Wait look!\n\n")
-        time.sleep(4)
-        print("There's just a narrow crawl space left.\n\n")
         time.sleep(3)
-        print("[A miner hollers at ya'll from the other side of the crawl space:\n")
+        text.Colour(f"\n\nOh no {self.username.title()}! The tunnel ahead has collapsed, that's the end of this track...\n\n").cyan()
+        time.sleep(2)
+        text.Colour("Wait look!\n\n").cyan()
+        time.sleep(2)
+        text.Colour("There's just a narrow crawl space left.\n\n").cyan()
+        time.sleep(2)
+        text.Typed.image_three()
+        time.sleep(2)
+        text.Colour("[A miner hollers at ya'll from the other side of the crawl space:]\n").magenta()
         time.sleep(2)
         # Use Avatar class for intro speech
-        print(f"{self.avatar.get_intro('miner_crawlspace')}\n\n")
-        time.sleep(12)
+        text.Colour(f"{self.avatar.get_intro('miner_crawlspace')}\n\n").magenta()
+        time.sleep(2)
 
         puzzle_three_item = "lasso"
         
         # Pompting for a hint
-        print(f"'{self.avatar.get_prompt('miner_crawlspace')}'\n")
+        text.Colour(f"'{self.avatar.get_prompt('miner_crawlspace')}'\n").magenta()
         while True:
-            choice = input('''How'd you wana respond partner?
+            choice = input(text.Colour('''How'd you wana respond partner?
 Yes - "y"
 No - "n"
 Check inventory - "c"
-''')
+''').input_cyan())
             choice = choice.lower().strip(" ")
         
             if choice == "y":
                 if self.has_required_epuipment(puzzle_three_item):
-                    time.sleep(3)
-                    print(f"\n{self.avatar.get_hint('miner_crawlspace')}\n\n")
+                    time.sleep(2)
+                    text.Colour(f"\n{self.avatar.get_hint('miner_crawlspace')}\n\n").magenta()
                     self.update_equipment()
                     break
                 else:
-                    time.sleep(3)
-                    print("\nNow now partner, don't ya go yankin my strings, I see no lasso in sight!\n\n")
+                    time.sleep(2)
+                    text.Colour("\nNow now partner, don't ya go yankin my strings, I see no lasso in sight!\n\n").red()
                     break
             elif choice == "n":
-                time.sleep(3)
-                print("\nI sure could've given you a hand if you had a lasso my friend\n\n")
+                time.sleep(2)
+                text.Colour("\nI sure could've given you a hand if you had a lasso my friend\n\n").cyan()
                 break
             elif choice == "c":
-                time.sleep(3)
-                print(f"Your equipment: {self.get_inventory_item()}\n\n")
+                time.sleep(2)
+                text.Colour(f"Your equipment: {self.get_inventory_item()}\n\n").green()
                 continue
             else:
-                print("\nThat aint a choice my friend...Try again.\n\n")
-                time.sleep(3)
+                text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
+                time.sleep(2)
 
         while True:
 
-            options = input('''\nI wonder what that was all about...Maybe there's a puzzle to solve?\n\n
+            options = input(text.Colour('''\nI wonder what that was all about...Maybe there's a puzzle to solve?\n\n
 Solve puzzle - 1
 Hear again - 2
 Look around - 3
 See status - 4
 Save and Exit - e                           
-\n''')
+\n''').input_cyan())
                 
             options = options.lower().strip(" ")
     
@@ -440,8 +450,8 @@ Save and Exit - e
         
                 while True:
                     try:
-                        time.sleep(3)
-                        user_input = input("\nThink hard and enter the minimum number of breaks needed to fix this chain: \n").strip()
+                        time.sleep(2)
+                        user_input = input(text.Colour("\nThink hard and enter the minimum number of breaks needed to fix this chain: \n").input_cyan()).strip()
                         
                         number_of_breaks = int(user_input)
                         
@@ -449,10 +459,10 @@ Save and Exit - e
                             
                             end_time = time.perf_counter()
                                 
-                            time.sleep(3)
-                            print(f"\nAin't you a clever one {self.username.title()}! You're sharper than the prick of a cactus! Only 4 breaks are needed.\n\n")
-                            time.sleep(4)
-                            print("[The miner swiftly breaks the links, joins the chain, and pulls you through the space.]\n\n")
+                            time.sleep(2)
+                            text.Colour(f"\nAin't you a clever one {self.username.title()}! You're sharper than the prick of a cactus! Only 4 breaks are needed.\n\n").cyan()
+                            time.sleep(2)
+                            text.Colour("[The miner swiftly breaks the links, joins the chain, and pulls you through the space.]\n\n").magenta()
 
                             count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                             leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
@@ -461,10 +471,10 @@ Save and Exit - e
                             
                             main.save_progress(self.username)
                             
-                            options = input('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
+                            options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
 Continue - "c"
 Exit - "e"
-:''')
+:''').input_cyan())
                             options = options.lower().strip(" ")
                                 
                             if options == "c":
@@ -474,20 +484,20 @@ Exit - "e"
                             
                             elif options == "e":
                                 time.sleep(2)
-                                print("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n")
-                                break
+                                text.Colour("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n").cyan()
+                                return False
                             else:
                                 time.sleep(2)
-                                print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
+                                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
                                 continue
                         
                         elif number_of_breaks != 4:
                             
-                            time.sleep(3)
-                            print("\nNope, that ain't it. You gotta think like you're spendin' links, not silver dollars. Try again...")
+                            time.sleep(2)
+                            text.Colour("\nNope, that ain't it. You gotta think like you're spendin' links, not silver dollars. Try again...").red()
 
-                            time.sleep(3)
-                            cont = input("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:")
+                            time.sleep(2)
+                            cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
                             
                             cont = cont.lower().strip(" ")
                             
@@ -500,31 +510,31 @@ Exit - "e"
                                 count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                 leaderboard.Leaderboard(self.username, "puzzle_three", count_time).update_leaderboard()
                                 
-                                break
+                                return False
                             
                         else:
                             time.sleep(2)
-                            print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
+                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
                             continue
                     except ValueError as e:
-                        print(f"There was an error in the value: {e}")
+                        text.Colour(f"There was an error in the value: {e}").red()
                     except Exception as e:
-                        print(f"There was an unknown error: {e}")
+                        text.Colour(f"There was an unknown error: {e}").red()
             
             elif options == "2":
                 
-                time.sleep(8)
-                print(f"\n\nOh no {self.username.title()}! The tunnel ahead has collapsed, that's the end of this track...\n\n")
-                time.sleep(5)
-                print("Wait look!\n\n")
-                time.sleep(4)
-                print("There's just a narrow crawl space left.\n\n")
                 time.sleep(3)
-                print("[A miner hollers at ya'll from the other side of the crawl space:\n")
+                text.Colour(f"\n\nOh no {self.username.title()}! The tunnel ahead has collapsed, that's the end of this track...\n\n").cyan()
+                time.sleep(2)
+                text.Colour("Wait look!\n\n").cyan()
+                time.sleep(2)
+                text.Colour("There's just a narrow crawl space left.\n\n").cyan()
+                time.sleep(2)
+                text.Colour("[A miner hollers at ya'll from the other side of the crawl space:]\n").magenta()
                 time.sleep(2)
                 # Use Avatar class for intro speech
-                print(f"{self.avatar.get_intro('miner_crawlspace')}\n\n")
-                time.sleep(4)
+                text.Colour(f"{self.avatar.get_intro('miner_crawlspace')}\n\n").magenta()
+                time.sleep(2)
                 
             elif options == "3":
                 
@@ -538,84 +548,86 @@ Exit - "e"
                 main.save_progress(self.username)
                 break
             else:
-                print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
+                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
 
 #==== Fourth Puzzle - Cross the lake ====#
 
     def puzzle_four(self):
         
-        time.sleep(8)
-        print(f"\n\nHowdy {self.username.title()}! You've just gotten to some kinda underground lake.\n\n")
-        time.sleep(4)
-        print("That smells funny...\n\n\n")
-        time.sleep(6)
-        print("Is that gas?! Y'all gotta find a way out!!\n\n")
-        time.sleep(5)
-        print("Looky over there!\n\n")
         time.sleep(3)
-        print("There's a rickety old boat, a jittery old miner, some unstable dynamite, and a sneaky rat!\n\n")
-        time.sleep(4)
-        print("I reckon ya'll gotta get em all across to the other side before the whole place floods!\n\n")        
-        time.sleep(4)
+        text.Colour(f"\n\nHowdy {self.username.title()}! You've just gotten to some kinda underground lake.\n\n").cyan()
+        time.sleep(2)
+        text.Colour("That smells funny...\n\n\n").cyan()
+        time.sleep(2)
+        text.Colour("Is that gas?! Y'all gotta find a way out!!\n\n").cyan()
+        time.sleep(2)
+        text.Colour("Looky over there!\n\n").cyan()
+        time.sleep(2)
+        text.Colour("There's a rickety old boat, a jittery old miner, some unstable dynamite, and a sneaky rat!\n\n").cyan()
+        time.sleep(2)
+        text.Typed.image_four()
+        time.sleep(2)
+        text.Colour("I reckon ya'll gotta get em all across to the other side before the whole place floods!\n\n").cyan()
+        time.sleep(2)
         
         # Use Avatar class for intro speech
-        print(f"[The jittery miner stumbles up to you:]\n{self.avatar.get_intro('miner_two')}\n\n")
-        time.sleep(17)
+        text.Colour(f"[The jittery miner stumbles up to you:]\n{self.avatar.get_intro('miner_two')}\n\n").magenta()
+        time.sleep(2)
         
         puzzle_four_item = "mask"
         
-        print('''What is the name ya'll gona do??
+        text.Colour('''What is the name ya'll gona do??
 Your actions are:
 A - Take Rat Across
 B - Take Dynamite Across
 C - Take Miner Across
 D - Take Nothing Across
-''')
+''').magenta()
         
         # Pompting for a hint
-        time.sleep(5)
-        print(f"{self.avatar.get_prompt('miner_two')}\n\n\n")
+        time.sleep(3)
+        text.Colour(f"{self.avatar.get_prompt('miner_two')}\n\n\n").magenta()
         while True: 
-            choice = input('''How'd you wana respond partner?
+            choice = input(text.Colour('''How'd you wana respond partner?
 Yes - "y"
 No - "n"
 Check inventory - "c"
-''')
+''').input_cyan())
             choice = choice.lower().strip(" ")        
             if choice == "y":
                 if self.has_required_epuipment(puzzle_four_item):
-                    time.sleep(3)
-                    print(f"{self.avatar.get_hint('miner_two')}\n\n")
+                    time.sleep(2)
+                    text.Colour(f"{self.avatar.get_hint('miner_two')}\n\n").magenta()
                     self.update_equipment()
                     break
                 else:
-                    time.sleep(3)
-                    print("Tryna pull a fast one on me eh? Only mask I see's ya blatant lie!\n\n")
+                    time.sleep(2)
+                    text.Colour("Tryna pull a fast one on me eh? Only mask I see's ya blatant lie!\n\n").red()
                     break
             elif choice == "n":
-                time.sleep(3)
-                print("No mask eh? Guess you gotta figure it out ya self\n\n")
+                time.sleep(2)
+                text.Colour("No mask eh? Guess you gotta figure it out ya self\n\n").magenta()
                 break
             elif choice == "c":
-                time.sleep(3)
-                print(f"Your equipment: {self.get_inventory_item()}\n\n")
+                time.sleep(2)
+                text.Colour(f"Your equipment: {self.get_inventory_item()}\n\n").green()
                 continue
             else:
-                print("\nThat aint a choice my friend...Try again.\n\n")
-                time.sleep(3)        
+                text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
+                time.sleep(2)        
         
         
         puzzle_four_completed = False #Initialise to check if puzzle is completed
         
         while True:
             time.sleep(4)
-            options = input('''\nI wonder what that was all about...Maybe there's a puzzle to solve?\n\n
+            options = input(text.Colour('''\nI wonder what that was all about...Maybe there's a puzzle to solve?\n\n
 Solve puzzle - 1
 Hear again - 2
 Look around - 3
 See status - 4
 Save and Exit - e                           
-\n''')
+\n''').input_cyan())
                 
             options = options.lower().strip(" ")
     
@@ -630,19 +642,19 @@ Save and Exit - e
                     try:
                         for correct_action in solution:
                             time.sleep(1)
-                            action = input("\nTime's wastin', what's yer move friend? (A/B/C/D): ").upper().strip()
+                            action = input(text.Colour("\nTime's wastin', what's yer move friend? (A/B/C/D): ").input_cyan()).upper().strip()
                             time.sleep(2)
                             if action == correct_action:
                                 player_input += action
-                                print(f"\nThat's right, Keep goin'{self.username.title()}!\n")
+                                text.Colour(f"\nThat's right, Keep goin'{self.username.title()}!\n").cyan()
                             
                                 if player_input == solution:
                                     
                                     end_time = time.perf_counter()
                                     puzzle_four_completed = True
-                                    time.sleep(4)
-                                    print(f"\nYeehaw! Ya did it {self.username.title()}! All safe and sound on t'other side.\n\n")
-                                    time.sleep(3)
+                                    time.sleep(2)
+                                    text.Colour(f"\nYeehaw! Ya did it {self.username.title()}! All safe and sound on t'other side.\n\n").cyan()
+                                    time.sleep(2)
                                     
                                     # Save progress and update time and leaderboard
                                     count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
@@ -652,10 +664,10 @@ Save and Exit - e
                                     
                                     main.save_progress(self.username)
                             
-                                    options = input('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
+                                    options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
 Continue - "c"
 Exit - "e"
-:''')
+:''').input_cyan())
                                     options = options.lower().strip(" ")
                                         
                                     if options == "c":
@@ -665,21 +677,21 @@ Exit - "e"
                                     
                                     elif options == "e":
                                         time.sleep(2)
-                                        print("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n")
-                                        return
+                                        text.Colour("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n").cyan()
+                                        return False
                                     else:
                                         time.sleep(2)
-                                        print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
+                                        text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
                                         continue
                                     break
                             
                             elif player_input != solution:
                                 
                                 time.sleep(3)
-                                print("That don't sound quite right, we ain't got forever...\n\n")
+                                text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
     
                                 time.sleep(3)
-                                cont = input("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:")
+                                cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
                                 
                                 cont = cont.lower().strip(" ")
                                 
@@ -687,17 +699,17 @@ Exit - "e"
                                     continue
                                 elif cont == "n":
                                     time.sleep(2)
-                                    print("\nReckon the gas hurt'n ya brain my friend")
+                                    text.Colour("\nReckon the gas hurt'n ya brain my friend").red()
                                     time.sleep(2)
                                     puzzle_four_completed = False
                                     end_time = time.perf_counter()
                                     
                                     count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                     leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
-                                    break
+                                    return False
                             else:
                                 time.sleep(2)
-                                print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
+                                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
                                 continue
                             
                         if puzzle_four_completed: #check puzzle is complete before exiting loop back to menu
@@ -706,37 +718,35 @@ Exit - "e"
                             break
     
                     except Exception as e:
-                        print(f"There was an unknown error: {e}")
+                        text.Colour(f"There was an unknown error: {e}").red()
                         
             elif options == "2":
                  
-                time.sleep(8)
-                print(f"\n\nHowdy {self.username.title()}! You've just gotten to some kinda underground lake.\n\n")
-                time.sleep(4)
-                print("That smells funny...\n\n\n")
-                time.sleep(6)
-                print("Is that gas?! Y'all gotta find a way out!!\n\n")
-                time.sleep(5)
-                print("Looky over there!\n\n")
                 time.sleep(3)
-                print("There's a rickety old boat, a jittery old miner, some unstable dynamite, and a sneaky rat!\n\n")
-                time.sleep(4)
-                print("I reckon ya'll gotta get em all across to the other side before the whole place floods!\n\n")        
-                time.sleep(4)
+                text.Colour(f"\n\nHowdy {self.username.title()}! You've just gotten to some kinda underground lake.\n\n").cyan()
+                time.sleep(2)
+                text.Colour("That smells funny...\n\n\n").cyan()
+                time.sleep(2)
+                text.Colour("Is that gas?! Y'all gotta find a way out!!\n\n").cyan()
+                time.sleep(2)
+                text.Colour("Looky over there!\n\n").cyan()
+                time.sleep(2)
+                text.Colour("There's a rickety old boat, a jittery old miner, some unstable dynamite, and a sneaky rat!\n\n").cyan()
+                time.sleep(2)
+                text.Colour("I reckon ya'll gotta get em all across to the other side before the whole place floods!\n\n").cyan()
+                time.sleep(2)
                 
                 # Use Avatar class for intro speech
-                print(f"[The jittery miner stumbles up to you:]\n{self.avatar.get_intro('miner_two')}\n\n")
-                time.sleep(5)
+                text.Colour(f"[The jittery miner stumbles up to you:]\n{self.avatar.get_intro('miner_two')}\n\n").magenta()
+                time.sleep(2)
                 
-                puzzle_four_item = "mask"
-                
-                print('''What is the name ya'll gona do??
+                text.Colour('''What is the name ya'll gona do??
         Your actions are:
         A - Take Rat Across
         B - Take Dynamite Across
         C - Take Miner Across
         D - Take Nothing Across
-        ''')
+        ''').magenta()
                  
             elif options == "3":
                  
@@ -749,109 +759,110 @@ Exit - "e"
             elif options == "e":
                  if puzzle_four_completed: #only update to "puzzle_five" when puzzle is complete
                      main.save_progress(self.username);
-                     break
+                     return False
                  else:
-                     break
-                 break
+                     return False
             else:
-                 print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
+                 text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
 
 #==== Fifth Puzzle - Lift shaft ====#
 
     def puzzle_five(self):
         
-        time.sleep(8)
-        print(f"\nHowdy {self.username.title()}! You must be close to the lift shaft now. That must be where the miners are trapped!\n\n\n")
-        time.sleep(4)
-        print("It's a real squeeze down here! I wonder if we're ever going to find these fellas?\n\n")
-        time.sleep(4)
-        print("Drip\n")
+        time.sleep(3)
+        text.Colour(f"\nHowdy {self.username.title()}! You must be close to the lift shaft now. That must be where the miners are trapped!\n\n\n").cyan()
         time.sleep(2)
-        print("Drip\n")
+        text.Colour("It's a real squeeze down here! I wonder if we're ever going to find these fellas?\n\n").cyan()
         time.sleep(2)
-        print("Drip\n")
-        time.sleep(3)
-        print("Whoa! Wait partner, youn hear that?\n\n")
-        time.sleep(4)
-        print("[Faintly, off down the tunnel] Help! Is there someone there?\n\n")
-        time.sleep(4)
-        print("You reckon that's them?\n")
-        time.sleep(3)
-        print("Let's shout back!\n")  
+        text.Colour("Drip\n").cyan()
         time.sleep(2)
-        print("Hellllooooo!\n\n")
-        time.sleep(3)
-        print("Anyone down there?\n\n")
-        time.sleep(5)
-        print("[SILENCE]\n\n")
-        time.sleep(3)
-        print("[Louder] Anyone doooowwwwn theeerrreeee?\n\n\n")
-        time.sleep(4)
-        print("Heeelllp! Weee'reee traappped!\n\n")
-        time.sleep(4)
-        print("That must be them!\nLet's go find out!\n\n\n\n")
-        time.sleep(6)
+        text.Colour("Drip\n").cyan()
+        time.sleep(2)
+        text.Colour("Drip\n").cyan()
+        time.sleep(2)
+        text.Colour("Whoa! Wait partner, youn hear that?\n\n").cyan()
+        time.sleep(2)
+        text.Colour("[Faintly, off down the tunnel] Help! Is there someone there?\n\n").magenta()
+        time.sleep(2)
+        text.Colour("You reckon that's them?\n").cyan()
+        time.sleep(2)
+        text.Colour("Let's shout back!\n").cyan()
+        time.sleep(2)
+        text.Colour("Hellllooooo!\n\n").cyan()
+        time.sleep(2)
+        text.Colour("Anyone down there?\n\n").cyan()
+        time.sleep(2)
+        text.Colour("[SILENCE]\n\n").magenta()
+        time.sleep(2)
+        text.Colour("[Louder] Anyone doooowwwwn theeerrreeee?\n\n\n").cyan()
+        time.sleep(2)
+        text.Colour("Heeelllp! Weee'reee traappped!\n\n").magenta()
+        time.sleep(2)
+        text.Colour("That must be them!\nLet's go find out!\n\n\n\n").cyan()
+        time.sleep(2)
         # Use Avatar class for intro speech
-        print("[Some minutes later...]\n\n")
-        time.sleep(4)
-        print("Look, it's a lift shaft\n\n\nYou fellas alright down there?\n\n") 
-        time.sleep(4)
+        text.Colour("[Some minutes later...]\n\n").magenta()
+        time.sleep(3)
+        text.Colour("Look, it's a lift shaft\n\n\nYou fellas alright down there?\n\n").cyan()
+        time.sleep(2)
+        text.Typed.image_five()
+        time.sleep(3)
         
         #Avatar class for intro
-        print(f"Boy are we glad to see you!\n\n{self.avatar.get_intro('trapped_miner')}\n")
-        time.sleep(30)
+        text.Colour(f"Boy are we glad to see you!\n\n{self.avatar.get_intro('trapped_miner')}\n").magenta()
+        time.sleep(3)
         
         puzzle_five_item = "notebook" 
         
-        print(f"{self.avatar.get_prompt('trapped_miner')}\n\n")
+        text.Colour(f"{self.avatar.get_prompt('trapped_miner')}\n\n").magenta()
         
         while True: 
-            choice = input('''How'd you wana respond partner?
+            choice = input(text.Colour('''How'd you wana respond partner?
 Yes - "y"
 No - "n"
 Check inventory - "c"
-''')
+''').input_cyan())
             choice = choice.lower().strip(" ")
             
             if choice == "y":
                 if self.has_required_epuipment(puzzle_five_item):
-                    time.sleep(3)
-                    print(f"{self.avatar.get_hint('trapped_miner'}\n\n")
+                    time.sleep(2)
+                    text.Colour(f"{self.avatar.get_hint('trapped_miner')}\n\n").magenta()
                     self.update_equipment()
                     break
                 else:
-                    time.sleep(3)
-                    print("Tryna pull a fast one on me eh? Only mask I see's ya blatant lie!\n\n")
+                    time.sleep(2)
+                    text.Colour("Tryna pull a fast one on me eh? Only mask I see's ya blatant lie!\n\n").red()
                     break
             elif choice == "n":
-                time.sleep(3)
-                print("Ah dang! Ya'll don't got a notebook? Guess you gotta figure it out ya self...\n\n")
+                time.sleep(2)
+                text.Colour("Ah dang! Ya'll don't got a notebook? Guess you gotta figure it out ya self...\n\n").magenta()
                 break
             elif choice == "c":
-                time.sleep(3)
-                print(f"Your equipment: {self.get_inventory_item()}\n\n")
+                time.sleep(2)
+                text.Colour(f"Your equipment: {self.get_inventory_item()}\n\n").green()
                 continue
             else:
-                print("\nThat aint a choice my friend...Try again.\n\n")
-                time.sleep(3)        
+                text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
+                time.sleep(2)        
         
         #Puzzle logic
         
         while True:
             
-            options = input('''\nSeems like a tricky puzzle partner... What do ya'll wana do?
+            options = input(text.Colour('''\nSeems like a tricky puzzle partner... What do ya'll wana do?
 Solve puzzle - 1
 Hear again - 2
 Look around - 3
 See status - 4
 Save and Exit - e                           
-\n''')
+\n''').input_cyan())
             
             options = options.lower().strip(" ")
     
             if options == "1":
                 start_time = time.perf_counter()
-                answer = input("\nSo what's your answer partner?\nEnter it here:")
+                answer = input(text.Colour("\nSo what's your answer partner?\nEnter it here:").input_cyan())
                 
                 if answer == "98-7-6+5+4+3+2+1":
                     end_time = time.perf_counter()
@@ -861,9 +872,9 @@ Save and Exit - e
                     
                     main.save_progress(self.username)
                                     
-                    print(f"YOU DID IT {self.username.title()}!\n\n\n")
+                    text.Colour(f"YOU DID IT {self.username.title()}!\n\n\n").cyan()
                     time.sleep(4)                       
-                    print(f"{self.avatar.get_outro('trapped_miner')}\n\n\n")
+                    text.Colour(f"{self.avatar.get_outro('trapped_miner')}\n\n\n").magenta()
                     
                     leaderboard.Leaderboard.status_bar("finished")
                     
@@ -872,11 +883,11 @@ Save and Exit - e
                     break
                 elif answer != "98-7-6+5+4+3+2+1":
                     
-                    time.sleep(3)
-                    print("That don't sound quite right, we ain't got forever...\n\n")
+                    time.sleep(2)
+                    text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
 
-                    time.sleep(3)
-                    cont = input("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:")
+                    time.sleep(2)
+                    cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
                     
                     cont = cont.lower().strip(" ")
                     
@@ -889,51 +900,53 @@ Save and Exit - e
                         count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                         leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
                         
-                        break
+                        return False
 
             elif options == "2":
                 
-                time.sleep(8)
-                print(f"\nHowdy {self.username.title()}! You must be close to the lift shaft now. That must be where the miners are trapped!\n\n\n")
-                time.sleep(4)
-                print("It's a real squeeze down here! I wonder if we're ever going to find these fellas?\n\n")
-                time.sleep(4)
-                print("Drip\n")
+                time.sleep(3)
+                text.Colour(f"\nHowdy {self.username.title()}! You must be close to the lift shaft now. That must be where the miners are trapped!\n\n\n").cyan()
                 time.sleep(2)
-                print("Drip\n")
+                text.Colour("It's a real squeeze down here! I wonder if we're ever going to find these fellas?\n\n").cyan()
                 time.sleep(2)
-                print("Drip\n")
-                time.sleep(3)
-                print("Whoa! Wait partner, youn hear that?\n\n")
-                time.sleep(4)
-                print("[Faintly, off down the tunnel] Help! Is there someone there?\n\n")
-                time.sleep(4)
-                print("You reckon that's them?\n")
-                time.sleep(3)
-                print("Let's shout back!\n")  
+                text.Colour("Drip\n").cyan()
                 time.sleep(2)
-                print("Hellllooooo!\n\n")
-                time.sleep(3)
-                print("Anyone down there?\n\n")
-                time.sleep(5)
-                print("[SILENCE]\n\n")
-                time.sleep(3)
-                print("[Louder] Anyone doooowwwwn theeerrreeee?\n\n\n")
-                time.sleep(4)
-                print("Heeelllp! Weee'reee traappped!\n\n")
-                time.sleep(4)
-                print("That must be them!\nLet's go find out!\n\n\n\n")
-                time.sleep(6)
+                text.Colour("Drip\n").cyan()
+                time.sleep(2)
+                text.Colour("Drip\n").cyan()
+                time.sleep(2)
+                text.Colour("Whoa! Wait partner, youn hear that?\n\n").cyan()
+                time.sleep(2)
+                text.Colour("[Faintly, off down the tunnel] Help! Is there someone there?\n\n").magenta()
+                time.sleep(2)
+                text.Colour("You reckon that's them?\n").cyan()
+                time.sleep(2)
+                text.Colour("Let's shout back!\n").cyan()
+                time.sleep(2)
+                text.Colour("Hellllooooo!\n\n").cyan()
+                time.sleep(2)
+                text.Colour("Anyone down there?\n\n").cyan()
+                time.sleep(2)
+                text.Colour("[SILENCE]\n\n").magenta()
+                time.sleep(2)
+                text.Colour("[Louder] Anyone doooowwwwn theeerrreeee?\n\n\n").cyan()
+                time.sleep(2)
+                text.Colour("Heeelllp! Weee'reee traappped!\n\n").magenta()
+                time.sleep(2)
+                text.Colour("That must be them!\nLet's go find out!\n\n\n\n").cyan()
+                time.sleep(2)
                 # Use Avatar class for intro speech
-                print("[Some minutes later...]\n\n")
-                time.sleep(4)
-                print("Look, it's a lift shaft\n\n\nYou fellas alright down there?\n\n") 
-                time.sleep(4)
+                text.Colour("[Some minutes later...]\n\n").magenta()
+                time.sleep(3)
+                text.Colour("Look, it's a lift shaft\n\n\nYou fellas alright down there?\n\n").cyan()
+                time.sleep(2)
+                text.Typed.image_five()
+                time.sleep(3)
                 
                 #Avatar class for intro
-                print(f"Boy are we glad to see you!\n\n{self.avatar.get_intro('trapped_miner')}\n")
-                time.sleep(5)
-
+                text.Colour(f"Boy are we glad to see you!\n\n{self.avatar.get_intro('trapped_miner')}\n").magenta()
+                time.sleep(3)
+                
             elif options == "3":
                 
                 location.get_loc_info("puzzle_five")
@@ -946,5 +959,4 @@ Save and Exit - e
                 main.save_progress(self.username)
                 break
             else:
-                print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
-                
+                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()

@@ -6,6 +6,7 @@ import time
 import character
 import leaderboard
 import puzzle
+import text
 
 #===== FUNCTIONS =====#
 
@@ -26,26 +27,31 @@ def register_user():
                  usernames.append(line[0])
          
          while user_exists:
-              new_username = input("\nGive me your name of choice friend:\n")
-              if new_username in usernames:
-                 print("\nWell dang! That name is taken...Have another go.\n")
+              new_username = input(text.Colour('''\nGive me your name of choice friend\nor Exit - "e"\n:''').input_cyan())
+              new_username = new_username.lower().strip(" ")
+              
+              if new_username == "e":
+                  text.Colour("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n").cyan()
+                  break
+              elif new_username in usernames:
+                 text.Colour("\nWell dang! That name is taken...Have another go.\n").cyan()
               else:
                   user_exists = False
                   continue
               
          while True:
-              new_password = input("\nWhat password y'all gona use? Shhhh, keep this a secret!\n")
-              confirm_password = input("\nTell me one more time:\n")
+              new_password = input(text.Colour("\nWhat password y'all gona use? Shhhh, keep this a secret!\n").input_cyan())
+              confirm_password = input(text.Colour("\nTell me one more time:\n").input_cyan())
               if new_password != confirm_password:
-                  print("\nSorry, no matcheroo...\n")
+                  text.Colour("\nSorry, no matcheroo...\n").red()
                   continue
               else:
-                  print("\nWelcome partner! That's all been taken care of for you!\n")
+                  text.Colour("\nWelcome partner! That's all been taken care of for you!\n").cyan()
                   f.write(f"{new_username}, {new_password}\n")
                   break
     f.close()
     
-    print("\nNow have a go at logging-in and we'll make sure everything is hunky-dorey!\n")
+    text.Colour("\nNow have a go at logging-in and we'll make sure everything is hunky-dorey!\n").cyan()
     login()
 
 
@@ -62,9 +68,9 @@ def login():
     
     while authenticated == False:
         
-        username = input("\nHowdy! Enter your username partner:\n")
+        username = input(text.Colour("\nHowdy! Enter your username partner:\n").input_cyan())
         username = username.lower().strip(" ")
-        password = input("\nHowdy! Enter your password partner:\n")
+        password = input(text.Colour("\nHowdy! Enter your password partner:\n").input_cyan())
         password = password.lower().strip(" ")
         
         
@@ -78,27 +84,27 @@ def login():
                 continue
     
         if authenticated == True:
-            print("\nThat's right my friend!\n\nWelcome to the game!")
+            text.Colour("\nThat's right my friend!\n\nWelcome to the game!").cyan()
             load_progress(username)
         else:
-            options = input('''\n\nSeems you either entered it wrong or you aint registered! What do ya'll wana do?
+            options = input(text.Colour('''\n\nSeems you either entered it wrong or you aint registered! What do ya'll wana do?
 Have another go - 1
 Register - 2
 Exit - e
-:''')
+:''').input_cyan())
             options = options.lower().strip(" ")
             
             if options == "1":    
-                print("\nAlright partner! Have another go...\n\n")
+                text.Colour("\nAlright partner! Have another go...\n\n").cyan()
                 time.sleep(2)
                 continue
             elif options == "2":
                 register_user()
             elif options == "e":
-                break
+                return False
             else:
                 time.sleep(2)
-                print("\nDo'ya know what? I don't understand a thang you just said... Have another go!\n")
+                text.Colour("\nDo'ya know what? I don't understand a thang you just said... Have another go!\n").cyan()
                 continue
                 
     f.close()
@@ -127,12 +133,12 @@ def load_progress(username):
             elif current_puzzle == "puzzle_five":
                 puzzle.Puzzle(username).puzzle_five()
             elif current_puzzle == "finished":
-                print("Seems you already completed this fella!Let's see how you did\n\n")
+                text.Colour("Seems you already completed this fella!Let's see how you did\n\n").cyan()
                 leaderboard.Leaderboard.show_Leaderboard()
             break
 
     if not character_found:
-        print("\nWell well, we ain't got no record of ya partner. Time to saddle up and create yer character!")
+        text.Colour("\nWell well, we ain't got no record of ya partner. Time to saddle up and create yer character!").cyan()
         character.Character.create_character(username)
     
     char_file.close()
@@ -163,7 +169,7 @@ def save_progress(username):
                 items[-1] = "finished"
                 #Take player to leaderboard
             else:
-                print("puzzle name not found, file error")
+                text.Colour("puzzle name not found...").red()
                 
             new_line = ','.join(items)
         else:
@@ -178,7 +184,7 @@ def save_progress(username):
                 file.write(line + '\n')
     else:
         # Print a message if the user was not found in the file
-        print(f"User '{username}' not found in file. Unable to load progress.")
+        text.Colour(f"User '{username}' not found in file. Unable to load progress.").red()
 
     char_file.close()
     
@@ -193,22 +199,26 @@ if __name__ == "__main__":
     
     while True:
         
-        user_selection = input('''\nNow what are you wanting to do partner?
-    Register - "r"
-    Login - "l"\n''')
+        user_selection = input(text.Colour('''\nNow what are you wanting to do partner?
+Register - "r"
+Login - "l"
+Exit game - "e"
+:''').input_cyan())
     
         user_selection = user_selection.lower().strip(" ")
         
         if user_selection == "r":
             
            register_user()
-           break
         
         elif user_selection == "l": 
             
             login()
+            
+        elif user_selection == "e":
+            text.Colour("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n").cyan()
             break
             
         else:
-            print("\nDo'ya know what? I don't understand a thang you just said... Have another go!\n")
+            text.Colour("\nDo'ya know what? I don't understand a thang you just said... Have another go!\n").red()
             continue

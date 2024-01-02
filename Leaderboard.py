@@ -6,6 +6,7 @@ This is the Leaderboard class
 import datetime
 import math
 import os
+import text
 
 class Leaderboard:
 
@@ -62,7 +63,7 @@ class Leaderboard:
             lb.close()
         
         except:
-            print("Failure to update the leaderboard!")
+            text.Colour("Failure to update the leaderboard!").red()
         
         with open("leaderboard.txt", "r+") as lb:
              
@@ -85,9 +86,9 @@ class Leaderboard:
                          if self.username not in usernames:
                              lb.write(str(f"{Leaderboard.__str__(new_entry, agg_time)}"))
                      except:
-                         print("We got an issue updating the leaderboard!")
+                         text.Colour("We got an issue updating the leaderboard!").red()
              except:
-                 print("Failure to update the leaderboard!")
+                 text.Colour("Failure to update the leaderboard!").red()
         
         lb.close()
         
@@ -160,14 +161,14 @@ class Leaderboard:
     def status_bar(puzzle):
 
         if puzzle == "puzzle_one":
-            print("\nStatus :  " + "[" + "-" * 10 + "]" + "  0% complete\n")
+            text.Colour("\nStatus :  " + "[" + "-" * 10 + "]" + "  0% complete\n").cyan()
         elif puzzle == "puzzle_two":
-            print("\nStatus :  " + "[" + "■"*2 + "-" * 8 + "]" + "  20% complete\n")
+            text.Colour("\nStatus :  " + "[" + "■"*2 + "-" * 8 + "]" + "  20% complete\n").cyan()
         elif puzzle == "puzzle_three":
-            print("\nStatus :  " + "[" + "■"*4 + "-" * 6 + "]" + "  40% complete\n")
+            text.Colour("\nStatus :  " + "[" + "■"*4 + "-" * 6 + "]" + "  40% complete\n").cyan()
         elif puzzle == "puzzle_four":
-            print("\nStatus :  " + "[" + "■"*6 + "-" * 4 + "]" + "  60% complete\n")
+            text.Colour("\nStatus :  " + "[" + "■"*6 + "-" * 4 + "]" + "  60% complete\n").cyan()
         elif puzzle == "puzzle_five":
-            print("\nStatus :  " + "[" + "■"*8 + "-" * 2 + "]" + "  80% complete\n")
+            text.Colour("\nStatus :  " + "[" + "■"*8 + "-" * 2 + "]" + "  80% complete\n").cyan()
         elif puzzle == "finished":
-            print("\nStatus :  " + "[" + "■"*10 + "]" + "  100% complete\n")
+            text.Colour("\nStatus :  " + "[" + "■"*10 + "]" + "  100% complete\n").cyan()

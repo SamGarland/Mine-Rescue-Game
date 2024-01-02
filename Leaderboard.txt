@@ -1,4 +1,2 @@
-dave,finished,200,642
-john,puzzle_four,3,3
 sam,finished,200,447
-mike,finished,200,600
+james,puzzle_five,66,101
