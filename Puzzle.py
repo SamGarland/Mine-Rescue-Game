@@ -585,7 +585,7 @@ Check inventory - "c"
             if choice == "y":
                 if self.has_required_epuipment(puzzle_four_item):
                     time.sleep(3)
-                    print(f"{self.avatar.get_hint('miner_two', self.username)}\n\n")
+                    print(f"{self.avatar.get_hint('miner_two')}\n\n")
                     self.update_equipment()
                     break
                 else:
@@ -604,6 +604,9 @@ Check inventory - "c"
                 print("\nThat aint a choice my friend...Try again.\n\n")
                 time.sleep(3)        
         
+        
+        puzzle_four_completed = False #Initialise to check if puzzle is completed
+        
         while True:
             time.sleep(4)
             options = input('''\nI wonder what that was all about...Maybe there's a puzzle to solve?\n\n
@@ -620,94 +623,88 @@ Save and Exit - e
                 start_time = time.perf_counter()
     
                 # Puzzle Logic
-                #valid_choices = ['A', 'B', 'C', 'D']
                 solution = "BDABCDB"  # The correct sequence of actions
+                player_input = ""
                 
                 while True:
                     try:
-                        player_input = input("\nChoose yer action in the right order: e.g. ABCABCD\n\n").upper().strip()
-                
-                        # Validate each character
-                        #input_valid = True
-                        
-                        # Check if the input is in the correct order
-                        if player_input == solution:
+                        for correct_action in solution:
+                            time.sleep(1)
+                            action = input("\nTime's wastin', what's yer move friend? (A/B/C/D): ").upper().strip()
+                            time.sleep(2)
+                            if action == correct_action:
+                                player_input += action
+                                print(f"\nThat's right, Keep goin'{self.username.title()}!\n")
                             
-                            end_time = time.perf_counter()
-                            time.sleep(4)
-                            print(f"\nYeehaw! Ya did it {self.username.title()}! All safe and sound on t'other side.\n\n")
-                            time.sleep(3)
+                                if player_input == solution:
+                                    
+                                    end_time = time.perf_counter()
+                                    puzzle_four_completed = True
+                                    time.sleep(4)
+                                    print(f"\nYeehaw! Ya did it {self.username.title()}! All safe and sound on t'other side.\n\n")
+                                    time.sleep(3)
+                                    
+                                    # Save progress and update time and leaderboard
+                                    count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                    leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                    
+                                    leaderboard.Leaderboard.show_Leaderboard()
+                                    
+                                    main.save_progress(self.username)
                             
-                            # Save progress and move to next puzzle
-                            count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                            leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
-                            
-                            leaderboard.Leaderboard.show_Leaderboard()
-                            
-                            main.save_progress(self.username)
-                            
-                            options = input('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
+                                    options = input('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
 Continue - "c"
 Exit - "e"
 :''')
-                            options = options.lower().strip(" ")
-                                
-                            if options == "c":
-                                
-                                main.load_progress(self.username)
-                                return True
+                                    options = options.lower().strip(" ")
+                                        
+                                    if options == "c":
+                                        
+                                        main.load_progress(self.username)
+                                        return True
+                                    
+                                    elif options == "e":
+                                        time.sleep(2)
+                                        print("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n")
+                                        return
+                                    else:
+                                        time.sleep(2)
+                                        print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
+                                        continue
+                                    break
                             
-                            elif options == "e":
-                                time.sleep(2)
-                                print("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n")
-                                break
+                            elif player_input != solution:
+                                
+                                time.sleep(3)
+                                print("That don't sound quite right, we ain't got forever...\n\n")
+    
+                                time.sleep(3)
+                                cont = input("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:")
+                                
+                                cont = cont.lower().strip(" ")
+                                
+                                if cont == "y":
+                                    continue
+                                elif cont == "n":
+                                    time.sleep(2)
+                                    print("\nReckon the gas hurt'n ya brain my friend")
+                                    time.sleep(2)
+                                    puzzle_four_completed = False
+                                    end_time = time.perf_counter()
+                                    
+                                    count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                    leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
+                                    break
                             else:
                                 time.sleep(2)
                                 print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
                                 continue
-                            break
-                        #=== commented out because I didn't understand and I wanted to run the whole programme through ===#
-                        # Check input length
-                       # elif len(player_input) != len(solution):
-                            #time.sleep(3)
-                            #print("That don't sound quite right, we ain't got forever...\n\n")
-                            #continue  # Get new input if length is incorrect
-                
-                        #for char in player input:
-                            #if char not in valid_choices:
-                               #time.sleep(3)
-                                #print("That ain't a valid choice, partner. Pick A, B, C, or D.")
-                                #input_valid = False
-                                #break                                
-                
-                        #if input_valid == False:
-                            #continue  # Get new input if any character is invalid
                             
-                        elif player_input != solution:
-                            
-                            time.sleep(3)
-                            print("That don't sound quite right, we ain't got forever...\n\n")
-
-                            time.sleep(3)
-                            cont = input("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:")
-                            
-                            cont = cont.lower().strip(" ")
-                            
-                            if cont == "y":
-                                continue
-                            elif cont == "n":
-                            
-                                end_time = time.perf_counter()
-                                
-                                count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
-                                
-                                break
+                        if puzzle_four_completed: #check puzzle is complete before exiting loop back to menu
+                            return True
                         else:
-                            time.sleep(2)
-                            print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
-                            continue
-                
+                            break
+    
                     except Exception as e:
                         print(f"There was an unknown error: {e}")
                         
@@ -750,7 +747,11 @@ Exit - "e"
                  leaderboard.Leaderboard.status_bar("puzzle_four")
                  
             elif options == "e":
-                 main.save_progress(self.username)
+                 if puzzle_four_completed: #only update to "puzzle_five" when puzzle is complete
+                     main.save_progress(self.username);
+                     break
+                 else:
+                     break
                  break
             else:
                  print("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n")
@@ -815,7 +816,7 @@ Check inventory - "c"
             if choice == "y":
                 if self.has_required_epuipment(puzzle_five_item):
                     time.sleep(3)
-                    print(f"{self.avatar.get_hint('trapped_miner', self.username)}\n\n")
+                    print(f"{self.avatar.get_hint('trapped_miner'}\n\n")
                     self.update_equipment()
                     break
                 else:
