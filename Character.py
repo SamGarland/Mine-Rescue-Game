@@ -199,7 +199,7 @@ Mask - "m"
                 equipment = "lasso"
                 text.Colour("\n\nNice choice fella! You picked the lasoo. I bet that'll come in handy.\n").cyan()
                 break
-            elif equipment_select == "g":
+            elif equipment_select == "n":
                 equipment = "notebook"
                 text.Colour("\n\nNice choice fella! You picked the notebook. I bet that'll come in handy.\n").cyan()
                 break
