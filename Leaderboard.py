@@ -122,37 +122,37 @@ class Leaderboard:
                for item in file_set: 
                     if item[1] == "finished":
                         if math.floor(float(item[3])) == ele:
-                            print(f" #{count}          {item[0]}       {item[1]}       {str(datetime.timedelta(seconds = int(item[2])))}              {str(datetime.timedelta(seconds = int(ele)))}\n")
+                            print(f" #{count:<5}{item[0]:^15}{item[1]:^10}{str(datetime.timedelta(seconds = int(item[2]))):^20}{str(datetime.timedelta(seconds = int(ele))):^20}\n")
                             count += 1
             for ele in agg_times_set:
                for item in file_set: 
                     if item[1] == "puzzle_five":
                         if math.floor(float(item[3])) == ele:
-                            print(f" #{count}          {item[0]}       {item[1]}       {str(datetime.timedelta(seconds = int(item[2])))}              {str(datetime.timedelta(seconds = int(ele)))}\n")
+                            print(f" #{count:>}          {item[0]:^}       {item[1]:^}       {str(datetime.timedelta(seconds = int(item[2]))):^}              {str(datetime.timedelta(seconds = int(ele))):^}\n")
                             count += 1
             for ele in agg_times_set:
                for item in file_set: 
                     if item[1] == "puzzle_four":
                         if math.floor(float(item[3])) == ele:
-                            print(f" #{count}          {item[0]}       {item[1]}       {str(datetime.timedelta(seconds = int(item[2])))}              {str(datetime.timedelta(seconds = int(ele)))}\n")
+                            print(f" #{count:>}          {item[0]:^}       {item[1]:^}       {str(datetime.timedelta(seconds = int(item[2]))):^}              {str(datetime.timedelta(seconds = int(ele))):^}\n")
                             count += 1
             for ele in agg_times_set:
                for item in file_set: 
                     if item[1] == "puzzle_three":
                         if math.floor(float(item[3])) == ele:
-                            print(f" #{count}          {item[0]}       {item[1]}       {str(datetime.timedelta(seconds = int(item[2])))}              {str(datetime.timedelta(seconds = int(ele)))}\n")
+                            print(f" #{count:>}          {item[0]:^}       {item[1]:^}       {str(datetime.timedelta(seconds = int(item[2]))):^}              {str(datetime.timedelta(seconds = int(ele))):^}\n")
                             count += 1
             for ele in agg_times_set:
                 for item in file_set:                
                     if item[1] == "puzzle_two":
                         if math.floor(float(item[3])) == ele:
-                            print(f" #{count}          {item[0]}       {item[1]}       {str(datetime.timedelta(seconds = int(item[2])))}              {str(datetime.timedelta(seconds = int(ele)))}\n")
+                            print(f" #{count:>}          {item[0]:^}       {item[1]:^}       {str(datetime.timedelta(seconds = int(item[2]))):^}              {str(datetime.timedelta(seconds = int(ele))):^}\n")
                             count += 1
             for ele in agg_times_set:
                for item in file_set:                 
                     if item[1] == "puzzle_one":
                         if math.floor(float(item[3])) == ele:
-                            print(f" #{count}          {item[0]}       {item[1]}       {str(datetime.timedelta(seconds = int(item[2])))}              {str(datetime.timedelta(seconds = int(ele)))}\n")
+                            print(f" #{count:>}          {item[0]:^}       {item[1]:^}       {str(datetime.timedelta(seconds = int(item[2]))):^}              {str(datetime.timedelta(seconds = int(ele))):^}\n")
                             count += 1
         
         lb.close()

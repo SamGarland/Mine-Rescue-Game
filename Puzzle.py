@@ -851,7 +851,7 @@ Check inventory - "c"
         #Puzzle logic
         
         while True:
-            
+                    
             options = input(text.Colour('''\nSeems like a tricky puzzle partner... What do ya'll wana do?
 Solve puzzle - 1
 Hear again - 2
@@ -861,51 +861,255 @@ Save and Exit - e
 \n''').input_cyan())
             
             options = options.lower().strip(" ")
-    
+            
+            solution = {1 : ["98-7", "98 - 7", 98-7],
+                        2 : ["-6", "- 6", -6],
+                        3 : ["+5", "+ 5", +5],
+                        4 : ["+4", "+ 4", +4],
+                        5 : ["+3", "+ 3", +3],
+                        6 : ["+2", "+ 2", +2],
+                        7 : ["+1", "+ 1", +1]}
+            
             if options == "1":
-                start_time = time.perf_counter()
-                answer = input(text.Colour("\nSo what's your answer partner?\nYou got 98, 7, 6, 5, 4, 3, 2, 1, + and - to work with\nEnter one stage at q time:").input_cyan())
-                solution = ['98','-','7','-','6','+','5','+','4','+','3','+','2','+','1']
-                input_set = []
                 
+                while True:
+                    start_time = time.perf_counter()
+                    answer = input(text.Colour("\nSo what's your answer partner?\n\nYou got 98, 7, 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter each operation at a time:").input_cyan())
+                    answer = answer.lower().strip(" ")
                 
-                if answer == solution:
-                    end_time = time.perf_counter()
-                    
-                    count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                    leaderboard.Leaderboard(self.username, "finished", count_time).update_leaderboard()
-                    
-                    main.save_progress(self.username)
+                    if answer in solution[1]:
+                        
+                        text.Colour("\nThat's a good start {self.username.title()}.\n").cyan()
+                        
+                        while True:
+                            
+                            text.Colour("\nYa'll got 91.\n").cyan()
+                            
+                            answer = input(text.Colour("\nWhat next partner?\n\nYou got 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                            answer = answer.lower().strip(" ")
+                            
+                            if answer in solution[2]:
+                                
+                                text.Colour("\nKeep it up {self.username.title()}.\n").cyan()
+                                
+                                while True:
                                     
-                    text.Colour(f"YOU DID IT {self.username.title()}!\n\n\n").cyan()
-                    time.sleep(4)                       
-                    text.Colour(f"{self.avatar.get_outro('trapped_miner')}\n\n\n").magenta()
-                    
-                    leaderboard.Leaderboard.status_bar("finished")
-                    
-                    leaderboard.Leaderboard.show_Leaderboard()
-                    
-                    break
-                elif answer != "98-7-6+5+4+3+2+1":
-                    
-                    time.sleep(2)
-                    text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
+                                    text.Colour("\nYa'll got 85.\n").cyan()
+                                    
+                                    answer = input(text.Colour("\nWhat next partner??\n\nYou got 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                    answer = answer.lower().strip(" ")
+                                
+                                    if answer in solution[3]:
+                                        
+                                        text.Colour("\nKeep it up {self.username.title()}.\n").cyan()
+                                        
+                                        while True:
+                                            
+                                            text.Colour("\nYa'll got 90.\n").cyan()
+                                            
+                                            answer = input(text.Colour("\nWhat next partner??\n\nYou got 4, 3, 2, 1,and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                            answer = answer.lower().strip(" ")
+                                            
+                                            if answer in solution[4]:
+                                                
+                                                text.Colour("\nKeep it up {self.username.title()}.\n").cyan()
+                                                
+                                                while True:
+                                                
+                                                    text.Colour("\nYa'll got 94.\n").cyan()
+                                                    
+                                                    answer = input(text.Colour("\nWhat next partner??\n\nYou got 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                                    answer = answer.lower().strip(" ")
 
-                    time.sleep(2)
-                    cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
-                    
-                    cont = cont.lower().strip(" ")
-                    
-                    if cont == "y":
-                        continue
-                    elif cont == "n":
-                    
-                        end_time = time.perf_counter()
+                                                    if answer in solution[5]:
+                                                        
+                                                        text.Colour("\nKeep it up {self.username.title()}.\n").cyan()
+                                                        
+                                                        while True:
+                                                            
+                                                            text.Colour("\nYa'll got 97.\n").cyan()
+                                                            answer = input(text.Colour("\nWhat next partner?\n\nYou got 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                                            answer = answer.lower().strip(" ")
+
+                                                            if answer in solution[6]:
+                                                                
+                                                                text.Colour("\nKeep it up {self.username.title()}.\n").cyan()
+                                                                
+                                                                while True:
+                                                                    
+                                                                    text.Colour("\nYa'll got 99.\n").cyan()
+                                                                    
+                                                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                                                    answer = answer.lower().strip(" ")
+                                                                    
+                                                                    if answer in solution[7]:
+                                                                        
+                                                                        text.Colour("\nGREAT WORK {self.username.title()}!\n").cyan()
+                                                                        text.Colour("\nYa'll got 100.\n").cyan()
+                                                            
+                                                                        end_time = time.perf_counter()
+                                                                        
+                                                                        count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                                                        leaderboard.Leaderboard(self.username, "finished", count_time).update_leaderboard()
+                                                                        
+                                                                        main.save_progress(self.username)
+                                                                                        
+                                                                        text.Colour(f"YOU DID IT {self.username.title()}!\n\n\n").cyan()
+                                                                        time.sleep(4)                       
+                                                                        text.Colour(f"{self.avatar.get_outro('trapped_miner')}\n\n\n").magenta()
+                                                                        
+                                                                        leaderboard.Leaderboard.status_bar("finished")
+                                                                        
+                                                                        leaderboard.Leaderboard.show_Leaderboard()
+                                                                        
+                                                                        return False
+                                                                    
+                                                                    elif answer not in solution[7]:
+                                                                        
+                                                                        time.sleep(2)
+                                                                        text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
+                                                
+                                                                        time.sleep(2)
+                                                                        cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
+                                                                        
+                                                                        cont = cont.lower().strip(" ")
+                                                                        
+                                                                        if cont == "y":
+                                                                            continue
+                                                                        elif cont == "n":
+                                                                        
+                                                                            end_time = time.perf_counter()
+                                                                            
+                                                                            count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                                                            leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                                                            
+                                                                            return False
+                                                                        
+                                                            elif answer not in solution[6]:
+                                                                
+                                                                time.sleep(2)
+                                                                text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
+                                        
+                                                                time.sleep(2)
+                                                                cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
+                                                                
+                                                                cont = cont.lower().strip(" ")
+                                                                
+                                                                if cont == "y":
+                                                                    continue
+                                                                elif cont == "n":
+                                                                
+                                                                    end_time = time.perf_counter()
+                                                                    
+                                                                    count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                                                    leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                                                    
+                                                                    return False
+                                                            
+                                                    elif answer not in solution[5]:
+                                                        
+                                                        time.sleep(2)
+                                                        text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
+                                
+                                                        time.sleep(2)
+                                                        cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
+                                                        
+                                                        cont = cont.lower().strip(" ")
+                                                        
+                                                        if cont == "y":
+                                                            continue
+                                                        elif cont == "n":
+                                                        
+                                                            end_time = time.perf_counter()
+                                                            
+                                                            count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                                            leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                                            
+                                                            return False
+                                                
+                                            elif answer not in solution[4]:
+                                                
+                                                time.sleep(2)
+                                                text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
                         
-                        count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                        leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                                time.sleep(2)
+                                                cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
+                                                
+                                                cont = cont.lower().strip(" ")
+                                                
+                                                if cont == "y":
+                                                    continue
+                                                elif cont == "n":
+                                                
+                                                    end_time = time.perf_counter()
+                                                    
+                                                    count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                                    leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                                    
+                                                    return False
+                                        
+                                    elif answer not in solution[3]:
+                                        
+                                        time.sleep(2)
+                                        text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
+                
+                                        time.sleep(2)
+                                        cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
+                                        
+                                        cont = cont.lower().strip(" ")
+                                        
+                                        if cont == "y":
+                                            continue
+                                        elif cont == "n":
+                                        
+                                            end_time = time.perf_counter()
+                                            
+                                            count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                            leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                            
+                                            return False
+                                
+                            elif answer not in solution[2]:
+                                
+                                time.sleep(2)
+                                text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
+        
+                                time.sleep(2)
+                                cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
+                                
+                                cont = cont.lower().strip(" ")
+                                
+                                if cont == "y":
+                                    continue
+                                elif cont == "n":
+                                
+                                    end_time = time.perf_counter()
+                                    
+                                    count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                    leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                    
+                                    return False
                         
-                        return False
+                    elif answer not in solution[1]:
+                        
+                        time.sleep(2)
+                        text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
+    
+                        time.sleep(2)
+                        cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
+                        
+                        cont = cont.lower().strip(" ")
+                        
+                        if cont == "y":
+                            continue
+                        elif cont == "n":
+                        
+                            end_time = time.perf_counter()
+                            
+                            count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                            leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                            
+                            return False
 
             elif options == "2":
                 

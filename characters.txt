@@ -1,4 +1,4 @@
 sam,sheriff,male,red,red hat,fashion boots,None,finished
 
 john,gunslinger,non-binary,purple,cream hat,work boots,hammer,puzzle_one
-james,gunslinger,other,black,brown hat,riding boots,None,puzzle_four
+james,gunslinger,other,black,brown hat,riding boots,None,finished

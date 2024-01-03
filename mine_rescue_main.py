@@ -133,7 +133,7 @@ def load_progress(username):
             elif current_puzzle == "puzzle_five":
                 puzzle.Puzzle(username).puzzle_five()
             elif current_puzzle == "finished":
-                text.Colour("Seems you already completed this fella!Let's see how you did\n\n").cyan()
+                text.Colour("\n\nSeems you already completed this fella!\nLet's see how you did\n\n").cyan()
                 leaderboard.Leaderboard.show_Leaderboard()
             break
 
