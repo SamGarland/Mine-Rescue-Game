@@ -1,5 +1,5 @@
 """
-This is the puzzle class file.
+This is the puzzle module with Puzzle class and methods.
 
 """
 import random
@@ -9,55 +9,13 @@ import mine_rescue_main as main
 import location
 import leaderboard
 import text
+import inventory
 
 class Puzzle:
     
     def __init__(self, username):
         self.username = username
         self.avatar = avatar.Avatar()
-
-#==== Show player inventory to check for equipment ====#
-
-    def get_inventory_item(self):
-        with open('characters.txt', 'r') as char_file:
-            for line in char_file:
-                line_parts = line.strip().split(',')
-                if line_parts[0].strip() == self.username:
-                    return line_parts[-2].strip()
-        # Return a default message if no item is found
-        return "No item found"
-    
-#==== Check if the user has the required item ====#
-
-    def has_required_epuipment(self, required_item):
-           
-           return required_item in self.get_inventory_item()
-
-#==== Set the equipment to default "None" once it's been used in a puzzle ====#
-
-    def update_equipment(self):
-        new_lines = []
-        user_found = False
-    
-        with open('characters.txt', 'r') as char_file:
-            lines = char_file.readlines()
-    
-        # Update equipment
-        for line in lines:
-            parts = line.strip().split(',')
-            if parts[0].strip() == self.username:
-                parts[-2] = "None"  # Assumes equipment is second to last item in the list
-                user_found = True
-            new_lines.append(','.join(parts))
-    
-        # Write updated if user found
-        if user_found:
-            with open('characters.txt', 'w') as char_file:
-                for line in new_lines:
-                    char_file.write(line + '\n')
-        else:
-            print(f"'{self.username}' not found in file")
-
 
 #==== Function for puzzle_one to shift text ====#
 
@@ -85,7 +43,6 @@ class Puzzle:
     def puzzle_one(self):
         
         text.Typed.intro()
-        text.Typed.intro_image()
         
         time.sleep(3)
         text.Colour(f"\n\nWhoa there, who's that fella running at you from the entrace of the mine {self.username.title()}?\n\n").cyan()
@@ -128,7 +85,6 @@ Save and Exit - e
                         user_input = input(text.Colour("Looks like you gotta make some sense of this and figure out the key word\nEnter the key:\n\n\n").input_cyan()).strip().lower()
                         
                         time.sleep(5)
-                        
 
                         if user_input == answer:
                             
@@ -140,7 +96,7 @@ Save and Exit - e
                             
                             leaderboard.Leaderboard.show_Leaderboard()
                             
-                            main.save_progress(self.username)
+                            main.save_progress(self.username, "puzzle_two")
                             
                             options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
 Continue - "c"
@@ -206,14 +162,14 @@ Exit - "e"
         
                 elif options == "3":
                     
-                    location.get_loc_info("puzzle_one")
+                    location.Location(self.username, "puzzle_one").get_loc_info()
                     
                 elif options == "4":
                     
                     leaderboard.Leaderboard.status_bar("puzzle_one")
                     
                 elif options == "e":
-                    main.save_progress(self.username)
+                    main.save_progress(self.username, "puzzle_one")
                     break
                 else:
                     text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
@@ -223,7 +179,8 @@ Exit - "e"
     def puzzle_two(self):
         
         time.sleep(3)
-        text.Colour("\n\n[As you mosey along the rusty old railway, you hear someone shouting at you to stop.]\n\n Who's that dusty man?\n\n").cyan()
+        text.Colour("\n\n[As you mosey along the rusty old railway, you hear someone shouting at you to stop.]\n\n").magenta()
+        text.Colour("Who's that dusty man?\n\n").cyan()
         time.sleep(2)
         
         # Use Avatar class for intro speech
@@ -244,26 +201,26 @@ Check inventory - "c"
             choice = choice.lower().strip(" ")
         
             if choice == "y":
-                if self.has_required_epuipment(puzzle_two_item):
-                    time.sleep(3)
+                if inventory.Inventory(self.username).has_required_epuipment(puzzle_two_item):
+                    time.sleep(2)
                     text.Colour(f"\n\n{self.avatar.get_hint('railwayman_two')}\n\n").magenta()
-                    self.update_equipment()
+                    inventory.Inventory(self.username).update_equipment(puzzle_two_item)
                     break
                 else:
-                    time.sleep(3)
+                    time.sleep(2)
                     text.Colour("\n\nNow now, No need to tell a lie my friend, I see you ain't got no hammer!\n\n").cyan()
                     break
             elif choice == "n":
-                time.sleep(3)
+                time.sleep(2)
                 text.Colour("\n\nOh riddens, that hammer sure would've been handy\n\n").cyan()
                 break
             elif choice == "c":
-                time.sleep(3)
-                text.Colour(f"\n\nYour equipment: {self.get_inventory_item()}\n\n").green()
+                time.sleep(2)
+                text.Colour(f"\n\nYour equipment: {inventory.Inventory(self.username).get_inventory_item()}\n\n").green()
                 continue
             else:
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
-                time.sleep(3)
+                time.sleep(2)
                 
         while True:
                 
@@ -301,7 +258,7 @@ Save and Exit - e
                                 
                                 leaderboard.Leaderboard.show_Leaderboard()
                                 
-                                main.save_progress(self.username)
+                                main.save_progress(self.username, "puzzle_three")
                                 
                                 options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
 Continue - "c"
@@ -365,14 +322,14 @@ Exit - "e"
                     
                 elif options == "3":
                     
-                    location.get_loc_info("puzzle_two")
+                    location.Location(self.username, "puzzle_two").get_loc_info()
                     
                 elif options == "4":
                     
                     leaderboard.Leaderboard.status_bar("puzzle_two")
                     
                 elif options == "e":
-                    main.save_progress(self.username)
+                    main.save_progress(self.username, "puzzle_two")
                     break
                 else:
                     text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
@@ -410,10 +367,10 @@ Check inventory - "c"
             choice = choice.lower().strip(" ")
         
             if choice == "y":
-                if self.has_required_epuipment(puzzle_three_item):
+                if inventory.Inventory(self.username).has_required_epuipment(puzzle_three_item):
                     time.sleep(2)
                     text.Colour(f"\n{self.avatar.get_hint('miner_crawlspace')}\n\n").magenta()
-                    self.update_equipment()
+                    inventory.Inventory(self.username).update_equipment(puzzle_three_item)
                     break
                 else:
                     time.sleep(2)
@@ -425,7 +382,7 @@ Check inventory - "c"
                 break
             elif choice == "c":
                 time.sleep(2)
-                text.Colour(f"Your equipment: {self.get_inventory_item()}\n\n").green()
+                text.Colour(f"Your equipment: {inventory.Inventory(self.username).get_inventory_item()}\n\n").green()
                 continue
             else:
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
@@ -469,7 +426,7 @@ Save and Exit - e
                             
                             leaderboard.Leaderboard.show_Leaderboard()
                             
-                            main.save_progress(self.username)
+                            main.save_progress(self.username, "puzzle_four")
                             
                             options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
 Continue - "c"
@@ -538,14 +495,14 @@ Exit - "e"
                 
             elif options == "3":
                 
-                location.get_loc_info("puzzle_three")
+                location.Location(self.username, "puzzle_three").get_loc_info()
                 
             elif options == "4":
                 
                 leaderboard.Leaderboard.status_bar("puzzle_three")
                 
             elif options == "e":
-                main.save_progress(self.username)
+                main.save_progress(self.username, "puzzle_three")
                 break
             else:
                 text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
@@ -576,7 +533,7 @@ Exit - "e"
         
         puzzle_four_item = "mask"
         
-        text.Colour('''What is the name ya'll gona do??
+        text.Colour('''What in the name ya'll gona do??
 Your actions are:
 A - Take Rat Across
 B - Take Dynamite Across
@@ -595,10 +552,10 @@ Check inventory - "c"
 ''').input_cyan())
             choice = choice.lower().strip(" ")        
             if choice == "y":
-                if self.has_required_epuipment(puzzle_four_item):
+                if inventory.Inventory(self.username).has_required_epuipment(puzzle_four_item):
                     time.sleep(2)
                     text.Colour(f"{self.avatar.get_hint('miner_two')}\n\n").magenta()
-                    self.update_equipment()
+                    inventory.Inventory(self.username).update_equipment(puzzle_four_item)
                     break
                 else:
                     time.sleep(2)
@@ -610,7 +567,7 @@ Check inventory - "c"
                 break
             elif choice == "c":
                 time.sleep(2)
-                text.Colour(f"Your equipment: {self.get_inventory_item()}\n\n").green()
+                text.Colour(f"Your equipment: {inventory.Inventory(self.username).get_inventory_item()}\n\n").green()
                 continue
             else:
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
@@ -620,7 +577,7 @@ Check inventory - "c"
         puzzle_four_completed = False #Initialise to check if puzzle is completed
         
         while True:
-            time.sleep(4)
+            time.sleep(2)
             options = input(text.Colour('''\nI wonder what that was all about...Maybe there's a puzzle to solve?\n\n
 Solve puzzle - 1
 Hear again - 2
@@ -662,7 +619,7 @@ Save and Exit - e
                                     
                                     leaderboard.Leaderboard.show_Leaderboard()
                                     
-                                    main.save_progress(self.username)
+                                    main.save_progress(self.username, "puzzle_five")
                             
                                     options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
 Continue - "c"
@@ -742,7 +699,7 @@ Exit - "e"
                 text.Colour(f"[The jittery miner stumbles up to you:]\n{self.avatar.get_intro('miner_two')}\n\n").magenta()
                 time.sleep(2)
                 
-                text.Colour('''What is the name ya'll gona do??
+                text.Colour('''What in the name ya'll gona do??
         Your actions are:
         A - Take Rat Across
         B - Take Dynamite Across
@@ -752,7 +709,7 @@ Exit - "e"
                  
             elif options == "3":
                  
-                 location.get_loc_info("puzzle_four")
+                 location.Location(self.username, "puzzle_four").get_loc_info()
                  
             elif options == "4":
                  
@@ -760,7 +717,7 @@ Exit - "e"
                  
             elif options == "e":
                  if puzzle_four_completed: #only update to "puzzle_five" when puzzle is complete
-                     main.save_progress(self.username);
+                     main.save_progress(self.username, "puzzle_four");
                      return False
                  else:
                      return False
@@ -782,7 +739,7 @@ Exit - "e"
         time.sleep(2)
         text.Colour("Drip\n").cyan()
         time.sleep(2)
-        text.Colour("Whoa! Wait partner, youn hear that?\n\n").cyan()
+        text.Colour("Whoa! Wait partner, you hear that?\n\n").cyan()
         time.sleep(2)
         text.Colour("[Faintly, off down the tunnel] Help! Is there someone there?\n\n").magenta()
         time.sleep(2)
@@ -827,10 +784,10 @@ Check inventory - "c"
             choice = choice.lower().strip(" ")
             
             if choice == "y":
-                if self.has_required_epuipment(puzzle_five_item):
+                if inventory.Inventory(self.username).has_required_epuipment(puzzle_five_item):
                     time.sleep(2)
                     text.Colour(f"{self.avatar.get_hint('trapped_miner')}\n\n").magenta()
-                    self.update_equipment()
+                    inventory.Inventory(self.username).update_equipment(puzzle_five_item)
                     break
                 else:
                     time.sleep(2)
@@ -842,7 +799,7 @@ Check inventory - "c"
                 break
             elif choice == "c":
                 time.sleep(2)
-                text.Colour(f"Your equipment: {self.get_inventory_item()}\n\n").green()
+                text.Colour(f"Your equipment: {inventory.Inventory(self.username).get_inventory_item()}\n\n").green()
                 continue
             else:
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
@@ -879,7 +836,7 @@ Save and Exit - e
                 
                     if answer in solution[1]:
                         
-                        text.Colour("\nThat's a good start {self.username.title()}.\n").cyan()
+                        text.Colour(f"\nThat's a good start {self.username.title()}.\n").cyan()
                         
                         while True:
                             
@@ -890,7 +847,7 @@ Save and Exit - e
                             
                             if answer in solution[2]:
                                 
-                                text.Colour("\nKeep it up {self.username.title()}.\n").cyan()
+                                text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
                                 
                                 while True:
                                     
@@ -901,7 +858,7 @@ Save and Exit - e
                                 
                                     if answer in solution[3]:
                                         
-                                        text.Colour("\nKeep it up {self.username.title()}.\n").cyan()
+                                        text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
                                         
                                         while True:
                                             
@@ -912,7 +869,7 @@ Save and Exit - e
                                             
                                             if answer in solution[4]:
                                                 
-                                                text.Colour("\nKeep it up {self.username.title()}.\n").cyan()
+                                                text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
                                                 
                                                 while True:
                                                 
@@ -923,7 +880,7 @@ Save and Exit - e
 
                                                     if answer in solution[5]:
                                                         
-                                                        text.Colour("\nKeep it up {self.username.title()}.\n").cyan()
+                                                        text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
                                                         
                                                         while True:
                                                             
@@ -933,7 +890,7 @@ Save and Exit - e
 
                                                             if answer in solution[6]:
                                                                 
-                                                                text.Colour("\nKeep it up {self.username.title()}.\n").cyan()
+                                                                text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
                                                                 
                                                                 while True:
                                                                     
@@ -944,7 +901,7 @@ Save and Exit - e
                                                                     
                                                                     if answer in solution[7]:
                                                                         
-                                                                        text.Colour("\nGREAT WORK {self.username.title()}!\n").cyan()
+                                                                        text.Colour(f"\nGREAT WORK {self.username.title()}!\n").cyan()
                                                                         text.Colour("\nYa'll got 100.\n").cyan()
                                                             
                                                                         end_time = time.perf_counter()
@@ -952,7 +909,7 @@ Save and Exit - e
                                                                         count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                                                         leaderboard.Leaderboard(self.username, "finished", count_time).update_leaderboard()
                                                                         
-                                                                        main.save_progress(self.username)
+                                                                        main.save_progress(self.username, "finished")
                                                                                         
                                                                         text.Colour(f"YOU DID IT {self.username.title()}!\n\n\n").cyan()
                                                                         time.sleep(4)                       
@@ -1158,14 +1115,14 @@ Save and Exit - e
                 
             elif options == "3":
                 
-                location.get_loc_info("puzzle_five")
+                location.Location(self.username, "puzzle_five").get_loc_info()
                 
             elif options == "4":
                 
                 leaderboard.Leaderboard.status_bar("puzzle_five")
                 
             elif options == "e":
-                main.save_progress(self.username)
+                main.save_progress(self.username, "puzzle_five")
                 break
             else:
                 text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()

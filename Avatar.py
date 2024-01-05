@@ -1,5 +1,5 @@
 """
-This is the Avatar class
+This is the avatar module with Avatar class.
 
 """
 class Avatar:
@@ -23,7 +23,7 @@ The rails have formed an arch, buckling upward right at the center.
 You gotta figure out just how high this arch is at the midpoint (mp), 
 if it ain't that high you might just make it.\n\n'''),
                 "prompt_hint": "I might be able to give you a hand, Y'all got a hammer?\n\n",
-                "hint": "I reckon old Pythagoras would know the answer, A square plus B square or something I think\n\n", },
+                "hint": "\nI reckon old Pythagoras would know the answer, A square plus B square or something I think\n\n", },
             #TODO make and insert image for puzzles
             
             # Avatar for puzzle_three
@@ -34,8 +34,8 @@ if it ain't that high you might just make it.\n\n'''),
 Each piece has 4 links. I can only mend it by breakin' each links and then joinin' 'em back together.
 
 How many links do I gotta break to fix this chain up?\n\n'''),    
-                "prompt_hint": "I might have some old tricks up me sleves, y'all got a lasso?\n\n",
-                "hint": "Don't one chain got 4 links? dunno if you gotta break em all\n\n", },
+                "prompt_hint": "I might have some old tricks up me slieves, y'all got a lasso?\n\n",
+                "hint": "\nDon't one chain got 4 links? dunno if you gotta break em all\n\n", },
             #TODO make and insert image for puzzles
             
             # Avatar for puzzle_four
@@ -47,7 +47,7 @@ That sneaky lil rat's got a taste for trouble. Can't leave it alone with that st
 
 And don't ya dare leave it wit me, I tend to get a bit shaky and before we know it... kaboom\n\n'''),
                 "prompt_hint": "I might have some old wisdom in here somewhere, y'all got a mask?\n\n",                 
-                "hint": "I'd get going wit that dynamite first, shouldn't take more than 7 trips I reckon\n\n", },
+                "hint": "\nI'd get going wit that dynamite first, shouldn't take more than 7 trips I reckon\n\n", },
 
             # Avatar for puzzle_five
             "trapped_miner": {
@@ -65,8 +65,8 @@ Then see if ya'll can't get them engines up and running!
 
 Remember, you gotta match up them power sources to get to exactly 100!\n\n'''),
                 "prompt_hint": "We can help ya'll figure it out, but you're gona need something to take notes. Ya'll got a notebook up there?",   
-                "hint": "Take a look around and maybe you'll see some notes on the wall. Remember, decrease before you increase!",
-                "outro": '''Thank ya'll for rescuing us out of that tight spot! We're mighty thankful!
+                "hint": "\nTake a look around and maybe you'll see some notes on the wall. Remember, decrease before you increase!",
+                "outro": '''Thank ya'll for rescuing us out of that tight spot! We're mighty thankfull!
 
 We can take it from here and get this mine back in working order. 
                 '''

@@ -1,5 +1,5 @@
 '''
-This module contains Typed and Colour classes that manipulate text.
+This is the text module with Typed and Colour classes that manipulate text.
 
 '''
 import time
@@ -35,22 +35,23 @@ So gather your resolve explorer, and prepare to venture into the unknown. The my
     def intro_image():
         #Intro_Image_One
         Typed.typed_text_fast("""
-        0     0  00000  0     0  000000                
-        00   00    0    00    0  0                     
-        0 0 0 0    0    0 0   0  0                     
-        0  0  0    0    0  0  0  0000                  
-        0     0    0    0   0 0  0                     
-        0     0    0    0    00  0                     
-        0     0  00000  0     0  000000                
+            0     0  00000  0     0  000000                
+            00   00    0    00    0  0                     
+            0 0 0 0    0    0 0   0  0                     
+            0  0  0    0    0  0  0  0000                  
+            0     0    0    0   0 0  0                     
+            0     0    0    0    00  0                     
+            0     0  00000  0     0  000000                
+    
+            000000    000000  000000  000000  0    0  000000
+            0     0   0       0       0       0    0  0     
+            0     0   0       0       0       0    0  0     
+            000000    0000    000000  0       0    0  0000  
+            0   0     0            0  0       0    0  0     
+            0    0    0            0  0       0    0  0     
+            0     0   000000  000000  000000  000000  000000
 
-        000000    000000  000000  000000  0    0  000000
-        0     0   0       0       0       0    0  0     
-        0     0   0       0       0       0    0  0     
-        000000    0000    000000  0       0    0  0000  
-        0   0     0            0  0       0    0  0     
-        0    0    0            0  0       0    0  0     
-        0     0   000000  000000  000000  000000  000000
-
+2023        1.0  Sam Garland and Allen Abraham
         """)
         
     def image_one():
