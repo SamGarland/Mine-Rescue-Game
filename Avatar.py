@@ -43,7 +43,7 @@ How many links do I gotta break to fix this chain up?\n\n'''),
                 "intro": (
                     '''Boy am I glad to see you! Just a warning 'bout that dynamite, some scary stuff.
                     
-That sneaky lil rat's got a taste for trouble. Can't leave it alone with that stuff or it's a heap of trouble.
+That sneaky lil rat's got a taste for trouble. Can't leave it alone with that stuff!
 
 And don't ya dare leave it wit me, I tend to get a bit shaky and before we know it... kaboom\n\n'''),
                 "prompt_hint": "I might have some old wisdom in here somewhere, y'all got a mask?\n\n",                 

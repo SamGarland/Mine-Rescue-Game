@@ -27,7 +27,7 @@ def register_user():
                  usernames.append(line[0])
          
          while user_exists:
-              new_username = input('''\nGive me your name of choice friend\nor Exit - "e"\n:''')
+              new_username = input('''\nGive me your name of choice friend\nor Back to start menu - "e"\n:''')
               new_username = new_username.strip(" ")
               
               if new_username == "e":
