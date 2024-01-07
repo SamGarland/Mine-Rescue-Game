@@ -1,23 +1,33 @@
 """
 This is the leaderboard module with Leaderboard class and methods.
+These are used to count the puzzle time, update the leaderboard,
+show the leaderboard and show status.
  
 """
+#==== Imports ====#
+
 import datetime
 import math
 import os
 import text
 
-class Leaderboard:
+#==== Class and methods ====#
 
+class Leaderboard:
+    
+    # Constructor.
     def __init__(self, username, puzzle, count_time):
         
         self.username = username
         self.puzzle = puzzle
         self.count_time = count_time
     
+    # Self string.
     def __str__(self,  agg_time):
         return (f"{self.username},{self.puzzle},{self.count_time},{agg_time}\n")
-
+    
+    # Method to calculate puzzle time.
+    
     def count_time(start_time, end_time):
         
         start_time = math.trunc(start_time)
@@ -27,13 +37,15 @@ class Leaderboard:
         
         return count_time
     
+    # Method to update leaderboard.
+    
     def update_leaderboard(self):
         
         usernames = []
         
         try:
-
-            with open("leaderboard.txt", "r") as lb, open("new_leaderboard.txt", "a+") as new_lb:
+            # Look for username already in "leaderboard.txt" and update entry.
+            with open("../Resources/leaderboard.txt", "r") as lb, open("../Resources/new_leaderboard.txt", "a+") as new_lb:
                 
                 lines = lb.readlines()
                 
@@ -56,16 +68,16 @@ class Leaderboard:
                         time = line[3]
                         new_lb.write(f"{user},{status},{puzzle_time},{time}\n")
                         
-            os.remove("Leaderboard.txt")
-            os.rename("new_leaderboard.txt", "Leaderboard.txt")
+            os.remove("../Resources/Leaderboard.txt")
+            os.rename("../Resources/new_leaderboard.txt", "../Resources/Leaderboard.txt")
         
             lb.close()
         
         except:
             text.Colour("Failure to update the leaderboard!").red()
         
-        with open("leaderboard.txt", "r+") as lb:
-             
+        with open("../Resources/leaderboard.txt", "r+") as lb:
+             # Add new leaderboard entry.
              lines = lb.readlines()
              
              for line in lines:
@@ -91,9 +103,9 @@ class Leaderboard:
         
         lb.close()
         
+    # Method that takes each line from the "leaderboard.txt" and displays a leaderboard.
+   
     def show_Leaderboard():
-
-        # This function takes each line from the file and displays a leaderboard.
         
         def underline(text):
             print("\u0332".join(text))
@@ -101,7 +113,7 @@ class Leaderboard:
         file_set = []
         agg_times_set = []
         
-        with open("Leaderboard.txt", "r") as lb:
+        with open("../Resources/Leaderboard.txt", "r") as lb:
             
             lines = lb.readlines()
             
@@ -139,22 +151,24 @@ class Leaderboard:
                for item in file_set: 
                     if item[1] == "puzzle_three":
                         if math.floor(float(item[3])) == ele:
-                            print(f" #{count:<5}{item[0]:^15}{item[1]:^10}{str(datetime.timedelta(seconds = int(item[2]))):^20}{str(datetime.timedelta(seconds = int(ele))):^20}\n")
+                            print(f" #{count:<5}{item[0]:^15}{item[1]:^10}{str(datetime.timedelta(seconds = int(item[2]))):^19}{str(datetime.timedelta(seconds = int(ele))):^20}\n")
                             count += 1
             for ele in agg_times_set:
                 for item in file_set:                
                     if item[1] == "puzzle_two":
                         if math.floor(float(item[3])) == ele:
-                            print(f" #{count:<5}{item[0]:^15}{item[1]:^10}{str(datetime.timedelta(seconds = int(item[2]))):^20}{str(datetime.timedelta(seconds = int(ele))):^20}\n")
+                            print(f" #{count:<5}{item[0]:^15}{item[1]:^10}{str(datetime.timedelta(seconds = int(item[2]))):^21}{str(datetime.timedelta(seconds = int(ele))):^20}\n")
                             count += 1
             for ele in agg_times_set:
                for item in file_set:                 
                     if item[1] == "puzzle_one":
                         if math.floor(float(item[3])) == ele:
-                            print(f" #{count:<5}{item[0]:^15}{item[1]:^10}{str(datetime.timedelta(seconds = int(item[2]))):^20}{str(datetime.timedelta(seconds = int(ele))):^20}\n")
+                            print(f" #{count:<5}{item[0]:^15}{item[1]:^10}{str(datetime.timedelta(seconds = int(item[2]))):^21}{str(datetime.timedelta(seconds = int(ele))):^20}\n")
                             count += 1
         
         lb.close()
+    
+    # Method to show player status bar.
     
     def status_bar(puzzle): 
 

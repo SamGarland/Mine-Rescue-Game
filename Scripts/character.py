@@ -1,12 +1,18 @@
 """
 This is the character module with the Character class and methods.
+These are used to create and save a character to: "characters.txt" in Resources.
+
 """
+#==== Imports ====#
 
 import mine_rescue_main as main
 import text
 
+#==== Class and methods ====#
+
 class Character:
     
+    # Constructor
     def __init__(self, username, category, gender, hair_colour, hat, boots, equipment):
         
         self.username = username
@@ -16,15 +22,16 @@ class Character:
         self.hat = hat
         self.boots = boots
         self.equipment = equipment
-        
-        
+    
+    # Self string.
     def __str__(self):
         return (f"{self.username},{self.category},{self.gender},{self.hair_colour},{self.hat},{self.boots},{self.equipment}")
-
+    
+    # Method for creating and saving character.
     def create_character(username):
         text.Typed.typed_text("\n\nYou'd better choose ya'll a character! Now let's see to that.\n")
         
-        # Category selection
+        # Category selection.
         while True:
             category_select = input('''Now, choose your type of character from the list:
 Sherrif - "s"
@@ -54,7 +61,7 @@ Blacksmith - "b"
             else:
                 text.Colour("\n\nWhoa there, partner! That ain't somethin' y'all can pick.").red()
 
-        # Gender selection
+        # Gender selection.
         while True:
             gender_select = input('''\nWhat gender are ya'll?
 Male - "m"
@@ -84,7 +91,7 @@ Other - "o"
             else:
                 text.Colour("\n\nWhoa there, partner! That ain't somethin' you can pick.\n").red()
 
-        # Hair color selection
+        # Hair color selection.
         while True:
             hair_colour_select = input('''\nWhat's ya hair colour?
 Brown - "br"
@@ -124,7 +131,7 @@ Purple - "p"
             else:
                 text.Colour("\n\nWhoa there, partner! That ain't somethin' you can pick.\n").red()
 
-        # Hat selection
+        # Hat selection.
         while True:
             hat_select = input('''\nWhat colour hat it gon be?
 Black hat - "bh"
@@ -154,7 +161,7 @@ Red hat - "rh"
             else:
                 text.Colour("\n\nWhoa there, partner! That ain't somethin' you can pick.\n").red()
 
-        # Boots selection
+        # Boots selection.
         while True:
             boots_select = input('''\nWhat boots ya'll ride with?
 Riding boots - "rb"
@@ -179,7 +186,7 @@ Fashion boots - "fb"
             else:
                 text.Colour("\n\nWhoa there, partner! That ain't somethin' you can pick.\n").red()
 
-        # Equipment selection
+        # Equipment selection.
         while True:
             equipment_select = input('''\nWhat's ya choice of equipment? Remember to look around in the game to pick up more equipment!
 Lasso - "l"
@@ -209,18 +216,16 @@ Mask - "m"
             else:
                 text.Colour("\n\nWhoa there, partner! That ain't somethin' you can pick.\n").red()
         
-        # Create a new character instance
+        # Create a new character instance.
         new_character = Character(username, category, gender, hair_colour, hat, boots, equipment)
         
         # Write the character's information to file.
-        
-        with open('characters.txt', 'r+') as char_file:
+        with open("../Resources/characters.txt", "r+") as char_file:
             
             char_file.write(f"{Character.__str__(new_character)},puzzle_one\n")
             char_file.close()
         
-        # add custom message here!!
+        # Gameplay message.
         text.Typed.typed_text(f"\nCharacter created successfully! Welcome to the game, {username}. You're a {gender} {category} with {hair_colour} hair, a {hat}, {boots} and a {equipment}.\n\n")
-        
-        
+        # Load game with new character.
         main.load_progress(username)

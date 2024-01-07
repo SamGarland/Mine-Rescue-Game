@@ -1,17 +1,26 @@
 """
-This is the location module with functions.
+This is the location module with Location class and methods.
+These allow the player to 'look around' their environment. 
+They also allow the player to collect extra equipment. 
 
 """
+#==== Imports ====#
+
 import time
 import text
 import inventory
 
+#==== Class and methods ====#
+
 class Location:
     
+    # Constructor.
     def __init__(self, username, puzzle):
         self.username = username
         self.puzzle = puzzle
-        
+    
+    # Method to show location menu.
+    
     def get_loc_info(self):
         
         while True:
@@ -23,7 +32,7 @@ Look down - "d"
 Back to the puzzle - "e"
 :''').input_cyan())
             user_input.strip()
-            #try:
+            
             if user_input == "w":
                 Location(self.username, self.puzzle).description()
             elif user_input == "r":
@@ -38,11 +47,11 @@ Back to the puzzle - "e"
                 break
             else:
                 text.Colour("\nI'm not sure what you entered there, but it aint one of the options!\n").red()
-            #except:
-                text.Colour("\nI'm not sure what you entered there, but it aint one of the options!\n").red()
+    
+    # Method to give general location description.
     
     def description(self):
-        #This takes the puzzle name and returns a brief description of the location.
+        # This takes the puzzle name and returns a brief description of the location.
         try:
             if self.puzzle == "puzzle_one":
                 text.Colour("\nYa'll at the entrance to the Lower Creek Gold Mine. Damn, it's hot out here!\n").cyan()
@@ -82,8 +91,9 @@ Back to the puzzle - "e"
         except:
             text.Colour("\nSeems like you're lost my friend. I don't know where ya'll at!\n").red()
     
+    # Method allowing player to look right.
+    
     def look_right(self):
-        # This allows the player to look right.
         try:
             if self.puzzle == "puzzle_one":
                 text.Colour("\nThat big building is the pump house. That pumps all the water out of the mine, so it don't get too dangerous down there.\n").cyan()
@@ -99,17 +109,17 @@ Back to the puzzle - "e"
                 time.sleep(2)
                 equip = equip.lower().strip(" ")
                 if equip == "y":
-                    #check equipment for lasso
+                    # Check equipment for lasso.
                     if inventory.Inventory(self.username).has_required_epuipment("lasso"):
                         text.Colour("\nNow now, I see you already got a lasso!\n\nNo need for another one...\n").cyan()
                         time.sleep(1)
                     else:
-                        #add lasso to inventory
+                        # Add lasso to inventory.
                         inventory.Inventory(self.username).pickup_equipment("lasso")
                         text.Colour("\nYa'll picked-up a lasso! Yeeehaaaww!\n").cyan()
                         time.sleep(1)
                 elif equip == "n":
-                    #reject equipment
+                    # Reject equipment.
                     text.Colour("\nWhy that could'a come in handy! Ah well, I guess we don't wana be carrying too much stuff around...\n\n").cyan()
             elif self.puzzle == "puzzle_three":
                 text.Colour("\nI can't see much over there.\nJust a couple ol' oil lamps and some crates.\n").cyan()
@@ -128,7 +138,7 @@ Back to the puzzle - "e"
             elif self.puzzle == "puzzle_five":
                 text.Colour("\nThere's the panel! Looks kind of rusty and old, but maybe you can figure something out...\n").cyan()
                 time.sleep(2)
-                text.Colour("Ahah! Look on the wall there!\n\n[Written on the wall] +, -, 98, 7, 6, 5, 4, 3, 2, 1... 100?\n").cyan()
+                text.Colour("Ahah! Look on the wall there!\n\n[Written on the wall] (98 - 7) ...+, -, 6, 5, 4, 3, 2, 1... = 100...?\n").cyan()
                 time.sleep(2)
                 text.Colour("Them must be the notes that they's talking bout!").cyan()
                 time.sleep(2)
@@ -137,8 +147,9 @@ Back to the puzzle - "e"
         except:
             text.Colour("\nSeems like you're lost my friend. I don't know where ya'll at!\n").red()
     
+    # Method that allows player to look left.
+    
     def look_left(self):
-        # This allows the player to look left.
         try:
             if self.puzzle == "puzzle_one":
                 text.Colour("\nThem mountains are mighty big off in the distance. Nothing between here and there but scorched desert...\n").cyan()
@@ -166,8 +177,9 @@ Back to the puzzle - "e"
         except:
             text.Colour("\nSeems like you're lost my friend. I don't know where ya'll at!\n").red()
     
+    # Method that allows player to look up.
+    
     def look_up(self):
-        # This allows the player to look up.
         try:
             if self.puzzle == "puzzle_one":
                 text.Colour("\nBeautiful blue! Not a cloud in the sky!\n").cyan()
@@ -186,17 +198,17 @@ Back to the puzzle - "e"
                 time.sleep(2)
                 equip = equip.lower().strip(" ")
                 if equip == "y":
-                    #check equipment for mask
+                    # Check equipment for mask.
                     if inventory.Inventory(self.username).has_required_epuipment("mask"):
                         text.Colour("\nNow now, I see you already got a mask!\n\nNo need for another one...\n").cyan()
                         time.sleep(1)
                     else:
-                        #add mask to inventory
+                        # Add mask to inventory.
                         inventory.Inventory(self.username).pickup_equipment("mask")
                         text.Colour("\nYa'll picked-up a mask! Yeeehaaaww!\n").cyan()
                         time.sleep(1)
                 elif equip == "n":
-                    #reject equipment
+                    # Reject equipment.
                     text.Colour("\nWhy that could'a come in handy! Ah well, I guess we don't wana be carrying too much stuff around...\n\n").cyan()
             elif self.puzzle == "puzzle_four":
                 text.Colour("\nI can jus about see the roof of this thing.\n").cyan()
@@ -211,8 +223,9 @@ Back to the puzzle - "e"
         except:
             text.Colour("\nSeems like you're lost my friend. I don't know where ya'll at!\n").red()
     
+    # Method that allows player to look down.
+    
     def look_down(self):
-        # This allows the player to look down.
         try:
             if self.puzzle == "puzzle_one":
                 text.Colour("\nNothing much around here on the floor. Just a bunch of dust bits of old oily rag...\n").cyan()
@@ -223,17 +236,17 @@ Back to the puzzle - "e"
                 time.sleep(2)
                 equip = equip.lower().strip(" ")
                 if equip == "y":
-                    #check equipment for notebook
+                    # Check equipment for notebook.
                     if inventory.Inventory(self.username).has_required_epuipment("notebook"):
                         text.Colour("\nNow now, I see you already got a notebook!\n\nNo need for another one...\n").cyan()
                         time.sleep(1)
                     else:
-                        #add lasso to inventory
+                        # Add lasso to inventory.
                         inventory.Inventory(self.username).pickup_equipment("notebook")
                         text.Colour("\nYa'll picked-up a notebook! Yeeehaaaww!\n").cyan()
                         time.sleep(1)
                 elif equip == "n":
-                    #reject equipment
+                    # Reject equipment.
                     text.Colour("\nWhy that could'a come in handy! Ah well, I guess we don't wana be carrying too much stuff around...\n\n").cyan()
             elif self.puzzle == "puzzle_two":
                 text.Colour("\nThere's bits of track all over the place.\n").cyan()

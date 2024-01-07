@@ -1,23 +1,29 @@
 """
-This is the puzzle module with Puzzle class and methods.
+This is the puzzle module with Puzzle class and methods containing puzzles 1-5.
+These puzzles form the bulk of the gameplay.
 
 """
+#==== Imports ====#
+
 import random
 import time
-import avatar
+import npc
 import mine_rescue_main as main
 import location
 import leaderboard
 import text
 import inventory
 
+#==== Class and methods ====#
+
 class Puzzle:
     
+    # Constructor.
     def __init__(self, username):
         self.username = username
-        self.avatar = avatar.Avatar()
+        self.npc = npc.Npc()
 
-#==== Function for puzzle_one to shift text ====#
+    # Method for puzzle_one to shift text.
 
     def caesar_cipher(self, text, shift):
         result = ""
@@ -38,18 +44,19 @@ class Puzzle:
             
         return result
 
-#==== First Puzzle - Decode the writing ====#
+    # Method giving First Puzzle - Decode the Writing.
 
     def puzzle_one(self):
         
+        # Game intro.
         text.Typed.intro()
         
         time.sleep(3)
         text.Colour(f"\n\nWhoa there, who's that fella running at you from the entrace of the mine {self.username.title()}?\n\n").cyan()
         time.sleep(2)
         text.Colour("[A mine worker runs up to you speaking an unknown language.]\n\n").magenta()
-        # Use Avatar class for intro speech
-        text.Colour(f"[He babbles:] {self.avatar.get_intro('railwayman_one')}\n\n").magenta()
+        # Use Npc class for intro speech.
+        text.Colour(f"[He babbles:] {self.npc.get_intro('railwayman_one')}\n\n").magenta()
         time.sleep(3)
         text.Colour("[He then hands you a piece of paper with words on it and points towards the mine.]\n\n").magenta()
         time.sleep(2)
@@ -58,8 +65,8 @@ class Puzzle:
                 
         original_sentence = "To make your way into the tunnel, you\'re gona need to get on a MINECART"
         answer = "minecart"
-
-
+        
+        # Puzzle menu.
         while True:
                 
                 options = input(text.Colour('''\nI wonder what that was all about...Maybe there's a puzzle to solve?\n\n
@@ -71,8 +78,10 @@ Save and Exit - e
 ''').input_cyan())
                 
                 options = options.lower().strip(" ")
-        
+                
+                # Puzzle logic.
                 if options == "1":
+                    # Start timer.
                     start_time = time.perf_counter()
                     
                     while True:
@@ -80,24 +89,23 @@ Save and Exit - e
                         ciphered_text = self.caesar_cipher(original_sentence, shift)
                         text.Colour(f"[The writing says:]'{ciphered_text}'\n\n\n").magenta()
                         
-                        time.sleep(5)
-                        
+                        time.sleep(3)
                         user_input = input(text.Colour("Looks like you gotta make some sense of this and figure out the key word\nEnter the key:\n\n\n").input_cyan()).strip().lower()
+                        time.sleep(2)
                         
-                        time.sleep(5)
-
                         if user_input == answer:
-                            
+                            # End timer.
                             end_time = time.perf_counter()
                             text.Colour(f"\nWell done {self.username.title()}! You found the way.\n\n\n").cyan()
-                            
+                            # Count the time taken.
                             count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                            # Update leaderboard.
                             leaderboard.Leaderboard(self.username, "puzzle_two", count_time).update_leaderboard()
-                            
+                            # Show leaderboard.
                             leaderboard.Leaderboard.show_Leaderboard()
-                            
+                            # Save progress.
                             main.save_progress(self.username, "puzzle_two")
-                            
+                            # Continue game menu.
                             options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
 Continue - "c"
 Exit - "e"
@@ -105,76 +113,78 @@ Exit - "e"
                             options = options.lower().strip(" ")
                             
                             if options == "c":
-                                
+                                # Go to next puzzle.
                                 main.load_progress(self.username)
                                 return True
                             
                             elif options == "e":
+                                # Exit
                                 time.sleep(2)
                                 text.Colour("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n").cyan()
                                 return False
                             
                             else:
                                 time.sleep(2)
-                                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                 continue
-                                
+                            
                         elif user_input != answer:
                             
                             text.Colour("Oh dust!, the writing changed?!\n\n\n").cyan()
-                            
                             time.sleep(2)
-                            
+                            # Continue puzzle menu.
                             cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
-                            
                             cont = cont.lower().strip(" ")
                             
                             if cont == "y":
                                 continue
                             elif cont == "e":
-                            
+                                # End time.
                                 end_time = time.perf_counter()
-                                
+                                # Count time.
                                 count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                # Update leaderboard.
                                 leaderboard.Leaderboard(self.username, "puzzle_one", count_time).update_leaderboard()
-
                                 break
                             
                             else:
-                                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                 continue
                             
                         else:
-                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                             continue
-        
+                        
+                # Rehear puzzle.
                 elif options == "2":
                     
                     time.sleep(3)
                     text.Colour(f"\n\nWhoa there, who's that fella running at you from the entrace of the mine {self.username.title()}?\n\n").cyan()
                     time.sleep(2)
                     text.Colour("[A mine worker runs up to you speaking an unknown language.]\n\n").magenta()
-                    # Use Avatar class for intro speech
-                    text.Colour(f"[He babbles:] {self.avatar.get_intro('railwayman_one')}\n\n").magenta()
+                    text.Colour(f"[He babbles:] {self.npc.get_intro('railwayman_one')}\n\n").magenta()
                     time.sleep(2)
                     text.Colour("[He then hands you a piece of paper with words on it and points towards the mine.]\n\n").magenta()
                     time.sleep(2)
-        
+                    
+                # Go to location menu.
                 elif options == "3":
                     
                     location.Location(self.username, "puzzle_one").get_loc_info()
-                    
+                
+                # Show status.
                 elif options == "4":
                     
                     leaderboard.Leaderboard.status_bar("puzzle_one")
-                    
+                
+                # Save and exit to start menu.
                 elif options == "e":
                     main.save_progress(self.username, "puzzle_one")
                     break
                 else:
-                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
 
-#==== Second Puzzle - Railway Expansion ====#
+    # Method giving Second Puzzle - Railway Expansion.
 
     def puzzle_two(self):
         
@@ -182,16 +192,16 @@ Exit - "e"
         text.Colour("\n\n[As you mosey along the rusty old railway, you hear someone shouting at you to stop.]\n\n").magenta()
         text.Colour("Who's that dusty man?\n\n").cyan()
         time.sleep(2)
-        
-        # Use Avatar class for intro speech
-        text.Colour(f"[A railwayman runs up to you and says:]\n\n{self.avatar.get_intro('railwayman_two')}\n\n").magenta()
+        # Use Npc class for intro speech.
+        text.Colour(f"[A railwayman runs up to you and says:]\n\n{self.npc.get_intro('railwayman_two')}\n\n").magenta()
         time.sleep(2)
         
-        # Set the required item for the puzzle
+        # Set the required item for puzzle hint.
         puzzle_two_item = "hammer"
         
-        # Pompting for a hint
-        text.Colour(f"{self.avatar.get_prompt('railwayman_two')}\n").magenta()
+        # Prompting for a hint.
+        text.Colour(f"{self.npc.get_prompt('railwayman_two')}\n").magenta()
+        # Hint menu.
         while True: 
             choice = input(text.Colour('''How'd you wana respond partner?
 Yes - "y"
@@ -201,9 +211,12 @@ Check inventory - "c"
             choice = choice.lower().strip(" ")
         
             if choice == "y":
+                # Checking player equipment.
                 if inventory.Inventory(self.username).has_required_epuipment(puzzle_two_item):
                     time.sleep(2)
-                    text.Colour(f"\n\n{self.avatar.get_hint('railwayman_two')}\n\n").magenta()
+                    # Get hint.
+                    text.Colour(f"\n\n{self.npc.get_hint('railwayman_two')}\n\n").magenta()
+                    # Update equipment
                     inventory.Inventory(self.username).update_equipment(puzzle_two_item)
                     break
                 else:
@@ -214,6 +227,7 @@ Check inventory - "c"
                 time.sleep(2)
                 text.Colour("\n\nOh riddens, that hammer sure would've been handy\n\n").cyan()
                 break
+            # Player checks inventory.
             elif choice == "c":
                 time.sleep(2)
                 text.Colour(f"\n\nYour equipment: {inventory.Inventory(self.username).get_inventory_item()}\n\n").green()
@@ -222,6 +236,7 @@ Check inventory - "c"
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
                 time.sleep(2)
                 
+        # Puzzle menu.       
         while True:
                 
                 options = input(text.Colour('''\nI wonder what that was all about...Maybe there's a puzzle to solve?\n\n
@@ -233,112 +248,116 @@ Save and Exit - e
 \n''').input_cyan())
                 
                 options = options.lower().strip(" ")
-        
+                
+                # Puzzle Logic.
                 if options == "1":
+                    # Start timer.
                     start_time = time.perf_counter()
-        
-                    #Puzzle Logic
+                    
                     while True:
-                        
+                        # Show text image two.
                         text.Typed.image_two()
-                        
-                        answer = input(text.Colour("\nWhat's the height of the arch at the center of the railway track? Enter your answer in centimetres:\n\n").input_cyan())
-                        answer = int(answer)
-                        
+
+                        answer = input(text.Colour("\nWhat's the height of the arch at the center of the railway track? Enter your answer to the nearest meter:\n\n").input_cyan())
                         try:
+                            answer = int(answer)
                             
-                            if answer >= 708 and answer <= 709:
-                                end_time = time.perf_counter()
+                            try:
                                 
-                                time.sleep(2)
-                                text.Colour(f"\nYou've only gone and done it {self.username.title()}, seems our cart is about a metre long so we'll make it over\n").cyan()
-                            
-                                count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                leaderboard.Leaderboard(self.username, "puzzle_three", count_time).update_leaderboard()
-                                
-                                leaderboard.Leaderboard.show_Leaderboard()
-                                
-                                main.save_progress(self.username, "puzzle_three")
-                                
-                                options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
+                                if answer == 7:
+                                    # End timer.
+                                    end_time = time.perf_counter()
+                                    time.sleep(2)
+                                    text.Colour(f"\nYou've only gone and done it {self.username.title()}, seems our cart is about a metre long so we should make it over.\n").cyan()
+                                    # Count the time taken.
+                                    count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                    # Update leaderboard.
+                                    leaderboard.Leaderboard(self.username, "puzzle_three", count_time).update_leaderboard()
+                                    # Show leaderboard.
+                                    leaderboard.Leaderboard.show_Leaderboard()
+                                    # Save progress.
+                                    main.save_progress(self.username, "puzzle_three")
+                                    # Continue game menu.
+                                    options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
 Continue - "c"
 Exit - "e"
 :''').input_cyan())
-                                options = options.lower().strip(" ")
-                                
-                                if options == "c":
+                                    options = options.lower().strip(" ")
                                     
-                                    main.load_progress(self.username)
-                                    return True
-                                
-                                elif options == "e":
+                                    if options == "c":
+                                        # Go to next puzzle.
+                                        main.load_progress(self.username)
+                                        return False
+                                    
+                                    elif options == "e":
+                                        # Exit
+                                        time.sleep(2)
+                                        text.Colour("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n").cyan()
+                                        return False
+                                    
+                                    else:
+                                        time.sleep(2)
+                                        text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
+                                        continue
+                                        
+                                elif answer != 7:
+                                    
                                     time.sleep(2)
-                                    text.Colour("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n").cyan()
-                                    return False
+                                    # Continue puzzle menu.
+                                    cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
+                                    cont = cont.lower().strip(" ")
+                                    
+                                    if cont == "y":
+                                        continue
+                                    elif cont == "e":
+                                        # End time.
+                                        end_time = time.perf_counter()
+                                        # Count time.
+                                        count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                        # Update leaderboard.
+                                        leaderboard.Leaderboard(self.username, "puzzle_two", count_time).update_leaderboard()
+                                        break
+                                    
+                                    else:
+                                        time.sleep(2)
+                                        text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
+                                        continue
                                 else:
-                                    time.sleep(2)
-                                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
-                                    continue
-                                    
-                            elif answer < 708 and answer > 709:
-                                
-                                time.sleep(2)
-                                
-                                cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
-                                
-                                cont = cont.lower().strip(" ")
-                                
-                                if cont == "y":
-                                    continue
-                                elif cont == "e":
-                                
-                                    end_time = time.perf_counter()
-                                    
-                                    count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                    leaderboard.Leaderboard(self.username, "puzzle_two", count_time).update_leaderboard()
-                                    
-                                    break
-                                
-                                else:
-                                    time.sleep(2)
-                                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
-                                    continue
-                            else:
-                                time.sleep(2)
-                                text.Colour("\nHmm, that don't seem quite right, have another go eh?\n\n").red()
-                        except ValueError:
-                            time.sleep(2)
-                            text.Colour("\nNow now, enter a number, not some gibberish you fool!\n\n").red() #if input is not an integer prompt to retry
-                
+                                    time.sleep(1)
+                                    text.Colour("\nHmm, that don't seem quite right, have another go eh?\n\n").red()
+                            except:
+                                time.sleep(1)
+                                text.Colour("\nNow now, enter a number, not some gibberish you fool!\n\n").red()
+                        except:
+                            time.sleep(1)
+                            text.Colour("Enter a number ya'll!").red()
+                # Rehear puzzle.
                 elif options == "2":
                     
                     time.sleep(2)
                     text.Colour("\n\n[As you mosey along the rusty old railway, you hear someone shouting at you to stop.]\n\n Who's that dusty man?\n\n").cyan()
                     time.sleep(2)
-                    
-                    # Use Avatar class for intro speech
-                    text.Colour(f"[A railwayman runs up to you and says:]\n\n{self.avatar.get_intro('railwayman_two')}\n\n").magenta()
+                    text.Colour(f"[A railwayman runs up to you and says:]\n\n{self.npc.get_intro('railwayman_two')}\n\n").magenta()
                     time.sleep(2)
-                    
+                # Go to location menu.  
                 elif options == "3":
                     
                     location.Location(self.username, "puzzle_two").get_loc_info()
-                    
+                # Show status bar.   
                 elif options == "4":
                     
                     leaderboard.Leaderboard.status_bar("puzzle_two")
-                    
+                # Save and exit to start menu.   
                 elif options == "e":
                     main.save_progress(self.username, "puzzle_two")
                     break
                 else:
-                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
 
-#==== Third Puzzle - Break the links ====#
+    # Method giving Third Puzzle - Break the links.
 
     def puzzle_three(self):
-        
-        
+
         time.sleep(3)
         text.Colour(f"\n\nOh no {self.username.title()}! The tunnel ahead has collapsed, that's the end of this track...\n\n").cyan()
         time.sleep(2)
@@ -346,18 +365,19 @@ Exit - "e"
         time.sleep(2)
         text.Colour("There's just a narrow crawl space left.\n\n").cyan()
         time.sleep(2)
+        # Show text image.
         text.Typed.image_three()
         time.sleep(2)
         text.Colour("[A miner hollers at ya'll from the other side of the crawl space:]\n").magenta()
         time.sleep(2)
-        # Use Avatar class for intro speech
-        text.Colour(f"{self.avatar.get_intro('miner_crawlspace')}\n\n").magenta()
+        # Use Npc class for intro speech.
+        text.Colour(f"{self.npc.get_intro('miner_crawlspace')}\n\n").magenta()
         time.sleep(2)
 
         puzzle_three_item = "lasso"
         
-        # Pompting for a hint
-        text.Colour(f"'{self.avatar.get_prompt('miner_crawlspace')}'\n").magenta()
+        # Prompting for a hint.
+        text.Colour(f"{self.npc.get_prompt('miner_crawlspace')}\n").magenta()
         while True:
             choice = input(text.Colour('''How'd you wana respond partner?
 Yes - "y"
@@ -367,9 +387,12 @@ Check inventory - "c"
             choice = choice.lower().strip(" ")
         
             if choice == "y":
+                # Checking player equipment.
                 if inventory.Inventory(self.username).has_required_epuipment(puzzle_three_item):
                     time.sleep(2)
-                    text.Colour(f"\n{self.avatar.get_hint('miner_crawlspace')}\n\n").magenta()
+                    # Get hint.
+                    text.Colour(f"\n{self.npc.get_hint('miner_crawlspace')}\n\n").magenta()
+                    # Update equipment.
                     inventory.Inventory(self.username).update_equipment(puzzle_three_item)
                     break
                 else:
@@ -378,8 +401,9 @@ Check inventory - "c"
                     break
             elif choice == "n":
                 time.sleep(2)
-                text.Colour("\nI sure could've given you a hand if you had a lasso my friend\n\n").cyan()
+                text.Colour("\nI sure could've given you a hand if you had a lasso my friend\n\n").magenta()
                 break
+            # Player checks inventory.
             elif choice == "c":
                 time.sleep(2)
                 text.Colour(f"Your equipment: {inventory.Inventory(self.username).get_inventory_item()}\n\n").green()
@@ -387,7 +411,7 @@ Check inventory - "c"
             else:
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
                 time.sleep(2)
-
+        # Puzzle menu.
         while True:
 
             options = input(text.Colour('''\nI wonder what that was all about...Maybe there's a puzzle to solve?\n\n
@@ -399,35 +423,34 @@ Save and Exit - e
 \n''').input_cyan())
                 
             options = options.lower().strip(" ")
-    
+            
+            # Puzzle Logic.
             if options == "1":
+                # Start timer.
                 start_time = time.perf_counter()
-    
-                #Puzzle Logic
-        
+            
                 while True:
                     try:
                         time.sleep(2)
                         user_input = input(text.Colour("\nThink hard and enter the minimum number of breaks needed to fix this chain: \n").input_cyan()).strip()
-                        
                         number_of_breaks = int(user_input)
                         
                         if number_of_breaks == 4:
-                            
+                            # End time.
                             end_time = time.perf_counter()
-                                
                             time.sleep(2)
                             text.Colour(f"\nAin't you a clever one {self.username.title()}! You're sharper than the prick of a cactus! Only 4 breaks are needed.\n\n").cyan()
                             time.sleep(2)
                             text.Colour("[The miner swiftly breaks the links, joins the chain, and pulls you through the space.]\n\n").magenta()
-
+                            # Count time.
                             count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                            # Update leaderboard.
                             leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
-                            
+                            # Show leaderboard.
                             leaderboard.Leaderboard.show_Leaderboard()
-                            
+                            # Save progress.
                             main.save_progress(self.username, "puzzle_four")
-                            
+                            # Continue game menu.
                             options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
 Continue - "c"
 Exit - "e"
@@ -435,11 +458,12 @@ Exit - "e"
                             options = options.lower().strip(" ")
                                 
                             if options == "c":
-                                
+                                # Go to next puzzle.
                                 main.load_progress(self.username)
                                 return True
                             
                             elif options == "e":
+                                # Exit to start menu.
                                 time.sleep(2)
                                 text.Colour("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n").cyan()
                                 return False
@@ -452,32 +476,29 @@ Exit - "e"
                             
                             time.sleep(2)
                             text.Colour("\nNope, that ain't it. You gotta think like you're spendin' links, not silver dollars. Try again...\n").red()
-
                             time.sleep(2)
+                            # Continue puzzle menu.
                             cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
-                            
                             cont = cont.lower().strip(" ")
                             
                             if cont == "y":
                                 continue
                             elif cont == "e":
-                            
+                                # End time.
                                 end_time = time.perf_counter()
-                                
+                                # Count time.
                                 count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                # Update leaderboard.
                                 leaderboard.Leaderboard(self.username, "puzzle_three", count_time).update_leaderboard()
-                                
                                 break
                             
                         else:
                             time.sleep(2)
-                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                             continue
-                    except ValueError as e:
-                        text.Colour(f"There was an error in the value: {e}").red()
-                    except Exception as e:
-                        text.Colour(f"There was an unknown error: {e}").red()
-            
+                    except:
+                        text.Colour("Enter a number ya'll!").red()
+            # Rehear puzzle.
             elif options == "2":
                 
                 time.sleep(3)
@@ -489,25 +510,24 @@ Exit - "e"
                 time.sleep(2)
                 text.Colour("[A miner hollers at ya'll from the other side of the crawl space:]\n").magenta()
                 time.sleep(2)
-                # Use Avatar class for intro speech
-                text.Colour(f"{self.avatar.get_intro('miner_crawlspace')}\n\n").magenta()
+                text.Colour(f"{self.npc.get_intro('miner_crawlspace')}\n\n").magenta()
                 time.sleep(2)
-                
+            # Go to location menu.   
             elif options == "3":
                 
                 location.Location(self.username, "puzzle_three").get_loc_info()
-                
+            # Show status bar.  
             elif options == "4":
                 
                 leaderboard.Leaderboard.status_bar("puzzle_three")
-                
+            # Save and exit to start menu.
             elif options == "e":
                 main.save_progress(self.username, "puzzle_three")
                 break
             else:
-                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
 
-#==== Fourth Puzzle - Cross the lake ====#
+    # Method giving Fourth Puzzle - Cross the lake.
 
     def puzzle_four(self):
         
@@ -522,13 +542,14 @@ Exit - "e"
         time.sleep(2)
         text.Colour("There's a rickety old boat, a jittery old miner, some unstable dynamite, and a sneaky rat!\n\n").cyan()
         time.sleep(2)
+        # Show text image.
         text.Typed.image_four()
         time.sleep(2)
         text.Colour("\nI reckon ya'll gotta get em all across to the other side before the whole place floods!\n\n").cyan()
         time.sleep(2)
         
-        # Use Avatar class for intro speech
-        text.Colour(f"[The jittery miner stumbles up to you:]\n{self.avatar.get_intro('miner_two')}\n\n").magenta()
+        # Use Npc class for intro speech.
+        text.Colour(f"[The jittery miner stumbles up to you:]\n{self.npc.get_intro('miner_two')}\n\n").magenta()
         time.sleep(2)
         
         puzzle_four_item = "mask"
@@ -541,9 +562,10 @@ C - Take Miner Across/Back
 D - Take Nothing Across/Back
 ''').magenta()
         
-        # Pompting for a hint
+        # Prompting for a hint.
         time.sleep(3)
-        text.Colour(f"{self.avatar.get_prompt('miner_two')}\n\n\n").magenta()
+        text.Colour(f"{self.npc.get_prompt('miner_two')}\n\n\n").magenta()
+        # Hint menu.
         while True: 
             choice = input(text.Colour('''How'd you wana respond partner?
 Yes - "y"
@@ -552,9 +574,12 @@ Check inventory - "c"
 ''').input_cyan())
             choice = choice.lower().strip(" ")        
             if choice == "y":
+                # Checking player equipment.
                 if inventory.Inventory(self.username).has_required_epuipment(puzzle_four_item):
                     time.sleep(2)
-                    text.Colour(f"{self.avatar.get_hint('miner_two')}\n\n").magenta()
+                    # Get hint.
+                    text.Colour(f"{self.npc.get_hint('miner_two')}\n\n").magenta()
+                    # Update equipment.
                     inventory.Inventory(self.username).update_equipment(puzzle_four_item)
                     break
                 else:
@@ -565,18 +590,20 @@ Check inventory - "c"
                 time.sleep(2)
                 text.Colour("No mask eh? Guess you gotta figure it out ya self\n\n").magenta()
                 break
+            # Player checks inventory.
             elif choice == "c":
                 time.sleep(2)
                 text.Colour(f"Your equipment: {inventory.Inventory(self.username).get_inventory_item()}\n\n").green()
                 continue
             else:
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
-                time.sleep(2)        
-        
-        leave_puzzle = False
-        
+                time.sleep(2)
+        # Puzzle menu.
         while True:
+            # Some puzzle flags.
             leave_puzzle = False
+            set_three_used = False
+            set_five_used = False
             time.sleep(2)
             options = input(text.Colour('''\nI wonder what that was all about...Maybe there's a puzzle to solve?\n\n
 Solve puzzle - 1
@@ -587,29 +614,26 @@ Save and Exit - e
 \n''').input_cyan())
         
             options = options.lower().strip(" ")
-            solution = {1 : ["b","B"],
-                    2 : ["d", "D"],
-                    3 : ["a", "A", "c", "C"],
-                    4 : ["b", "B"],
-                    5 : ["c", "C", "a", "A"],
-                    6 : ["d", "D"],
-                    7 : ["b", "B"]
-                    }  # The correct sequence of actions
+            # Solution dictionary.
+            solution = {1 : ["a", "A"],
+                    2 : ["b","B"],
+                    3 : ["c", "C"],
+                    4 : ["d", "D"]}
         
-        # Puzzle Logic
+            # Puzzle Logic - nested while loops so that player doesn't lose entire puzzle entry if one entry is wrong.
             if options == "1":
             
                 while True:
-                    
+                    # Breakout conditional - to break out of multiple while loops back to puzzle menu.
                     if leave_puzzle == True:
                        break
                     else:
-                        
+                        # Start timer.
                         start_time = time.perf_counter()
                         answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n:").input_cyan())
                         answer = answer.strip(" ")
                     
-                        if answer in solution[1]:
+                        if answer in solution[2]:
                             
                             text.Colour(f"\nThat's a good start {self.username.title()}.\n").cyan()
                             
@@ -624,7 +648,7 @@ Save and Exit - e
                                     answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n:").input_cyan())
                                     answer = answer.lower().strip(" ")
                                     
-                                    if answer in solution[2]:
+                                    if answer in solution[4]:
                                         
                                         text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
                                     
@@ -639,7 +663,15 @@ Save and Exit - e
                                                 answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n:").input_cyan())
                                                 answer = answer.lower().strip(" ")
                                                 
-                                                if answer in solution[3]:
+                                                # As either "A" or "C" could be selected at this point.
+                                                if answer in solution[1] or answer in solution[3]:
+                                                    # Set flags depending on whether "A" or "C" selected - as if action 3 is "A" then the action 5 must be "C".
+                                                    if answer in solution[1]:
+                                                        set_three_used = True
+                                                        take_across_one = "A - Take Rat Across/Back."
+                                                    elif answer in solution[3]:
+                                                        take_across_one ="C - Take Miner Across/Back."
+                                                        set_five_used = True
                                                     
                                                     text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
                                                     
@@ -649,12 +681,12 @@ Save and Exit - e
                                                            break
                                                         else:
                                                         
-                                                            text.Colour("\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\nA/C - Take Rat or Miner Across/Back.\n").cyan()
+                                                            text.Colour(f"\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n{take_across_one}\n").cyan()
                                                             
                                                             answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n:").input_cyan())
                                                             answer = answer.lower().strip(" ")
                                                         
-                                                            if answer in solution[4]:
+                                                            if answer in solution[2]:
                                                                 
                                                                 text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
                                                                 
@@ -664,12 +696,18 @@ Save and Exit - e
                                                                        break
                                                                     else:
                                                                         
-                                                                        text.Colour("\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\nA/C - Take Rat or Miner Across/Back.\nB - Take Dynamite Across/Back.\n").cyan()
+                                                                        text.Colour(f"\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n{take_across_one}\nB - Take Dynamite Across/Back.\n").cyan()
                                                                         
                                                                         answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n:").input_cyan())
                                                                         answer = answer.lower().strip(" ")
                                                                         
-                                                                        if answer in solution[5]:
+                                                                        # Ensuring either "A" or "C" has not been entered twice using flags established above.
+                                                                        if (answer in solution[3] and set_three_used == True) or (answer in solution[1] and set_five_used == True):
+                                                                            
+                                                                            if answer in solution[1]:
+                                                                                take_across_two = "A - Take Rat Across/Back."
+                                                                            elif answer in solution[3]:
+                                                                                take_across_two ="C - Take Miner Across/Back."                                              
                                                                             
                                                                             text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
                                                                             
@@ -679,12 +717,12 @@ Save and Exit - e
                                                                                    break
                                                                                 else:
                                                                             
-                                                                                    text.Colour("\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\nA/C - Take Rat or Miner Across/Back.\nB - Take Dynamite Across/Back.\nA/C - Take Rat or Miner Across/Back.\n").cyan()
+                                                                                    text.Colour(f"\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n{take_across_one}\nB - Take Dynamite Across/Back.\n{take_across_two}\n").cyan()
                                                                                     
                                                                                     answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n:").input_cyan())
                                                                                     answer = answer.lower().strip(" ")
                                 
-                                                                                    if answer in solution[6]:
+                                                                                    if answer in solution[4]:
                                                                                         
                                                                                         text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
                                                                                         
@@ -694,38 +732,36 @@ Save and Exit - e
                                                                                                break
                                                                                             else:
                                                                                             
-                                                                                                text.Colour("\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\nA/C - Take Rat or Miner Across/Back.\nB - Take Dynamite Across/Back.\nA/C - Take Rat or Miner Across/Back.\nD - Take Nothing Across/Back.\n").cyan()
+                                                                                                text.Colour(f"\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n{take_across_one}\nB - Take Dynamite Across/Back.\n{take_across_two}\nD - Take Nothing Across/Back.\n").cyan()
                                                                                                 answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n:").input_cyan())
                                                                                                 answer = answer.lower().strip(" ")
                                     
-                                                                                                if answer in solution[7]:
-                                                                                                            
+                                                                                                if answer in solution[2]:
+                                                                                                    # End timer.
                                                                                                     end_time = time.perf_counter()
-                                                                                                    puzzle_four_completed = True
                                                                                                     time.sleep(2)
                                                                                                     text.Colour(f"\nYeehaw! Ya did it {self.username.title()}! All safe and sound on t'other side.\n\n").cyan()
                                                                                                     time.sleep(2)
-                                                                                                    text.Colour("\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\nA/C - Take Rat or Miner Across/Back.\nB - Take Dynamite Across/Back.\nA/C - Take Rat or Miner Across/Back.\nD - Take Nothing Across/Back.\nB - Take Dynamite Across/Back.\n").cyan()
-                                                                                                    
-                                                                                                    # Save progress and update time and leaderboard
+                                                                                                    text.Colour(f"\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n{take_across_one}\nB - Take Dynamite Across/Back.\n{take_across_two}\nD - Take Nothing Across/Back.\nB - Take Dynamite Across/Back.\n").cyan()
+                                                                                                    # Count time.
                                                                                                     count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                                                                                    # Update leaderboard.
                                                                                                     leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
-                                                                                                    
+                                                                                                    # Show leaderboard.
                                                                                                     leaderboard.Leaderboard.show_Leaderboard()
-                                                                                                    
+                                                                                                    # Save progress.
                                                                                                     main.save_progress(self.username, "puzzle_five")
-                                                                                            
+                                                                                                    # Continue game menu.
                                                                                                     options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
 Continue - "c"
 Exit - "e"
 :''').input_cyan())
                                                                                                     options = options.lower().strip(" ")
-                                                                                                        
+                                                                                                    # Go to next puzzle.   
                                                                                                     if options == "c":
-                                                                                                        
                                                                                                         main.load_progress(self.username)
                                                                                                         return False
-                                                                                                    
+                                                                                                    # Exit to start menu.
                                                                                                     elif options == "e":
                                                                                                         time.sleep(2)
                                                                                                         text.Colour("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n").cyan()
@@ -736,39 +772,40 @@ Exit - "e"
                                                                                                         continue
                                                                                                     break
                                                                     
-                                                                                                elif answer not in solution[7]:
+                                                                                                elif answer not in solution[2]:
                                                                                                     
                                                                                                     time.sleep(2)
                                                                                                     text.Colour("\nThat don't sound quite right, we ain't got forever...\n\n").red()
                                                                                                     time.sleep(1)
-                                                                                                    
+                                                                                                    # Continue puzzle menu.
                                                                                                     cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
                                                                                                     cont = cont.lower().strip(" ")
                                                                                                     
                                                                                                     if cont == "y":
                                                                                                         continue
                                                                                                     elif cont == "e":
+                                                                                                        # End timer.
                                                                                                         end_time = time.perf_counter()
-                                    
                                                                                                         time.sleep(1)
                                                                                                         text.Colour("\n\nReckon the gas hurt'n ya brain my friend.\n").red()
                                                                                                         time.sleep(2)
-                                                                                                        
+                                                                                                        # Count time.
                                                                                                         count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                                                                                        # Update leaderboard.
                                                                                                         leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
+                                                                                                        # Using flag initiated after puzzle menu.
                                                                                                         leave_puzzle = True
                                                                                                     
                                                                                                     else:
                                                                                                         time.sleep(1)
-                                                                                                        text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                                                                                                        text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                                                                         continue
                                                                                             
-                                                                                    elif answer not in solution[6]:
+                                                                                    elif answer not in solution[4]:
                                                                                         
                                                                                         time.sleep(2)
                                                                                         text.Colour("\nThat don't sound quite right, we ain't got forever...\n\n").red()
                                                                                         time.sleep(1)
-                                                                                        
                                                                                         cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
                                                                                         cont = cont.lower().strip(" ")
                                                                                         
@@ -776,26 +813,23 @@ Exit - "e"
                                                                                             continue
                                                                                         elif cont == "e":
                                                                                             end_time = time.perf_counter()
-                                
                                                                                             time.sleep(1)
                                                                                             text.Colour("\nReckon the gas hurt'n ya brain my friend.\n\n").red()
                                                                                             time.sleep(2)
-                                                                                            
                                                                                             count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                                                                             leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
                                                                                             leave_puzzle = True
                                                                                         
                                                                                         else:
                                                                                             time.sleep(1)
-                                                                                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                                                                                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                                                             continue
                                                                                 
-                                                                        elif answer not in solution[5]:
+                                                                        elif (answer not in solution[3]) or (answer in solution[3] and set_three_used == False) or (answer not in solution[1]) or (answer in solution[1] and set_five_used == False):
                                                                             
                                                                             time.sleep(2)
                                                                             text.Colour("\nThat don't sound quite right, we ain't got forever...\n\n").red()
                                                                             time.sleep(1)
-                                                                            
                                                                             cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
                                                                             cont = cont.lower().strip(" ")
                                                                             
@@ -803,25 +837,22 @@ Exit - "e"
                                                                                 continue
                                                                             elif cont == "e":
                                                                                 end_time = time.perf_counter()
-                            
                                                                                 time.sleep(1)
                                                                                 text.Colour("\nReckon the gas hurt'n ya brain my friend.\n\n").red()
                                                                                 time.sleep(2)
-                                                                                
                                                                                 count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                                                                 leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
                                                                                 leave_puzzle = True
                                                                             
                                                                             else:
                                                                                 time.sleep(1)
-                                                                                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                                                                                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                                                 continue
-                                                            elif answer not in solution[4]:
+                                                            elif answer not in solution[2]:
                                                                 
                                                                 time.sleep(2)
                                                                 text.Colour("\nThat don't sound quite right, we ain't got forever...\n\n").red()
                                                                 time.sleep(1)
-                                                                
                                                                 cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
                                                                 cont = cont.lower().strip(" ")
                                                                 
@@ -829,25 +860,22 @@ Exit - "e"
                                                                     continue
                                                                 elif cont == "e":
                                                                     end_time = time.perf_counter()
-                                                                    
                                                                     time.sleep(1)
                                                                     text.Colour("\nReckon the gas hurt'n ya brain my friend.\n\n").red()
                                                                     time.sleep(2)
-                                                                    
                                                                     count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                                                     leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
                                                                     leave_puzzle = True
                                                                 
                                                                 else:
                                                                     time.sleep(1)
-                                                                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                                                                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                                     continue
-                                                elif answer not in solution[3]:
+                                                elif answer not in solution[1] and answer not in solution[3]:
                                                     
                                                     time.sleep(2)
                                                     text.Colour("\nThat don't sound quite right, we ain't got forever...\n\n").red()
                                                     time.sleep(1)
-                                                    
                                                     cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
                                                     cont = cont.lower().strip(" ")
                                                     
@@ -855,26 +883,23 @@ Exit - "e"
                                                         continue
                                                     elif cont == "e":
                                                         end_time = time.perf_counter()
-                                                        
                                                         time.sleep(1)
                                                         text.Colour("\nReckon the gas hurt'n ya brain my friend.\n\n").red()
                                                         time.sleep(2)
-                                                        
                                                         count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                                         leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
                                                         leave_puzzle = True
                                                     
                                                     else:
                                                         time.sleep(1)
-                                                        text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                                                        text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                         continue
                                             
-                                    elif answer not in solution[2]:
+                                    elif answer not in solution[4]:
                                         
                                         time.sleep(2)
                                         text.Colour("\nThat don't sound quite right, we ain't got forever...\n\n").red()
                                         time.sleep(1)
-                
                                         cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
                                         cont = cont.lower().strip(" ")
                                         
@@ -882,26 +907,23 @@ Exit - "e"
                                             continue
                                         elif cont == "e":
                                             end_time = time.perf_counter()
-                                            
                                             time.sleep(1)
                                             text.Colour("\nReckon the gas hurt'n ya brain my friend.\n\n").red()
                                             time.sleep(2)
-                                            
                                             count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                             leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
                                             leave_puzzle = True
                                         
                                         else:
                                             time.sleep(1)
-                                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                             continue
                                     
-                        elif answer not in solution[1]:
+                        elif answer not in solution[2]:
                             
                             time.sleep(2)
                             text.Colour("\nThat don't sound quite right, we ain't got forever...\n\n").red()
                             time.sleep(1)
-                            
                             cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
                             cont = cont.lower().strip(" ")
                             
@@ -909,20 +931,18 @@ Exit - "e"
                                 continue
                             elif cont == "e":
                                 end_time = time.perf_counter()
-                                
                                 time.sleep(1)
                                 text.Colour("\nReckon the gas hurt'n ya brain my friend.\n\n").red()
                                 time.sleep(2)
-                                
                                 count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                 leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
                                 break
                             
                             else:
                                 time.sleep(1)
-                                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                 continue
-                        
+            # Rehear puzzle.           
             elif options == "2":
                  
                 time.sleep(3)
@@ -938,35 +958,33 @@ Exit - "e"
                 time.sleep(2)
                 text.Colour("I reckon ya'll gotta get em all across to the other side before the whole place floods!\n\n").cyan()
                 time.sleep(2)
-                
-                # Use Avatar class for intro speech
-                text.Colour(f"[The jittery miner stumbles up to you:]\n{self.avatar.get_intro('miner_two')}\n\n").magenta()
+                text.Colour(f"[The jittery miner stumbles up to you:]\n{self.npc.get_intro('miner_two')}\n\n").magenta()
                 time.sleep(2)
                 
                 text.Colour('''What in the name ya'll gona do??
-        Your actions are:
-        A - Take Rat Across
-        B - Take Dynamite Across
-        C - Take Miner Across
-        D - Take Nothing Across
-        ''').magenta()
-                 
+Your actions are:
+A - Take Rat Across
+B - Take Dynamite Across
+C - Take Miner Across
+D - Take Nothing Across
+''').magenta()
+            # Go to location menu.     
             elif options == "3":
                  
                  location.Location(self.username, "puzzle_four").get_loc_info()
-                 
+            # Show status bar.    
             elif options == "4":
                  
                  leaderboard.Leaderboard.status_bar("puzzle_four")
-                 
+            # Save and exit to start menu.     
             elif options == "e":
                 
                 main.save_progress(self.username, "puzzle_four")
                 break
             else:
-                 text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                 text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
 
-#==== Fifth Puzzle - Lift shaft ====#
+    # Method giving Fifth Puzzle - Lift Shaft.
 
     def puzzle_five(self):
         
@@ -1001,7 +1019,6 @@ Exit - "e"
         time.sleep(2)
         text.Colour("That must be them!\nLet's go find out!\n\n\n\n").cyan()
         time.sleep(2)
-        # Use Avatar class for intro speech
         text.Colour("[Some minutes later...]\n\n").magenta()
         time.sleep(3)
         text.Colour("Look, it's a lift shaft\n\n\nYou fellas alright down there?\n\n").cyan()
@@ -1009,14 +1026,15 @@ Exit - "e"
         text.Typed.image_five()
         time.sleep(3)
         
-        #Avatar class for intro
-        text.Colour(f"Boy are we glad to see you!\n\n{self.avatar.get_intro('trapped_miner')}\n").magenta()
+        # Use Npc class for intro.
+        text.Colour(f"Boy are we glad to see you!\n\n{self.npc.get_intro('trapped_miner')}\n").magenta()
         time.sleep(3)
         
         puzzle_five_item = "notebook" 
         
-        text.Colour(f"{self.avatar.get_prompt('trapped_miner')}\n\n").magenta()
-        
+        # Prompting for a hint.
+        text.Colour(f"{self.npc.get_prompt('trapped_miner')}\n\n").magenta()
+        # Hint menu.
         while True: 
             choice = input(text.Colour('''How'd you wana respond partner?
 Yes - "y"
@@ -1026,9 +1044,12 @@ Check inventory - "c"
             choice = choice.lower().strip(" ")
             
             if choice == "y":
+                # Checking player equipment.
                 if inventory.Inventory(self.username).has_required_epuipment(puzzle_five_item):
                     time.sleep(2)
-                    text.Colour(f"{self.avatar.get_hint('trapped_miner')}\n\n").magenta()
+                    # Give hint.
+                    text.Colour(f"{self.npc.get_hint('trapped_miner')}\n\n").magenta()
+                    # Update equipment.
                     inventory.Inventory(self.username).update_equipment(puzzle_five_item)
                     break
                 else:
@@ -1039,6 +1060,7 @@ Check inventory - "c"
                 time.sleep(2)
                 text.Colour("Ah dang! Ya'll don't got a notebook? Guess you gotta figure it out ya self...\n\n").magenta()
                 break
+            # Player checks inventory.
             elif choice == "c":
                 time.sleep(2)
                 text.Colour(f"Your equipment: {inventory.Inventory(self.username).get_inventory_item()}\n\n").green()
@@ -1047,10 +1069,11 @@ Check inventory - "c"
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
                 time.sleep(2)        
         
-        #Puzzle logic
-        
+        # Puzzle menu.
         while True:
-                    
+            # Initiating flag to leave puzzle.
+            leave_puzzle = False
+            
             options = input(text.Colour('''\nSeems like a tricky puzzle partner... What do ya'll wana do?
 Solve puzzle - 1
 Hear again - 2
@@ -1060,7 +1083,7 @@ Save and Exit - e
 \n''').input_cyan())
             
             options = options.lower().strip(" ")
-            
+            # Dictionary containing possible solutions for each stage of puzzle.
             solution = {1 : ["98-7", "98 - 7", "98- 7", "98 -7", 98-7],
                         2 : ["-6", "- 6", -6],
                         3 : ["+5", "+ 5", +5],
@@ -1068,277 +1091,262 @@ Save and Exit - e
                         5 : ["+3", "+ 3", +3],
                         6 : ["+2", "+ 2", +2],
                         7 : ["+1", "+ 1", +1]}
-            
+            # Puzzle logic.
             if options == "1":
                 
                 while True:
-                    start_time = time.perf_counter()
-                    answer = input(text.Colour("\nSo what's your answer partner?\n\nYou got 98, 7, 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter each operation at a time:").input_cyan())
-                    answer = answer.lower().strip(" ")
-                
-                    if answer in solution[1]:
-                        
-                        text.Colour(f"\nThat's a good start {self.username.title()}.\n").cyan()
-                        
-                        while True:
+                    # Breakout conditional - to break out of multiple while loops back to puzzle menu.
+                    if leave_puzzle == True:
+                       break
+                    else:
+                        # Start timer.
+                        start_time = time.perf_counter()
+                        answer = input(text.Colour("\nSo what's your answer partner?\n\nYou got 98, 7, 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter each operation at a time:").input_cyan())
+                        answer = answer.lower().strip(" ")
+                    
+                        if answer in solution[1]:
                             
-                            text.Colour("\nYa'll got 91.\n").cyan()
+                            text.Colour(f"\nThat's a good start {self.username.title()}.\n").cyan()
                             
-                            answer = input(text.Colour("\nWhat next partner?\n\nYou got 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
-                            answer = answer.lower().strip(" ")
-                            
-                            if answer in solution[2]:
+                            while True:
                                 
-                                text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
-                                
-                                while True:
+                                if leave_puzzle == True:
+                                   break
+                                else: 
+                                    text.Colour("\nYa'll got 91.\n").cyan()
                                     
-                                    text.Colour("\nYa'll got 85.\n").cyan()
-                                    
-                                    answer = input(text.Colour("\nWhat next partner??\n\nYou got 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
                                     answer = answer.lower().strip(" ")
-                                
-                                    if answer in solution[3]:
+                                    
+                                    if answer in solution[2]:
                                         
                                         text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
                                         
                                         while True:
                                             
-                                            text.Colour("\nYa'll got 90.\n").cyan()
+                                            if leave_puzzle == True:
+                                               break
+                                            else:
+                                                text.Colour("\nYa'll got 85.\n").cyan()
+                                                
+                                                answer = input(text.Colour("\nWhat next partner??\n\nYou got 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                                answer = answer.lower().strip(" ")
                                             
-                                            answer = input(text.Colour("\nWhat next partner??\n\nYou got 4, 3, 2, 1,and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
-                                            answer = answer.lower().strip(" ")
-                                            
-                                            if answer in solution[4]:
-                                                
-                                                text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
-                                                
-                                                while True:
-                                                
-                                                    text.Colour("\nYa'll got 94.\n").cyan()
+                                                if answer in solution[3]:
                                                     
-                                                    answer = input(text.Colour("\nWhat next partner??\n\nYou got 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
-                                                    answer = answer.lower().strip(" ")
-
-                                                    if answer in solution[5]:
+                                                    text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
+                                                    
+                                                    while True:
                                                         
-                                                        text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
-                                                        
-                                                        while True:
+                                                        if leave_puzzle == True:
+                                                           break
+                                                        else:
+                                                            text.Colour("\nYa'll got 90.\n").cyan()
                                                             
-                                                            text.Colour("\nYa'll got 97.\n").cyan()
-                                                            answer = input(text.Colour("\nWhat next partner?\n\nYou got 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                                            answer = input(text.Colour("\nWhat next partner??\n\nYou got 4, 3, 2, 1,and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
                                                             answer = answer.lower().strip(" ")
-
-                                                            if answer in solution[6]:
+                                                            
+                                                            if answer in solution[4]:
                                                                 
                                                                 text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
                                                                 
                                                                 while True:
                                                                     
-                                                                    text.Colour("\nYa'll got 99.\n").cyan()
-                                                                    
-                                                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
-                                                                    answer = answer.lower().strip(" ")
-                                                                    
-                                                                    if answer in solution[7]:
-                                                                        
-                                                                        text.Colour(f"\nGREAT WORK {self.username.title()}!\n").cyan()
-                                                                        text.Colour("\nYa'll got 100.\n").cyan()
-                                                            
-                                                                        end_time = time.perf_counter()
-                                                                        
-                                                                        count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                                                        leaderboard.Leaderboard(self.username, "finished", count_time).update_leaderboard()
-                                                                        
-                                                                        main.save_progress(self.username, "finished")
+                                                                    if leave_puzzle == True:
+                                                                       break
+                                                                    else:
+                                                                        text.Colour("\nYa'll got 94.\n").cyan()
+                                                                        answer = input(text.Colour("\nWhat next partner??\n\nYou got 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                                                        answer = answer.lower().strip(" ")
+                    
+                                                                        if answer in solution[5]:
+                                                                            
+                                                                            text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
+                                                                            
+                                                                            while True:
+                                                                                
+                                                                                if leave_puzzle == True:
+                                                                                   break
+                                                                                else:
+                                                                                    text.Colour("\nYa'll got 97.\n").cyan()
+                                                                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                                                                    answer = answer.lower().strip(" ")
+                        
+                                                                                    if answer in solution[6]:
                                                                                         
-                                                                        text.Colour(f"YOU DID IT {self.username.title()}!\n\n\n").cyan()
-                                                                        time.sleep(4)                       
-                                                                        text.Colour(f"{self.avatar.get_outro('trapped_miner')}\n\n\n").magenta()
-                                                                        
-                                                                        leaderboard.Leaderboard.status_bar("finished")
-                                                                        
-                                                                        leaderboard.Leaderboard.show_Leaderboard()
-                                                                        
-                                                                        return False
-                                                                    
-                                                                    elif answer not in solution[7]:
-                                                                        
-                                                                        time.sleep(2)
-                                                                        text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
-                                                
-                                                                        time.sleep(2)
-                                                                        cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
-                                                                        
-                                                                        cont = cont.lower().strip(" ")
-                                                                        
-                                                                        if cont == "y":
-                                                                            continue
-                                                                        elif cont == "e":
-                                                                        
-                                                                            end_time = time.perf_counter()
+                                                                                        text.Colour(f"\nKeep it up {self.username.title()}.\n").cyan()
+                                                                                        
+                                                                                        while True:
+                                                                                            
+                                                                                            if leave_puzzle == True:
+                                                                                               break
+                                                                                            else:
+                                                                                                text.Colour("\nYa'll got 99.\n").cyan()
+                                                                                                
+                                                                                                answer = input(text.Colour("\nWhat next partner?\n\nYou got 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                                                                                answer = answer.lower().strip(" ")
+                                                                                                
+                                                                                                if answer in solution[7]:
+                                                                                                    # End timer.
+                                                                                                    end_time = time.perf_counter()
+                                                                                                    text.Colour(f"\nGREAT WORK {self.username.title()}!\n").cyan()
+                                                                                                    text.Colour("\nYa'll got 100.\n").cyan()
+                                                                                                    # Count time.
+                                                                                                    count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                                                                                    # Update leaderboard.
+                                                                                                    leaderboard.Leaderboard(self.username, "finished", count_time).update_leaderboard()
+                                                                                                    # Save progress
+                                                                                                    main.save_progress(self.username, "finished")
+                                                                                                    text.Colour(f"YOU DID IT {self.username.title()}!\n\n\n").cyan()
+                                                                                                    time.sleep(4)
+                                                                                                    # Use Npc to give outro.
+                                                                                                    text.Colour(f"{self.npc.get_outro('trapped_miner')}\n\n\n").magenta()
+                                                                                                    # Show status bar.
+                                                                                                    leaderboard.Leaderboard.status_bar("finished")
+                                                                                                    # Show leaderboard.
+                                                                                                    leaderboard.Leaderboard.show_Leaderboard()
+                                                                                                    return False
+                                                                                                
+                                                                                                elif answer not in solution[7]:
+                                                                                                    
+                                                                                                    time.sleep(2)
+                                                                                                    text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
+                                                                                                    time.sleep(2)
+                                                                                                    # Continue puzzle menu.
+                                                                                                    cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
+                                                                                                    cont = cont.lower().strip(" ")
+                                                                                                    
+                                                                                                    if cont == "y":
+                                                                                                        continue
+                                                                                                    elif cont == "e":
+                                                                                                        # End timer.
+                                                                                                        end_time = time.perf_counter()
+                                                                                                        # Count time.
+                                                                                                        count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                                                                                        # Update leaderboard.
+                                                                                                        leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                                                                                        # Using flag initiated after puzzle menu.
+                                                                                                        leave_puzzle = True                               
+                                                                                                    else:
+                                                                                                        time.sleep(1)
+                                                                                                        text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
+                                                                                                        continue
+                                                                                                    
+                                                                                    elif answer not in solution[6]:
+                                                                                        
+                                                                                        time.sleep(2)
+                                                                                        text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
+                                                                                        time.sleep(2)
+                                                                                        cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
+                                                                                        cont = cont.lower().strip(" ")
+                                                                                        
+                                                                                        if cont == "y":
+                                                                                            continue
+                                                                                        elif cont == "e":
+                                                                                            end_time = time.perf_counter()
+                                                                                            count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                                                                            leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                                                                            leave_puzzle = True
+                                                                                        else:
+                                                                                            time.sleep(1)
+                                                                                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
+                                                                                            continue
+                                                                                    
+                                                                        elif answer not in solution[5]:
+                                                                            time.sleep(2)
+                                                                            text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
+                                                                            time.sleep(2)
+                                                                            cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
+                                                                            cont = cont.lower().strip(" ")
                                                                             
-                                                                            count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                                                            leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
-                                                                            
-                                                                            break
-                                                                        
-                                                                        else:
-                                                                            time.sleep(1)
-                                                                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
-                                                                            continue
-                                                                            
-                                                            elif answer not in solution[6]:
+                                                                            if cont == "y":
+                                                                                continue
+                                                                            elif cont == "e":
+                                                                                end_time = time.perf_counter()
+                                                                                count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                                                                leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                                                                leave_puzzle = True
+                                                                            else:
+                                                                                time.sleep(1)
+                                                                                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
+                                                                                continue
                                                                 
+                                                            elif answer not in solution[4]:
                                                                 time.sleep(2)
                                                                 text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
-                                        
                                                                 time.sleep(2)
                                                                 cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
-                                                                
                                                                 cont = cont.lower().strip(" ")
                                                                 
                                                                 if cont == "y":
                                                                     continue
                                                                 elif cont == "e":
-                                                                
                                                                     end_time = time.perf_counter()
-                                                                    
                                                                     count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                                                     leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
-                                                                    
-                                                                    break
+                                                                    leave_puzzle = True
                                                                 else:
                                                                     time.sleep(1)
-                                                                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                                                                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                                     continue
-                                                            
-                                                    elif answer not in solution[5]:
-                                                        
-                                                        time.sleep(2)
-                                                        text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
-                                
-                                                        time.sleep(2)
-                                                        cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
-                                                        
-                                                        cont = cont.lower().strip(" ")
-                                                        
-                                                        if cont == "y":
-                                                            continue
-                                                        elif cont == "e":
-                                                        
-                                                            end_time = time.perf_counter()
-                                                            
-                                                            count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                                            leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
-                                                            
-                                                            break
-                                                        else:
-                                                            time.sleep(1)
-                                                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
-                                                            continue
-                                                
-                                            elif answer not in solution[4]:
-                                                
-                                                time.sleep(2)
-                                                text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
-                        
-                                                time.sleep(2)
-                                                cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
-                                                
-                                                cont = cont.lower().strip(" ")
-                                                
-                                                if cont == "y":
-                                                    continue
-                                                elif cont == "e":
-                                                
-                                                    end_time = time.perf_counter()
                                                     
-                                                    count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                                    leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                                elif answer not in solution[3]:
+                                                    time.sleep(2)
+                                                    text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
+                                                    time.sleep(2)
+                                                    cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
+                                                    cont = cont.lower().strip(" ")
                                                     
-                                                    break
-                                                else:
-                                                    time.sleep(1)
-                                                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
-                                                    continue
+                                                    if cont == "y":
+                                                        continue
+                                                    elif cont == "e":
+                                                        end_time = time.perf_counter()
+                                                        count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                                        leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                                        leave_puzzle = True
+                                                    else:
+                                                        time.sleep(1)
+                                                        text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
+                                                        continue
                                         
-                                    elif answer not in solution[3]:
-                                        
+                                    elif answer not in solution[2]:
                                         time.sleep(2)
                                         text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
-                
                                         time.sleep(2)
                                         cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
-                                        
                                         cont = cont.lower().strip(" ")
                                         
                                         if cont == "y":
                                             continue
                                         elif cont == "e":
-                                        
                                             end_time = time.perf_counter()
-                                            
                                             count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                             leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
-                                            
-                                            break
+                                            leave_puzzle = True
                                         else:
                                             time.sleep(1)
-                                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                             continue
-                                
-                            elif answer not in solution[2]:
-                                
-                                time.sleep(2)
-                                text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
-        
-                                time.sleep(2)
-                                cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
-                                
-                                cont = cont.lower().strip(" ")
-                                
-                                if cont == "y":
-                                    continue
-                                elif cont == "e":
-                                
-                                    end_time = time.perf_counter()
-                                    
-                                    count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                    leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
-                                    
-                                    break
-                                else:
-                                    time.sleep(1)
-                                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
-                                    continue
                         
-                    elif answer not in solution[1]:
-                        
-                        time.sleep(2)
-                        text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
-    
-                        time.sleep(2)
-                        cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
-                        
-                        cont = cont.lower().strip(" ")
-                        
-                        if cont == "y":
-                            continue
-                        elif cont == "e":
+                        elif answer not in solution[1]:
+                            time.sleep(2)
+                            text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
+                            time.sleep(2)
+                            cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
+                            cont = cont.lower().strip(" ")
                             
-                            end_time = time.perf_counter()
-                            
-                            count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                            leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
-                            
-                            break
-                        else:
-                            time.sleep(1)
-                            text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
-                            continue
-
+                            if cont == "y":
+                                continue
+                            elif cont == "e":
+                                end_time = time.perf_counter()
+                                count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                leave_puzzle = True
+                            else:
+                                time.sleep(1)
+                                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
+                                continue
+            # Rehear puzzle.               
             elif options == "2":
                 
                 time.sleep(3)
@@ -1372,28 +1380,25 @@ Save and Exit - e
                 time.sleep(2)
                 text.Colour("That must be them!\nLet's go find out!\n\n\n\n").cyan()
                 time.sleep(2)
-                # Use Avatar class for intro speech
                 text.Colour("[Some minutes later...]\n\n").magenta()
                 time.sleep(3)
                 text.Colour("Look, it's a lift shaft\n\n\nYou fellas alright down there?\n\n").cyan()
                 time.sleep(2)
                 text.Typed.image_five()
                 time.sleep(3)
-                
-                #Avatar class for intro
-                text.Colour(f"Boy are we glad to see you!\n\n{self.avatar.get_intro('trapped_miner')}\n").magenta()
+                text.Colour(f"Boy are we glad to see you!\n\n{self.npc.get_intro('trapped_miner')}\n").magenta()
                 time.sleep(3)
-                
+            # Go to location menu.    
             elif options == "3":
                 
                 location.Location(self.username, "puzzle_five").get_loc_info()
-                
+            # Show leaderboard.   
             elif options == "4":
                 
                 leaderboard.Leaderboard.status_bar("puzzle_five")
-                
+            # Save and exit to start menu.   
             elif options == "e":
                 main.save_progress(self.username, "puzzle_five")
                 break
             else:
-                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
+                text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()

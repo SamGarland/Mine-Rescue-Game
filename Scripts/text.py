@@ -1,10 +1,13 @@
 '''
 This is the text module with Typed and Colour classes that manipulate text.
+It contains the intro text plus text images.
 
 '''
+#==== Imports ====#
+
 import time
 
-#==== Typed class for typing out text =====#
+#==== Typed class - for typing out text - and methods ====#
 
 class Typed:
     
@@ -18,9 +21,9 @@ class Typed:
             time.sleep(0.002)
             print(char, end="", flush=True)
     
-    #Intro Script
+    # Intro Script.
     def intro():
-        Typed.typed_text("""
+        Typed.typed_text("""\n
 Welcome to Mine Rescue, the ultimate test of skills, set in the daring and rugged expanse of the wild west.
 
 A dreadful situation has unfolded at the local mine near your town.
@@ -30,10 +33,10 @@ Your mission, if you choose to accept, is a race against time to save the miners
 A critical expedition lies before you in the dark and dangerous tunnels of the mine.
 
 So gather your resolve explorer, and prepare to venture into the unknown. The mysteries of the mines are  yours to solve, each bringing you a step closer to the miners below. 
-\n\n\n\n\n\n""")
-    
+\n\n\n""")
+
+    # Intro_Image_One.
     def intro_image():
-        #Intro_Image_One
         Typed.typed_text_fast("""
             0     0  00000  0     0  000000                
             00   00    0    00    0  0                     
@@ -54,8 +57,9 @@ So gather your resolve explorer, and prepare to venture into the unknown. The my
 2023        1.0  Sam Garland and Allen Abraham
         """)
         
+    # Puzzle_One_Image_One.    
     def image_one():
-        #Puzzle_One_Image_One
+        
         Typed.typed_text_fast("""
                                                        ____________ 
                                                        |   MINE   | 
@@ -75,9 +79,10 @@ So gather your resolve explorer, and prepare to venture into the unknown. The my
         ############################################################
         ############################################################
  """)
-        
+    
+    # Puzzle_Two_Image_One.  
     def image_two():
-        #Puzzle_Two_Image_One
+        
         Typed.typed_text_fast("""
                                      *
                                  *       *
@@ -87,14 +92,14 @@ So gather your resolve explorer, and prepare to venture into the unknown. The my
                  *                   mp                  *    
               ...............................................
 
-        [.....] original track
-        [*****] buckled track
-        [mp] mid point
+        [.....] original track - 100m
+        [*****] buckled track - 1m over length
+        [mp] mid point - ?
 """)
         
+    # Puzzle_Three_Image_One.
     def image_three():
         
-        #Puzzle_Three_Image_One
         Typed.typed_text_fast("""
                #########       
              #############     
@@ -119,10 +124,10 @@ So gather your resolve explorer, and prepare to venture into the unknown. The my
          //      //
 
 """)
-            
+     
+    # Puzzle_Four_Image_One.      
     def image_four():
         
-        #Puzzle_Four_Image_One
         Typed.typed_text_fast("""
         ______________
         \\\          //                          _____
@@ -132,9 +137,8 @@ So gather your resolve explorer, and prepare to venture into the unknown. The my
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """)
 
+    # Puzzle_Five_Image_One.
     def image_five():
-        
-        #Puzzle_Five_Image_One
 
         Typed.typed_text_fast("""
               
@@ -149,6 +153,7 @@ So gather your resolve explorer, and prepare to venture into the unknown. The my
 
 """)
 
+#==== Colour class and methods ====#
 
 class Colour:
     
