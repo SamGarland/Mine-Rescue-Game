@@ -46,13 +46,13 @@ So gather your resolve explorer, and prepare to venture into the unknown. The my
             0     0    0    0    00  0                     
             0     0  00000  0     0  000000                
     
-            000000    000000  000000  000000  0    0  000000
+            000000    000000  000000  000000  0    0  0000000
             0     0   0       0       0       0    0  0     
             0     0   0       0       0       0    0  0     
-            000000    0000    000000  0       0    0  0000  
+            000000    0000    000000  0       0    0  00000  
             0   0     0            0  0       0    0  0     
             0    0    0            0  0       0    0  0     
-            0     0   000000  000000  000000  000000  000000
+            0     0   000000  000000  000000  000000  0000000
 
 2023        1.0  Sam Garland and Allen Abraham
         """)
@@ -97,7 +97,7 @@ So gather your resolve explorer, and prepare to venture into the unknown. The my
         [mp] mid point - ?
 """)
         
-    # Puzzle_Three_Image_One.
+    # Puzzle_Three_Image_One
     def image_three():
         
         Typed.typed_text_fast("""
@@ -124,7 +124,7 @@ So gather your resolve explorer, and prepare to venture into the unknown. The my
          //      //
 
 """)
-     
+
     # Puzzle_Four_Image_One.      
     def image_four():
         
@@ -152,6 +152,38 @@ So gather your resolve explorer, and prepare to venture into the unknown. The my
                         |_______________________|
 
 """)
+
+    def image_six():
+        Typed.typed_text_fast("""
+  O---O   O---O   O---O   O---O
+ /     \ /     \ /     \ /     \\
+O       O       O       O       O [x5]
+ \     / \     / \     / \     /
+  O---O   O---O   O---O   O---O
+  
+""")
+
+    def outro_image():
+        Typed.typed_text_fast("""
+        ##     #  #####  ##     #  ########                          
+        ###   ##    #    ###    #  ##                                
+        ## # # #    #    ## #   #  ##                                
+        ##  #  #    #    ##  #  #  ######                            
+        ##     #    #    ##   # #  ##                                
+        ##     #    #    ##    ##  ##                                
+        ##     #  #####  ##     #  ########                          
+                                                               
+        ######  ####### ####### ####### ##    # #######  #####    ##
+        ##    # ##      ##      ##      ##    # ##       ##   #   ##
+        ##    # ##      ##      ##      ##    # ##       ##    #  ##
+        ######  #####   ####### ##      ##    # ####     ##    #  ##
+        ##  #   ##            # ##      ##    # ##       ##    #  ##
+        ##   #  ##            # ##      ##    # ##       ##   # 
+        ##    # ####### ####### ####### ####### #######  #####    ##
+
+2023        1.0  Sam Garland and Allen Abraham
+        """)
+
 
 #==== Colour class and methods ====#
 

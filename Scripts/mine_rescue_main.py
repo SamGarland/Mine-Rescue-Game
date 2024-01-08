@@ -127,18 +127,22 @@ def load_progress(username):
         if items[0] == username:
             character_found = True
             current_puzzle = items[-1]
+            gender = items[2]
+            hair_colour = items[3]
+            hat = items[4]
+            boots = items[5]
             
             # Redirect to respective puzzle based on current_puzzle value.
             if current_puzzle == "puzzle_one":
-                puzzle.Puzzle(username).puzzle_one()
+                puzzle.Puzzle(username, gender, hair_colour, hat, boots).puzzle_one()
             elif current_puzzle == "puzzle_two":
-                puzzle.Puzzle(username).puzzle_two()
+                puzzle.Puzzle(username, gender, hair_colour, hat, boots).puzzle_two()
             elif current_puzzle == "puzzle_three":
-                puzzle.Puzzle(username).puzzle_three()
+                puzzle.Puzzle(username, gender, hair_colour, hat, boots).puzzle_three()
             elif current_puzzle == "puzzle_four":
-                puzzle.Puzzle(username).puzzle_four()
+                puzzle.Puzzle(username, gender, hair_colour, hat, boots).puzzle_four()
             elif current_puzzle == "puzzle_five":
-                puzzle.Puzzle(username).puzzle_five()
+                puzzle.Puzzle(username, gender, hair_colour, hat, boots).puzzle_five()
             elif current_puzzle == "finished":
                 text.Typed.typed_text("\n\nSeems you already completed this fella!\nLet's see how you did\n\n")
                 leaderboard.Leaderboard.show_Leaderboard()

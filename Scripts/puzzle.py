@@ -13,14 +13,19 @@ import location
 import leaderboard
 import text
 import inventory
+import help
 
 #==== Class and methods ====#
 
 class Puzzle:
     
     # Constructor.
-    def __init__(self, username):
+    def __init__(self, username, gender, hair_colour, hat, boots):
         self.username = username
+        self.gender = gender
+        self.hair_colour = hair_colour
+        self.hat = hat
+        self.boots = boots
         self.npc = npc.Npc()
 
     # Method for puzzle_one to shift text.
@@ -50,20 +55,20 @@ class Puzzle:
         
         # Game intro.
         text.Typed.intro()
-        
+
         time.sleep(3)
-        text.Colour(f"\n\nWhoa there, who's that fella running at you from the entrace of the mine {self.username.title()}?\n\n").cyan()
+        text.Colour(f"\n\nWhoa there, who's that fella running at you from the entrance of the mine {self.username.title()}?\n\n").cyan()
         time.sleep(2)
         text.Colour("[A mine worker runs up to you speaking an unknown language.]\n\n").magenta()
         # Use Npc class for intro speech.
         text.Colour(f"[He babbles:] {self.npc.get_intro('railwayman_one')}\n\n").magenta()
         time.sleep(3)
-        text.Colour("[He then hands you a piece of paper with words on it and points towards the mine.]\n\n").magenta()
+        text.Colour(f"[He then hands you a piece of paper with words on it and points towards the mine.]\n\n").magenta()
         time.sleep(2)
         text.Typed.image_one()
         time.sleep(3)
                 
-        original_sentence = "To make your way into the tunnel, you\'re gona need to get on a MINECART"
+        original_sentence = "To make your way into the tunnel, you\'re gonna need to get on a MINECART"
         answer = "minecart"
         
         # Puzzle menu.
@@ -90,7 +95,7 @@ Save and Exit - e
                         text.Colour(f"[The writing says:]'{ciphered_text}'\n\n\n").magenta()
                         
                         time.sleep(3)
-                        user_input = input(text.Colour("Looks like you gotta make some sense of this and figure out the key word\nEnter the key:\n\n\n").input_cyan()).strip().lower()
+                        user_input = input(text.Colour("Looks like you gotta make some sense of this and figure out the key word\nEnter the key:\n\n\nHelp Menu - 'h'\n").input_cyan()).strip().lower()
                         time.sleep(2)
                         
                         if user_input == answer:
@@ -127,7 +132,9 @@ Exit - "e"
                                 time.sleep(2)
                                 text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                 continue
-                            
+                        # Help Menu
+                        elif user_input == 'h':
+                            help.Help(self.username, "puzzle_one").get_help()
                         elif user_input != answer:
                             
                             text.Colour("Oh dust!, the writing changed?!\n\n\n").cyan()
@@ -170,7 +177,7 @@ Exit - "e"
                 # Go to location menu.
                 elif options == "3":
                     
-                    location.Location(self.username, "puzzle_one").get_loc_info()
+                    location.Location(self.username, "puzzle_one", self.gender, self.hair_colour,self.hat, self.boots).get_loc_info()
                 
                 # Show status.
                 elif options == "4":
@@ -190,7 +197,7 @@ Exit - "e"
         
         time.sleep(3)
         text.Colour("\n\n[As you mosey along the rusty old railway, you hear someone shouting at you to stop.]\n\n").magenta()
-        text.Colour("Who's that dusty man?\n\n").cyan()
+        text.Colour(f"Who's that dusty man?\nYou wipe the sweat off your {self.hair_colour} hair and squint to see\n").cyan()
         time.sleep(2)
         # Use Npc class for intro speech.
         text.Colour(f"[A railwayman runs up to you and says:]\n\n{self.npc.get_intro('railwayman_two')}\n\n").magenta()
@@ -221,7 +228,7 @@ Check inventory - "c"
                     break
                 else:
                     time.sleep(2)
-                    text.Colour("\n\nNow now, No need to tell a lie my friend, I see you ain't got no hammer!\n\n").cyan()
+                    text.Colour("\n\nNow now, No need to tell a lie my friend, I see you ain't got no hammer!\n\n").red()
                     break
             elif choice == "n":
                 time.sleep(2)
@@ -258,7 +265,12 @@ Save and Exit - e
                         # Show text image two.
                         text.Typed.image_two()
 
-                        answer = input(text.Colour("\nWhat's the height of the arch at the center of the railway track? Enter your answer to the nearest meter:\n\n").input_cyan())
+                        answer = input(text.Colour("\nWhat's the height of the arch at the center of the railway track? Enter your answer to the nearest meter:\n\n\nHelp Menu - 'h'\n").input_cyan())
+
+                        # Help Menu
+                        if answer == 'h':
+                            help.Help(self.username, "puzzle_two").get_help()
+                            continue
                         try:
                             answer = int(answer)
                             
@@ -299,7 +311,6 @@ Exit - "e"
                                         time.sleep(2)
                                         text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                         continue
-                                        
                                 elif answer != 7:
                                     
                                     time.sleep(2)
@@ -342,7 +353,7 @@ Exit - "e"
                 # Go to location menu.  
                 elif options == "3":
                     
-                    location.Location(self.username, "puzzle_two").get_loc_info()
+                    location.Location(self.username, "puzzle_two",self.gender, self.hair_colour,self.hat, self.boots).get_loc_info()
                 # Show status bar.   
                 elif options == "4":
                     
@@ -363,7 +374,7 @@ Exit - "e"
         time.sleep(2)
         text.Colour("Wait look!\n\n").cyan()
         time.sleep(2)
-        text.Colour("There's just a narrow crawl space left.\n\n").cyan()
+        text.Colour(f"There's just a narrow crawl space left.\nYou kick your {self.boots} to see if it'll get any bigger\n\n").cyan()
         time.sleep(2)
         # Show text image.
         text.Typed.image_three()
@@ -431,8 +442,16 @@ Save and Exit - e
             
                 while True:
                     try:
+                        #Show text image
+                        text.Typed.image_six()
                         time.sleep(2)
-                        user_input = input(text.Colour("\nThink hard and enter the minimum number of breaks needed to fix this chain: \n").input_cyan()).strip()
+                        user_input = input(text.Colour("\nThink hard and enter the minimum number of breaks needed to fix this chain:\n\n\nHelp Menu - 'h'\n").input_cyan()).strip()
+
+                        # Help Menu
+                        if user_input == 'h':
+                            help.Help(self.username, "puzzle_three").get_help()
+                            continue
+
                         number_of_breaks = int(user_input)
                         
                         if number_of_breaks == 4:
@@ -471,7 +490,6 @@ Exit - "e"
                                 time.sleep(2)
                                 text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
                                 continue
-                        
                         elif number_of_breaks != 4:
                             
                             time.sleep(2)
@@ -506,7 +524,7 @@ Exit - "e"
                 time.sleep(2)
                 text.Colour("Wait look!\n\n").cyan()
                 time.sleep(2)
-                text.Colour("There's just a narrow crawl space left.\n\n").cyan()
+                text.Colour(f"There's just a narrow crawl space left.\nYou kick your {self.boots} to see if it'll get bigger\n\n").cyan()
                 time.sleep(2)
                 text.Colour("[A miner hollers at ya'll from the other side of the crawl space:]\n").magenta()
                 time.sleep(2)
@@ -515,7 +533,7 @@ Exit - "e"
             # Go to location menu.   
             elif options == "3":
                 
-                location.Location(self.username, "puzzle_three").get_loc_info()
+                location.Location(self.username, "puzzle_three",self.gender, self.hair_colour,self.hat, self.boots).get_loc_info()
             # Show status bar.  
             elif options == "4":
                 
@@ -630,7 +648,7 @@ Save and Exit - e
                     else:
                         # Start timer.
                         start_time = time.perf_counter()
-                        answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n:").input_cyan())
+                        answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n\n\nHelp Menu - 'h'\n").input_cyan())
                         answer = answer.strip(" ")
                     
                         if answer in solution[2]:
@@ -645,7 +663,7 @@ Save and Exit - e
                                 
                                     text.Colour("\nYa'll got:\nB - Take Dynamite Across/Back.\n").cyan()
                                     
-                                    answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n:").input_cyan())
+                                    answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n\n\nHelp Menu - 'h'\n").input_cyan())
                                     answer = answer.lower().strip(" ")
                                     
                                     if answer in solution[4]:
@@ -660,7 +678,7 @@ Save and Exit - e
                                   
                                                 text.Colour("\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n").cyan()
                                                 
-                                                answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n:").input_cyan())
+                                                answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n\n\nHelp Menu - 'h'\n").input_cyan())
                                                 answer = answer.lower().strip(" ")
                                                 
                                                 # As either "A" or "C" could be selected at this point.
@@ -683,7 +701,7 @@ Save and Exit - e
                                                         
                                                             text.Colour(f"\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n{take_across_one}\n").cyan()
                                                             
-                                                            answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n:").input_cyan())
+                                                            answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n\n\nHelp Menu - 'h'\n").input_cyan())
                                                             answer = answer.lower().strip(" ")
                                                         
                                                             if answer in solution[2]:
@@ -698,7 +716,7 @@ Save and Exit - e
                                                                         
                                                                         text.Colour(f"\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n{take_across_one}\nB - Take Dynamite Across/Back.\n").cyan()
                                                                         
-                                                                        answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n:").input_cyan())
+                                                                        answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n\n\nHelp Menu - 'h'\n").input_cyan())
                                                                         answer = answer.lower().strip(" ")
                                                                         
                                                                         # Ensuring either "A" or "C" has not been entered twice using flags established above.
@@ -719,7 +737,7 @@ Save and Exit - e
                                                                             
                                                                                     text.Colour(f"\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n{take_across_one}\nB - Take Dynamite Across/Back.\n{take_across_two}\n").cyan()
                                                                                     
-                                                                                    answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n:").input_cyan())
+                                                                                    answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n\n\nHelp Menu - 'h'\n").input_cyan())
                                                                                     answer = answer.lower().strip(" ")
                                 
                                                                                     if answer in solution[4]:
@@ -733,7 +751,7 @@ Save and Exit - e
                                                                                             else:
                                                                                             
                                                                                                 text.Colour(f"\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n{take_across_one}\nB - Take Dynamite Across/Back.\n{take_across_two}\nD - Take Nothing Across/Back.\n").cyan()
-                                                                                                answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n:").input_cyan())
+                                                                                                answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n\n\nHelp Menu - 'h'\n").input_cyan())
                                                                                                 answer = answer.lower().strip(" ")
                                     
                                                                                                 if answer in solution[2]:
@@ -771,7 +789,10 @@ Exit - "e"
                                                                                                         text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
                                                                                                         continue
                                                                                                     break
-                                                                    
+                                                                                                # Help Menu
+                                                                                                elif answer == 'h':
+                                                                                                    help.Help(self.username,"puzzle_four").get_help()
+                                                                                                    continue
                                                                                                 elif answer not in solution[2]:
                                                                                                     
                                                                                                     time.sleep(2)
@@ -800,7 +821,9 @@ Exit - "e"
                                                                                                         time.sleep(1)
                                                                                                         text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                                                                         continue
-                                                                                            
+                                                                                    # Help Menu
+                                                                                    elif answer == 'h':
+                                                                                        help.Help(self.username,"puzzle_four").get_help()
                                                                                     elif answer not in solution[4]:
                                                                                         
                                                                                         time.sleep(2)
@@ -824,7 +847,10 @@ Exit - "e"
                                                                                             time.sleep(1)
                                                                                             text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                                                             continue
-                                                                                
+                                                                        # Help Menu
+                                                                        elif answer == 'h':
+                                                                            help.Help(self.username,"puzzle_four").get_help()
+                                                                            continue
                                                                         elif (answer not in solution[3]) or (answer in solution[3] and set_three_used == False) or (answer not in solution[1]) or (answer in solution[1] and set_five_used == False):
                                                                             
                                                                             time.sleep(2)
@@ -848,6 +874,10 @@ Exit - "e"
                                                                                 time.sleep(1)
                                                                                 text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                                                 continue
+                                                            # Help Menu
+                                                            elif answer == 'h':
+                                                                help.Help(self.username, "puzzle_four").get_help()
+                                                                continue
                                                             elif answer not in solution[2]:
                                                                 
                                                                 time.sleep(2)
@@ -871,6 +901,10 @@ Exit - "e"
                                                                     time.sleep(1)
                                                                     text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                                     continue
+                                                # Help Menu
+                                                elif answer == 'h':
+                                                    help.Help(self.username, "puzzle_four").get_help()
+                                                    continue
                                                 elif answer not in solution[1] and answer not in solution[3]:
                                                     
                                                     time.sleep(2)
@@ -894,7 +928,10 @@ Exit - "e"
                                                         time.sleep(1)
                                                         text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                         continue
-                                            
+                                    # Help Menu
+                                    elif answer == 'h':
+                                        help.Help(self.username,"puzzle_four").get_help()
+                                        continue
                                     elif answer not in solution[4]:
                                         
                                         time.sleep(2)
@@ -918,7 +955,10 @@ Exit - "e"
                                             time.sleep(1)
                                             text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                             continue
-                                    
+                        # Help Menu
+                        elif answer == 'h':
+                            help.Help(self.username,"puzzle_four").get_help()
+                            continue
                         elif answer not in solution[2]:
                             
                             time.sleep(2)
@@ -942,6 +982,7 @@ Exit - "e"
                                 time.sleep(1)
                                 text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                 continue
+
             # Rehear puzzle.           
             elif options == "2":
                  
@@ -971,7 +1012,7 @@ D - Take Nothing Across
             # Go to location menu.     
             elif options == "3":
                  
-                 location.Location(self.username, "puzzle_four").get_loc_info()
+                 location.Location(self.username, "puzzle_four",self.gender, self.hair_colour,self.hat, self.boots).get_loc_info()
             # Show status bar.    
             elif options == "4":
                  
@@ -1101,7 +1142,7 @@ Save and Exit - e
                     else:
                         # Start timer.
                         start_time = time.perf_counter()
-                        answer = input(text.Colour("\nSo what's your answer partner?\n\nYou got 98, 7, 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter each operation at a time:").input_cyan())
+                        answer = input(text.Colour("\nSo what's your answer partner?\n\nYou got 98, 7, 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter each operation at a time:\n\n\nHelp Menu - 'h'\n").input_cyan())
                         answer = answer.lower().strip(" ")
                     
                         if answer in solution[1]:
@@ -1115,7 +1156,7 @@ Save and Exit - e
                                 else: 
                                     text.Colour("\nYa'll got 91.\n").cyan()
                                     
-                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\n\nHelp Menu - 'h'\n").input_cyan())
                                     answer = answer.lower().strip(" ")
                                     
                                     if answer in solution[2]:
@@ -1129,7 +1170,7 @@ Save and Exit - e
                                             else:
                                                 text.Colour("\nYa'll got 85.\n").cyan()
                                                 
-                                                answer = input(text.Colour("\nWhat next partner??\n\nYou got 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                                answer = input(text.Colour("\nWhat next partner??\n\nYou got 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\n\nHelp Menu - 'h'\n").input_cyan())
                                                 answer = answer.lower().strip(" ")
                                             
                                                 if answer in solution[3]:
@@ -1143,7 +1184,7 @@ Save and Exit - e
                                                         else:
                                                             text.Colour("\nYa'll got 90.\n").cyan()
                                                             
-                                                            answer = input(text.Colour("\nWhat next partner??\n\nYou got 4, 3, 2, 1,and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                                            answer = input(text.Colour("\nWhat next partner??\n\nYou got 4, 3, 2, 1,and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\n\nHelp Menu - 'h'\n").input_cyan())
                                                             answer = answer.lower().strip(" ")
                                                             
                                                             if answer in solution[4]:
@@ -1156,7 +1197,7 @@ Save and Exit - e
                                                                        break
                                                                     else:
                                                                         text.Colour("\nYa'll got 94.\n").cyan()
-                                                                        answer = input(text.Colour("\nWhat next partner??\n\nYou got 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                                                        answer = input(text.Colour("\nWhat next partner??\n\nYou got 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\n\nHelp Menu - 'h'\n").input_cyan())
                                                                         answer = answer.lower().strip(" ")
                     
                                                                         if answer in solution[5]:
@@ -1169,7 +1210,7 @@ Save and Exit - e
                                                                                    break
                                                                                 else:
                                                                                     text.Colour("\nYa'll got 97.\n").cyan()
-                                                                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                                                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\n\nHelp Menu - 'h'\n").input_cyan())
                                                                                     answer = answer.lower().strip(" ")
                         
                                                                                     if answer in solution[6]:
@@ -1183,7 +1224,7 @@ Save and Exit - e
                                                                                             else:
                                                                                                 text.Colour("\nYa'll got 99.\n").cyan()
                                                                                                 
-                                                                                                answer = input(text.Colour("\nWhat next partner?\n\nYou got 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:").input_cyan())
+                                                                                                answer = input(text.Colour("\nWhat next partner?\n\nYou got 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\n\nHelp Menu - 'h'\n").input_cyan())
                                                                                                 answer = answer.lower().strip(" ")
                                                                                                 
                                                                                                 if answer in solution[7]:
@@ -1203,12 +1244,16 @@ Save and Exit - e
                                                                                                     text.Colour(f"{self.npc.get_outro('trapped_miner')}\n\n\n").magenta()
                                                                                                     # Show status bar.
                                                                                                     leaderboard.Leaderboard.status_bar("finished")
+                                                                                                    # Show Outro Image
+                                                                                                    text.Typed.outro_image()
                                                                                                     # Show leaderboard.
                                                                                                     leaderboard.Leaderboard.show_Leaderboard()
                                                                                                     return False
-                                                                                                
+
+                                                                                                elif answer == 'h':
+                                                                                                    help.Help(self.username,"puzzle_five").get_help()
+                                                                                                    continue
                                                                                                 elif answer not in solution[7]:
-                                                                                                    
                                                                                                     time.sleep(2)
                                                                                                     text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
                                                                                                     time.sleep(2)
@@ -1231,7 +1276,10 @@ Save and Exit - e
                                                                                                         time.sleep(1)
                                                                                                         text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                                                                         continue
-                                                                                                    
+                                                                                    # Help Menu
+                                                                                    elif answer == 'h':
+                                                                                        help.Help(self.username,"puzzle_five").get_help()
+                                                                                        continue
                                                                                     elif answer not in solution[6]:
                                                                                         
                                                                                         time.sleep(2)
@@ -1251,7 +1299,10 @@ Save and Exit - e
                                                                                             time.sleep(1)
                                                                                             text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                                                             continue
-                                                                                    
+                                                                        # Help Menu
+                                                                        elif answer == 'h':
+                                                                            help.Help(self.username,"puzzle_five").get_help()
+                                                                            continue
                                                                         elif answer not in solution[5]:
                                                                             time.sleep(2)
                                                                             text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
@@ -1270,7 +1321,10 @@ Save and Exit - e
                                                                                 time.sleep(1)
                                                                                 text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                                                 continue
-                                                                
+                                                            # Help Menu
+                                                            elif answer == 'h':
+                                                                help.Help(self.username,"puzzle_five").get_help()
+                                                                continue
                                                             elif answer not in solution[4]:
                                                                 time.sleep(2)
                                                                 text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
@@ -1289,7 +1343,10 @@ Save and Exit - e
                                                                     time.sleep(1)
                                                                     text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                                     continue
-                                                    
+                                                # Help Menu
+                                                elif answer == 'h':
+                                                    help.Help(self.username,"puzzle_five").get_help()
+                                                    continue
                                                 elif answer not in solution[3]:
                                                     time.sleep(2)
                                                     text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
@@ -1308,7 +1365,10 @@ Save and Exit - e
                                                         time.sleep(1)
                                                         text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                                         continue
-                                        
+                                    # Help Menu
+                                    elif answer == 'h':
+                                        help.Help(self.username,"puzzle_five").get_help()
+                                        continue
                                     elif answer not in solution[2]:
                                         time.sleep(2)
                                         text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
@@ -1327,7 +1387,10 @@ Save and Exit - e
                                             time.sleep(1)
                                             text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                             continue
-                        
+                        # Help Menu
+                        elif answer == 'h':
+                            help.Help(self.username,"puzzle_five").get_help()
+                            continue
                         elif answer not in solution[1]:
                             time.sleep(2)
                             text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
@@ -1391,7 +1454,7 @@ Save and Exit - e
             # Go to location menu.    
             elif options == "3":
                 
-                location.Location(self.username, "puzzle_five").get_loc_info()
+                location.Location(self.username, "puzzle_five",self.gender, self.hair_colour,self.hat, self.boots).get_loc_info()
             # Show leaderboard.   
             elif options == "4":
                 
