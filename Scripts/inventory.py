@@ -1,9 +1,9 @@
-"""
+'''
 This is the inventory module with Inventory class and methods.
 These are used to check "characters.txt" for equipment, and
 updating the inventory by removing or adding equipment.
 
-"""
+'''
 #==== Class and methods ====#
 
 class Inventory:
@@ -31,7 +31,15 @@ class Inventory:
            
             if required_item in self.get_inventory_item():
                 return required_item
-            
+    
+    # Method to show equipmemnt from inventory to player in gameplay.
+
+    def show_player_inventory(self):
+        
+        inventory = self.get_inventory_item()
+        
+        for item in inventory:
+            return item
 
     # Method to remove equipment or set the equipment to default "None" if all has been used.
 

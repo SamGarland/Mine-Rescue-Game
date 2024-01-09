@@ -164,7 +164,7 @@ O       O       O       O       O [x5]
 """)
 
     def outro_image():
-        Typed.typed_text_fast("""
+        Typed.typed_text_fast("""\n\n
         ##     #  #####  ##     #  ########                          
         ###   ##    #    ###    #  ##                                
         ## # # #    #    ## #   #  ##                                
@@ -182,7 +182,7 @@ O       O       O       O       O [x5]
         ##    # ####### ####### ####### ####### #######  #####    ##
 
 2023        1.0  Sam Garland and Allen Abraham
-        """)
+\n\n""")
 
 
 #==== Colour class and methods ====#

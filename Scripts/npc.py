@@ -1,8 +1,8 @@
-"""
+'''
 This is the npc module with Npc class.
 It contains a dictionary with text for different npcs, plus methods.
 
-"""
+'''
 #==== Class and methods ====#
 
 class Npc:
@@ -26,8 +26,8 @@ The rails have formed an arch, buckling upward right at the center.
 
 You gotta figure out just how high this arch is at the midpoint (mp), 
 if it ain't that high you might just make it.\n\n'''),
-                "prompt_hint": "I might be able to give you a hand, Y'all got a hammer?\n\n",
-                "hint": "\nI reckon old Pythagoras would know the answer, A squared plus B squared gives C squared or something... I think.\n\n", },
+                "prompt_hint": "I might be able to give you a hand, Y'all got a hammer?\nIf so, I'll swap ya'll a hammer for a hint?\n\n",
+                "hint": "\nYipee! I've been needing me a hammer!\nAlrighty, a hint, I get it.\nI reckon old Pythagoras would know the answer, A squared plus B squared gives C squared or something... I think.\n\n"},
             
             # npc for puzzle_three.
             "miner_crawlspace": {
@@ -37,8 +37,8 @@ if it ain't that high you might just make it.\n\n'''),
 Each piece has 4 links. I can only mend it by breakin' each links and then joinin' 'em back together.
 
 How many links do I gotta break to fix this chain up?\n\n'''),    
-                "prompt_hint": "I might have some old tricks up me slieves, y'all got a lasso?\n\n",
-                "hint": "\nDon't one chain got 4 links? dunno if you gotta break em all...\n\n", },
+                "prompt_hint": "\nI might have some old tricks up me sleeves, y'all got a lasso?\nIf so, I'll swap ya'll a lasso for a hint?\n\n",
+                "hint": "\nGosh dang! I finally did get me a lasso! Might give up this mining lark and become a rancher.\nOh right, the hint.\nDon't one chain got 4 links? dunno if you gotta break em all...\n\n"},
             
             # npc for puzzle_four.
             "miner_two": {
@@ -48,12 +48,12 @@ How many links do I gotta break to fix this chain up?\n\n'''),
 That sneaky lil' rat's got a taste for trouble. Can't leave it alone with that!
 
 And don't ya dare leave it wit me, I tend to get a bit shaky and before we know it... KABOOM!!!\n\n'''),
-                "prompt_hint": "I might have some old wisdom in here somewhere, y'all got a mask?\n\n",                 
-                "hint": "\nI'd get going wit that dynamite first, shouldn't take more than 7 trips I reckon.\n\n", },
+                "prompt_hint": "I might have some old wisdom in here somewhere, y'all got a mask?\nIf so, I'll swap ya'll a mask for a hint?\n\n",                 
+                "hint": "\nAhhh, I can breath a bit better now.\nI'd get going wit that dynamite first, shouldn't take more than 7 trips I reckon.\n\n"},
 
             # npc for puzzle_five.
             "trapped_miner": {
-                "intro": ('''We think the lift has stalled and we'be been trapped down here for quite some time!
+                "intro": ('''We think the lift has stalled and we've been trapped down here for quite some time!
                           
 There's a bunch of us...Can ya'll see anything that might have gone wrong up there?
 
@@ -67,11 +67,11 @@ Then see if ya'll can't get them engines up and running!
 
 Remember, you gotta match up them power sources to get to exactly 100!\n\n'''),
                 "prompt_hint": "We can help ya'll figure it out, but you're gona need something to take notes. Ya'll got a notebook up there?",   
-                "hint": "\nTake a look around and maybe you'll see some notes on the wall. Remember, decrease before you increase!",
+                "hint": "\nTake a look around and maybe you'll see some notes to take on the wall. Remember, decrease before you increase!",
                 "outro": '''Thank ya'll for rescuing us out of that tight spot! We're mighty thankfull!
 
 We can take it from here and get this mine back in working order. 
-                '''
+'''
             },
             }
 

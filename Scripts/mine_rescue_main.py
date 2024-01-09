@@ -34,7 +34,7 @@ def register_user():
                  usernames.append(line[0])
          
          while user_exists:
-              new_username = input('''\nGive me your name of choice friend\nor Back to start menu - "e"\n:''')
+              new_username = input('''\nGive me your name of choice friend\nor Back to start menu - e\n:''')
               new_username = new_username.strip(" ")
               
               if new_username == "e":
@@ -93,9 +93,9 @@ def login():
             load_progress(username)
         else:
             options = input('''\n\nSeems you either entered it wrong or you aint registered! What do ya'll wana do?
-Have another go - "1"
-Register - "2"
-Back to start menu - "e"
+Have another go - 1
+Register - 2
+Back to start menu - e
 :''')
             options = options.lower().strip(" ")
             
@@ -197,9 +197,9 @@ if __name__ == "__main__":
     while True:
         
         user_selection = input('''\nNow what are you wanting to do partner?
-Register - "r"
-Login - "l"
-Exit game - "e"
+Register - r
+Login - l
+Exit game - e
 :''')
     
         user_selection = user_selection.lower().strip(" ")

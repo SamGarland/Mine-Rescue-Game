@@ -1,1 +1,2 @@
 Yrsa,cowgirl,female,blue,brown hat,work boots,notebook,puzzle_one
+Woody,sheriff,female,blue,cream hat,fashion boots,None,finished

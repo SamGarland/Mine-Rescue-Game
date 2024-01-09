@@ -1,8 +1,8 @@
-"""
+'''
 This is the character module with the Character class and methods.
 These are used to create and save a character to: "characters.txt" in Resources.
 
-"""
+'''
 #==== Imports ====#
 
 import mine_rescue_main as main
@@ -34,10 +34,10 @@ class Character:
         # Category selection.
         while True:
             category_select = input('''Now, choose your type of character from the list:
-Sherrif - "s"
-Gunslinger - "g"
-Cowgirl - "c"
-Blacksmith - "b"
+Sherrif - s
+Gunslinger - g
+Cowgirl - c
+Blacksmith - b
 :''')
 
             category_select = category_select.lower().strip(" ")
@@ -64,10 +64,10 @@ Blacksmith - "b"
         # Gender selection.
         while True:
             gender_select = input('''\nWhat gender are ya'll?
-Male - "m"
-Female - "f"
-Non-binary - "n"
-Other - "o"
+Male - m
+Female - f
+Non-binary - n
+Other - o
 :''')
 
             gender_select = gender_select.lower().strip(" ")
@@ -94,12 +94,12 @@ Other - "o"
         # Hair color selection.
         while True:
             hair_colour_select = input('''\nWhat's ya hair colour?
-Brown - "br"
-Blonde - "bl"
-Black - "bk"
-Red - "r"
-Blue - "bu"
-Purple - "p"
+Brown - br
+Blonde - bl
+Black - bk
+Red - r
+Blue - bu
+Purple - p
 :''')
             
             hair_colour_select = hair_colour_select.lower().strip(" ")
@@ -134,27 +134,27 @@ Purple - "p"
         # Hat selection.
         while True:
             hat_select = input('''\nWhat colour hat it gon be?
-Black hat - "bh"
-Brown hat - "brh"
-Cream hat - "ch"
-Red hat - "rh"
+Black hat - b
+Brown hat - br
+Cream hat - c
+Red hat - r
 :''')
             
             hat_select = hat_select.lower().strip(" ")
             
-            if hat_select == "bh":
+            if hat_select == "b":
                 hat = "black hat"
                 text.Typed.typed_text("\n\nYa'll got a black hat!\n")
                 break
-            elif hat_select == "brh":
+            elif hat_select == "br":
                 hat = "brown hat"
                 text.Typed.typed_text("\n\nYa'll got a brown hat!\n")
                 break
-            elif hat_select == "ch":
+            elif hat_select == "c":
                 hat = "cream hat"
                 text.Typed.typed_text("\n\nYa'll got a cream hat!\n")
                 break
-            elif hat_select == "rh":
+            elif hat_select == "r":
                 hat = "red hat"
                 text.Typed.typed_text("\n\nYa'll got a red hat!\n")
                 break
@@ -164,22 +164,22 @@ Red hat - "rh"
         # Boots selection.
         while True:
             boots_select = input('''\nWhat boots ya'll ride with?
-Riding boots - "rb"
-Work boots - "wb"
-Fashion boots - "fb"
+Riding boots - r
+Work boots - w
+Fashion boots - f
 :''')
             
             boots_select = boots_select.lower().strip(" ")
             
-            if boots_select == "rb":
+            if boots_select == "r":
                 boots = "riding boots"
                 text.Typed.typed_text("\n\nYa'll got riding boots!\n")
                 break
-            elif boots_select == "wb":
+            elif boots_select == "w":
                 boots = "work boots"
                 text.Typed.typed_text("\n\nYa'll got work boots!\n")
                 break
-            elif boots_select == "fb":
+            elif boots_select == "f":
                 boots = "fashion boots"
                 text.Typed.typed_text("\n\nOoooh fancy! Ya'll got them fashion boots!\n")
                 break
@@ -188,11 +188,11 @@ Fashion boots - "fb"
 
         # Equipment selection.
         while True:
-            equipment_select = input('''\nWhat's ya choice of equipment? Remember to look around in the game to pick up more equipment!
-Lasso - "l"
-Notebook - "n"
-Hammer - "h" 
-Mask - "m"
+            equipment_select = input('''\nWhat's ya choice of equipment? Remember, you can swap equipment for hints, so look around in the game to pick up more equipment!
+Lasso - l
+Notebook - n
+Hammer - h 
+Mask - m
 :''')
             
             equipment_select = equipment_select.lower().strip(" ")
@@ -220,7 +220,7 @@ Mask - "m"
         new_character = Character(username, category, gender, hair_colour, hat, boots, equipment)
         
         # Write the character's information to file.
-        with open("../Resources/characters.txt", "r+") as char_file:
+        with open("../Resources/characters.txt", "a") as char_file:
             
             char_file.write(f"{Character.__str__(new_character)},puzzle_one\n")
             char_file.close()

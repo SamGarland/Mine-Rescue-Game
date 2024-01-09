@@ -1,9 +1,9 @@
-"""
+'''
 This is the location module with Location class and methods.
 These allow the player to 'look around' their environment. 
 They also allow the player to collect extra equipment. 
 
-"""
+'''
 #==== Imports ====#
 
 import time
@@ -28,12 +28,12 @@ class Location:
     def get_loc_info(self):
         
         while True:
-            user_input = input(text.Colour('''\n\nGive me a description of where I'm at - "w"
-Look right - "r"
-Look left - "l"
-Look up - "u"
-Look down - "d"
-Back to the puzzle - "e"
+            user_input = input(text.Colour('''\n\nGive me a description of where I'm at - w
+Look right - r
+Look left - l
+Look up - u
+Look down - d
+Back to the puzzle - e
 :''').input_cyan())
             user_input.strip()
             
@@ -108,14 +108,14 @@ Back to the puzzle - "e"
             elif self.puzzle == "puzzle_two":
                 text.Colour("\nThe tracks are mighty wide in here.\n").cyan()
                 time.sleep(2)
-                text.Colour(f"Looks like there are about six or seven different lines. I wonder which one I need to take?\n").cyan()
+                text.Colour("Looks like there are about six or seven different lines. I wonder which one I need to take?\n").cyan()
                 time.sleep(2)
                 # Use of the Player's Hat
                 text.Colour(f"Maybe you can toss my {self.hat} and see where it goes!\n").cyan() #TODO 2
                 time.sleep(2)
                 text.Colour("\nHey look! There's a lasso there on the wall!\n").cyan()
                 time.sleep(2)
-                equip = input(text.Colour("\n\nYa'll wana add it to your inventory?\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
+                equip = input(text.Colour("\n\nYa'll wana add it to your inventory?\nYes - y\nNo - n\n:").input_cyan())
                 time.sleep(2)
                 equip = equip.lower().strip(" ")
                 if equip == "y":
@@ -131,6 +131,8 @@ Back to the puzzle - "e"
                 elif equip == "n":
                     # Reject equipment.
                     text.Colour("\nWhy that could'a come in handy! Ah well, I guess we don't wana be carrying too much stuff around...\n\n").cyan()
+                else:
+                    text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
             elif self.puzzle == "puzzle_three":
                 text.Colour("\nI can't see much over there.\nJust a couple ol' oil lamps and some crates.\n").cyan()
                 time.sleep(2)
@@ -201,13 +203,13 @@ Back to the puzzle - "e"
                 text.Colour("\nThey've sure put a lot of effort into holding up that ceiling!\nThose beams look mighty strong.\n").cyan()
                 time.sleep(2)
             elif self.puzzle == "puzzle_three":
-                text.Colour("\nI can't even tilt my head to look up. I hope ya'll aint clostrophobic or nothing...\n").cyan()
+                text.Colour("\nI can't even tilt my head to look up. I hope ya'll aint claustrophobic or nothing...\n").cyan()
                 time.sleep(1)
                 text.Colour("\n[CLANG]\n").magenta()
                 time.sleep(1)
                 text.Colour("\nHey dang! I just darn banged my head on a mask!\n").cyan()
                 time.sleep(2)
-                equip = input(text.Colour("\n\nYa'll wana add it to your inventory?\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
+                equip = input(text.Colour("\n\nYa'll wana add it to your inventory?\nYes - y\nNo - n\n:").input_cyan())
                 time.sleep(2)
                 equip = equip.lower().strip(" ")
                 if equip == "y":
@@ -223,6 +225,8 @@ Back to the puzzle - "e"
                 elif equip == "n":
                     # Reject equipment.
                     text.Colour("\nWhy that could'a come in handy! Ah well, I guess we don't wana be carrying too much stuff around...\n\n").cyan()
+                else:
+                    text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()   
             elif self.puzzle == "puzzle_four":
                 text.Colour("\nI can jus about see the roof of this thing.\n").cyan()
                 time.sleep(2)
@@ -246,7 +250,7 @@ Back to the puzzle - "e"
                 time.sleep(1)
                 text.Colour("\nOh my! Looks like someone dropped their notebook!\n").cyan()
                 time.sleep(2)
-                equip = input(text.Colour("\n\nYa'll wana add it to your inventory?\nYes - \"y\"\nNo - \"n\"\n:").input_cyan())
+                equip = input(text.Colour("\n\nYa'll wana add it to your inventory?\nYes - y\nNo - n\n:").input_cyan())
                 time.sleep(2)
                 equip = equip.lower().strip(" ")
                 if equip == "y":
@@ -262,6 +266,8 @@ Back to the puzzle - "e"
                 elif equip == "n":
                     # Reject equipment.
                     text.Colour("\nWhy that could'a come in handy! Ah well, I guess we don't wana be carrying too much stuff around...\n\n").cyan()
+                else:
+                    text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
             elif self.puzzle == "puzzle_two":
                 text.Colour("\nThere's bits of track all over the place.\n").cyan()
                 time.sleep(2)

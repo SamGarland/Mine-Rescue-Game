@@ -1,8 +1,8 @@
-"""
+'''
 This is the puzzle module with Puzzle class and methods containing puzzles 1-5.
 These puzzles form the bulk of the gameplay.
 
-"""
+'''
 #==== Imports ====#
 
 import random
@@ -63,7 +63,7 @@ class Puzzle:
         # Use Npc class for intro speech.
         text.Colour(f"[He babbles:] {self.npc.get_intro('railwayman_one')}\n\n").magenta()
         time.sleep(3)
-        text.Colour(f"[He then hands you a piece of paper with words on it and points towards the mine.]\n\n").magenta()
+        text.Colour("[He then hands you a piece of paper with words on it and points towards the mine.]\n\n").magenta()
         time.sleep(2)
         text.Typed.image_one()
         time.sleep(3)
@@ -94,9 +94,9 @@ Save and Exit - e
                         ciphered_text = self.caesar_cipher(original_sentence, shift)
                         text.Colour(f"[The writing says:]'{ciphered_text}'\n\n\n").magenta()
                         
-                        time.sleep(3)
-                        user_input = input(text.Colour("Looks like you gotta make some sense of this and figure out the key word\nEnter the key:\n\n\nHelp Menu - 'h'\n").input_cyan()).strip().lower()
                         time.sleep(2)
+                        user_input = input(text.Colour("Looks like you gotta make some sense of this and figure out the key word\nEnter the key\n\n\nHelp Menu - 'h'\n:").input_cyan()).strip().lower()
+                        time.sleep(1)
                         
                         if user_input == answer:
                             # End timer.
@@ -237,7 +237,7 @@ Check inventory - "c"
             # Player checks inventory.
             elif choice == "c":
                 time.sleep(2)
-                text.Colour(f"\n\nYour equipment: {inventory.Inventory(self.username).get_inventory_item()}\n\n").green()
+                text.Colour(f"\n\nYour equipment: {inventory.Inventory(self.username).show_player_inventory()}\n\n").green()
                 continue
             else:
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
@@ -255,6 +255,8 @@ Save and Exit - e
 \n''').input_cyan())
                 
                 options = options.lower().strip(" ")
+                solution = ['7','7m','7 m','7 metres','7metres','7metre','7 metre','7 meter','7meter','7 meters','7meters',
+                            'seven metres','seven meters']
                 
                 # Puzzle Logic.
                 if options == "1":
@@ -265,18 +267,17 @@ Save and Exit - e
                         # Show text image two.
                         text.Typed.image_two()
 
-                        answer = input(text.Colour("\nWhat's the height of the arch at the center of the railway track? Enter your answer to the nearest meter:\n\n\nHelp Menu - 'h'\n").input_cyan())
-
+                        answer = input(text.Colour("\nWhat's the height of the arch at the center of the railway track? Enter your answer to the nearest metre.\n\n\nHelp Menu - 'h'\n:").input_cyan())
+                        answer = answer.lower().strip(" ")
+                        
                         # Help Menu
                         if answer == 'h':
                             help.Help(self.username, "puzzle_two").get_help()
                             continue
-                        try:
-                            answer = int(answer)
                             
                             try:
                                 
-                                if answer == 7:
+                                if answer in solution:
                                     # End timer.
                                     end_time = time.perf_counter()
                                     time.sleep(2)
@@ -311,7 +312,7 @@ Exit - "e"
                                         time.sleep(2)
                                         text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                                         continue
-                                elif answer != 7:
+                                elif answer not in solution:
                                     
                                     time.sleep(2)
                                     # Continue puzzle menu.
@@ -339,9 +340,7 @@ Exit - "e"
                             except:
                                 time.sleep(1)
                                 text.Colour("\nNow now, enter a number, not some gibberish you fool!\n\n").red()
-                        except:
-                            time.sleep(1)
-                            text.Colour("Enter a number ya'll!").red()
+                       
                 # Rehear puzzle.
                 elif options == "2":
                     
@@ -417,7 +416,7 @@ Check inventory - "c"
             # Player checks inventory.
             elif choice == "c":
                 time.sleep(2)
-                text.Colour(f"Your equipment: {inventory.Inventory(self.username).get_inventory_item()}\n\n").green()
+                text.Colour(f"Your equipment: {inventory.Inventory(self.username).show_player_inventory()}\n\n").green()
                 continue
             else:
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
@@ -434,6 +433,7 @@ Save and Exit - e
 \n''').input_cyan())
                 
             options = options.lower().strip(" ")
+            solution = ['4','four','Four']
             
             # Puzzle Logic.
             if options == "1":
@@ -445,16 +445,14 @@ Save and Exit - e
                         #Show text image
                         text.Typed.image_six()
                         time.sleep(2)
-                        user_input = input(text.Colour("\nThink hard and enter the minimum number of breaks needed to fix this chain:\n\n\nHelp Menu - 'h'\n").input_cyan()).strip()
+                        user_input = input(text.Colour("\nThink hard and enter the minimum number of breaks needed to fix this chain.\n\n\nHelp Menu - 'h'\n:").input_cyan()).strip()
 
                         # Help Menu
                         if user_input == 'h':
                             help.Help(self.username, "puzzle_three").get_help()
                             continue
-
-                        number_of_breaks = int(user_input)
                         
-                        if number_of_breaks == 4:
+                        if user_input in solution:
                             # End time.
                             end_time = time.perf_counter()
                             time.sleep(2)
@@ -490,7 +488,7 @@ Exit - "e"
                                 time.sleep(2)
                                 text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\n Have another go...\n\n").red()
                                 continue
-                        elif number_of_breaks != 4:
+                        elif user_input not in solution:
                             
                             time.sleep(2)
                             text.Colour("\nNope, that ain't it. You gotta think like you're spendin' links, not silver dollars. Try again...\n").red()
@@ -515,7 +513,7 @@ Exit - "e"
                             text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
                             continue
                     except:
-                        text.Colour("Enter a number ya'll!").red()
+                        text.Colour("Enter the number of breaks ya'll!").red()
             # Rehear puzzle.
             elif options == "2":
                 
@@ -573,7 +571,7 @@ Exit - "e"
         puzzle_four_item = "mask"
         
         text.Colour('''What in the name ya'll gona do??
-Your actions are:
+The actions are:
 A - Take Rat Across/Back
 B - Take Dynamite Across/Back
 C - Take Miner Across/Back
@@ -611,7 +609,7 @@ Check inventory - "c"
             # Player checks inventory.
             elif choice == "c":
                 time.sleep(2)
-                text.Colour(f"Your equipment: {inventory.Inventory(self.username).get_inventory_item()}\n\n").green()
+                text.Colour(f"Your equipment: {inventory.Inventory(self.username).show_player_inventory()}\n\n").green()
                 continue
             else:
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
@@ -648,7 +646,17 @@ Save and Exit - e
                     else:
                         # Start timer.
                         start_time = time.perf_counter()
-                        answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n\n\nHelp Menu - 'h'\n").input_cyan())
+                        answer = input(text.Colour('''\nTime's wastin', enter yer moves ONE AT A TIME friend. Real slow-like.
+Remember you can't take everyone across at once!
+
+The actions are:
+A - Take Rat Across/Back
+B - Take Dynamite Across/Back
+C - Take Miner Across/Back
+D - Take Nothing Across/Back
+
+Help Menu - h
+:''').input_cyan())
                         answer = answer.strip(" ")
                     
                         if answer in solution[2]:
@@ -663,7 +671,17 @@ Save and Exit - e
                                 
                                     text.Colour("\nYa'll got:\nB - Take Dynamite Across/Back.\n").cyan()
                                     
-                                    answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n\n\nHelp Menu - 'h'\n").input_cyan())
+                                    answer = input(text.Colour('''\nTime's wastin', enter yer moves ONE AT A TIME friend. Real slow-like.
+Remember you can't take everyone across at once!
+
+The actions are:
+A - Take Rat Across/Back
+B - Take Dynamite Across/Back
+C - Take Miner Across/Back
+D - Take Nothing Across/Back
+
+Help Menu - h
+:''').input_cyan())
                                     answer = answer.lower().strip(" ")
                                     
                                     if answer in solution[4]:
@@ -678,7 +696,17 @@ Save and Exit - e
                                   
                                                 text.Colour("\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n").cyan()
                                                 
-                                                answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n\n\nHelp Menu - 'h'\n").input_cyan())
+                                                answer = input(text.Colour('''\nTime's wastin', enter yer moves ONE AT A TIME friend. Real slow-like.
+Remember you can't take everyone across at once!
+
+The actions are:
+A - Take Rat Across/Back
+B - Take Dynamite Across/Back
+C - Take Miner Across/Back
+D - Take Nothing Across/Back
+
+Help Menu - h
+:''').input_cyan())
                                                 answer = answer.lower().strip(" ")
                                                 
                                                 # As either "A" or "C" could be selected at this point.
@@ -701,7 +729,17 @@ Save and Exit - e
                                                         
                                                             text.Colour(f"\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n{take_across_one}\n").cyan()
                                                             
-                                                            answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n\n\nHelp Menu - 'h'\n").input_cyan())
+                                                            answer = input(text.Colour('''\nTime's wastin', enter yer moves ONE AT A TIME friend. Real slow-like.
+Remember you can't take everyone across at once!
+
+The actions are:
+A - Take Rat Across/Back
+B - Take Dynamite Across/Back
+C - Take Miner Across/Back
+D - Take Nothing Across/Back
+
+Help Menu - h
+:''').input_cyan())
                                                             answer = answer.lower().strip(" ")
                                                         
                                                             if answer in solution[2]:
@@ -716,7 +754,17 @@ Save and Exit - e
                                                                         
                                                                         text.Colour(f"\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n{take_across_one}\nB - Take Dynamite Across/Back.\n").cyan()
                                                                         
-                                                                        answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n\n\nHelp Menu - 'h'\n").input_cyan())
+                                                                        answer = input(text.Colour('''\nTime's wastin', enter yer moves ONE AT A TIME friend. Real slow-like.
+Remember you can't take everyone across at once!
+
+The actions are:
+A - Take Rat Across/Back
+B - Take Dynamite Across/Back
+C - Take Miner Across/Back
+D - Take Nothing Across/Back
+
+Help Menu - h
+:''').input_cyan())
                                                                         answer = answer.lower().strip(" ")
                                                                         
                                                                         # Ensuring either "A" or "C" has not been entered twice using flags established above.
@@ -737,7 +785,17 @@ Save and Exit - e
                                                                             
                                                                                     text.Colour(f"\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n{take_across_one}\nB - Take Dynamite Across/Back.\n{take_across_two}\n").cyan()
                                                                                     
-                                                                                    answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n\n\nHelp Menu - 'h'\n").input_cyan())
+                                                                                    answer = input(text.Colour('''\nTime's wastin', enter yer moves ONE AT A TIME friend. Real slow-like.
+Remember you can't take everyone across at once!
+
+The actions are:
+A - Take Rat Across/Back
+B - Take Dynamite Across/Back
+C - Take Miner Across/Back
+D - Take Nothing Across/Back
+
+Help Menu - h
+:''').input_cyan())
                                                                                     answer = answer.lower().strip(" ")
                                 
                                                                                     if answer in solution[4]:
@@ -751,7 +809,17 @@ Save and Exit - e
                                                                                             else:
                                                                                             
                                                                                                 text.Colour(f"\nYa'll got:\nB - Take Dynamite Across/Back.\nD - Take Nothing Across/Back.\n{take_across_one}\nB - Take Dynamite Across/Back.\n{take_across_two}\nD - Take Nothing Across/Back.\n").cyan()
-                                                                                                answer = input(text.Colour("\nTime's wastin', enter yer moves one at a time friend. Real slow-like (A/B/C/D)\nRemember you can't take everyone across at once!\n\n\nHelp Menu - 'h'\n").input_cyan())
+                                                                                                answer = input(text.Colour('''\nTime's wastin', enter yer moves ONE AT A TIME friend. Real slow-like.
+Remember you can't take everyone across at once!
+
+The actions are:
+A - Take Rat Across/Back
+B - Take Dynamite Across/Back
+C - Take Miner Across/Back
+D - Take Nothing Across/Back
+
+Help Menu - h
+:''').input_cyan())
                                                                                                 answer = answer.lower().strip(" ")
                                     
                                                                                                 if answer in solution[2]:
@@ -1104,7 +1172,7 @@ Check inventory - "c"
             # Player checks inventory.
             elif choice == "c":
                 time.sleep(2)
-                text.Colour(f"Your equipment: {inventory.Inventory(self.username).get_inventory_item()}\n\n").green()
+                text.Colour(f"Your equipment: {inventory.Inventory(self.username).show_player_inventory()}\n\n").green()
                 continue
             else:
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
@@ -1125,13 +1193,13 @@ Save and Exit - e
             
             options = options.lower().strip(" ")
             # Dictionary containing possible solutions for each stage of puzzle.
-            solution = {1 : ["98-7", "98 - 7", "98- 7", "98 -7", 98-7],
-                        2 : ["-6", "- 6", -6],
-                        3 : ["+5", "+ 5", +5],
-                        4 : ["+4", "+ 4", +4],
-                        5 : ["+3", "+ 3", +3],
-                        6 : ["+2", "+ 2", +2],
-                        7 : ["+1", "+ 1", +1]}
+            solution = {1 : ["98-7", "98 - 7", "98- 7", "98 -7", "-7", "- 7"],
+                        2 : ["91-6", "91 - 6", "91- 6", "91 -6", "-6", "- 6"],
+                        3 : ["85+5", "85 + 5", "85+ 5", "85 +5", "+5", "+ 5"],
+                        4 : ["90+4", "90 + 4", "90+ 4", "90 +4", "+4", "+ 4"],
+                        5 : ["94+3", "94 + 3", "94+ 3", "94 +3", "+3", "+ 3"],
+                        6 : ["97+2", "97 + 2", "97+ 2", "97 +2", "+2", "+ 2"],
+                        7 : ["99+1", "99 + 1", "99+ 1", "99 +1", "+1", "+ 1"]}
             # Puzzle logic.
             if options == "1":
                 
@@ -1142,7 +1210,7 @@ Save and Exit - e
                     else:
                         # Start timer.
                         start_time = time.perf_counter()
-                        answer = input(text.Colour("\nSo what's your answer partner?\n\nYou got 98, 7, 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter each operation at a time:\n\n\nHelp Menu - 'h'\n").input_cyan())
+                        answer = input(text.Colour("\nSo what's your answer partner?\n\nYou got 98, 7, 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter each operation at a time\n\nHelp Menu - 'h'\n:").input_cyan())
                         answer = answer.lower().strip(" ")
                     
                         if answer in solution[1]:
@@ -1156,7 +1224,7 @@ Save and Exit - e
                                 else: 
                                     text.Colour("\nYa'll got 91.\n").cyan()
                                     
-                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\n\nHelp Menu - 'h'\n").input_cyan())
+                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - 'h'\n:").input_cyan())
                                     answer = answer.lower().strip(" ")
                                     
                                     if answer in solution[2]:
@@ -1170,7 +1238,7 @@ Save and Exit - e
                                             else:
                                                 text.Colour("\nYa'll got 85.\n").cyan()
                                                 
-                                                answer = input(text.Colour("\nWhat next partner??\n\nYou got 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\n\nHelp Menu - 'h'\n").input_cyan())
+                                                answer = input(text.Colour("\nWhat next partner??\n\nYou got 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - 'h'\n:").input_cyan())
                                                 answer = answer.lower().strip(" ")
                                             
                                                 if answer in solution[3]:
@@ -1184,7 +1252,7 @@ Save and Exit - e
                                                         else:
                                                             text.Colour("\nYa'll got 90.\n").cyan()
                                                             
-                                                            answer = input(text.Colour("\nWhat next partner??\n\nYou got 4, 3, 2, 1,and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\n\nHelp Menu - 'h'\n").input_cyan())
+                                                            answer = input(text.Colour("\nWhat next partner??\n\nYou got 4, 3, 2, 1,and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - 'h'\n:").input_cyan())
                                                             answer = answer.lower().strip(" ")
                                                             
                                                             if answer in solution[4]:
@@ -1197,7 +1265,7 @@ Save and Exit - e
                                                                        break
                                                                     else:
                                                                         text.Colour("\nYa'll got 94.\n").cyan()
-                                                                        answer = input(text.Colour("\nWhat next partner??\n\nYou got 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\n\nHelp Menu - 'h'\n").input_cyan())
+                                                                        answer = input(text.Colour("\nWhat next partner??\n\nYou got 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - 'h'\n:").input_cyan())
                                                                         answer = answer.lower().strip(" ")
                     
                                                                         if answer in solution[5]:
@@ -1210,7 +1278,7 @@ Save and Exit - e
                                                                                    break
                                                                                 else:
                                                                                     text.Colour("\nYa'll got 97.\n").cyan()
-                                                                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\n\nHelp Menu - 'h'\n").input_cyan())
+                                                                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - 'h'\n:").input_cyan())
                                                                                     answer = answer.lower().strip(" ")
                         
                                                                                     if answer in solution[6]:
@@ -1224,7 +1292,7 @@ Save and Exit - e
                                                                                             else:
                                                                                                 text.Colour("\nYa'll got 99.\n").cyan()
                                                                                                 
-                                                                                                answer = input(text.Colour("\nWhat next partner?\n\nYou got 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\n\nHelp Menu - 'h'\n").input_cyan())
+                                                                                                answer = input(text.Colour("\nWhat next partner?\n\nYou got 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - 'h'\n:").input_cyan())
                                                                                                 answer = answer.lower().strip(" ")
                                                                                                 
                                                                                                 if answer in solution[7]:

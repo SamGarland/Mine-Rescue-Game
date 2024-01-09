@@ -1,9 +1,9 @@
-"""
+'''
 This is the leaderboard module with Leaderboard class and methods.
 These are used to count the puzzle time, update the leaderboard,
 show the leaderboard and show status.
  
-"""
+'''
 #==== Imports ====#
 
 import datetime

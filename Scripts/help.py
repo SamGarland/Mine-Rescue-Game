@@ -1,7 +1,7 @@
-"""
+'''
 This is the help module with Help class and methods.
 These provide the player with guidance on how to approach the puzzles and provides common mistakes.
-"""
+'''
 
 #==== Imports ====#
 
@@ -21,9 +21,9 @@ class Help:
     def get_help(self):
 
         while True:
-            user_input = input(text.Colour('''\n\nGeneral Guidance - "g"
-Common Mistakes - "m"
-Back to the puzzle - "e"
+            user_input = input(text.Colour('''\n\nGeneral Guidance - g
+Common Mistakes - m
+Back to the puzzle - e
 :''').input_cyan())
             user_input.strip()
 
@@ -44,8 +44,8 @@ Back to the puzzle - "e"
                 text.Colour('''
 Your task is to decrypt a sentence that has been scrambled.
 All the letters have shifted by the same number of spaces, for example:
-If the scrambled sentence is "Ifmmp xpsme", by finding the words have shifted 
-by one place (A -> B -> C), you know this sentence says "Hello World"
+if the scrambled sentence is "Ifmmp xpsme", by finding the words have shifted 
+by one place (A -> B -> C), you know this sentence says "Hello World".
 
 Your goal is to figure out the original sentence and identify the key word,
 which will be the final word in all capitals.''').cyan()
@@ -59,19 +59,19 @@ The expansion has formed a triangle shape, the height will be at the centre of t
                 text.Colour('''
 You're faced with a collapsed tunnel and need to figure out the minimum 
 number of breaks needed to fix a chain to crawl through a narrow space.
-By breaking one link, you can attach two chains together''').cyan()
+By breaking one link, you can attach two chains together.''').cyan()
             elif self.puzzle == "puzzle_four":
                 time.sleep(1)
                 text.Colour('''
 You must plan how to safely transport a group of items across a lake using a rickety boat. 
 Plan your moves to ensure all items and yourself get across safely without any accidents.
-You must be able to find the fastest solution, requiring the least journeys as the lake is flooding''').cyan()
+You must be able to find the fastest solution, requiring the least journeys as the lake is flooding.''').cyan()
             elif self.puzzle == "puzzle_five":
                 time.sleep(1)
                 text.Colour('''
 Your task is to solve a numerical puzzle to operate a lift shaft and rescue trapped miners.
-In this task, you must make sure to do the correct operations to get to 100.
-e.g. with 25,50,12,13 can be 25+50+12+13 = 100''').cyan()
+In this task, you must make sure to do the correct operations to get to 100
+e.g. with 25,50,12,13 can be 25+50+12+13 = 100.''').cyan()
             else:
                 text.Colour("\nThere is no such puzzle!").red()
         except:
@@ -100,8 +100,8 @@ e.g. with 25,50,12,13 can be 25+50+12+13 = 100''').cyan()
             elif self.puzzle == "puzzle_five":
                 time.sleep(1)
                 text.Colour('''
-- Don't change to order of the numbers given, it has to stay the same!
-- Don't forget the aim is a 100, don't go over and don't be under''').cyan()
+- Don't change the order of the numbers given, it has to stay the same!
+- Don't forget the aim is 100, don't go over and don't be under.''').cyan()
             else:
                 text.Colour("\nThere is no such puzzle!").red()
         except:
