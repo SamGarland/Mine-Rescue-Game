@@ -88,14 +88,13 @@ Save and Exit - e
                 if options == "1":
                     # Start timer.
                     start_time = time.perf_counter()
-                    
+                    # Initiates random shift outside loop - so that the puzzle remains same if going to help menu.
+                    shift = random.randint(1, 25)  # Random shift value
+                    ciphered_text = self.caesar_cipher(original_sentence, shift)
                     while True:
-                        shift = random.randint(1, 25)  # Random shift value
-                        ciphered_text = self.caesar_cipher(original_sentence, shift)
                         text.Colour(f"[The writing says:]'{ciphered_text}'\n\n\n").magenta()
-                        
                         time.sleep(2)
-                        user_input = input(text.Colour("Looks like you gotta make some sense of this and figure out the key word\nEnter the key\n\n\nHelp Menu - 'h'\n:").input_cyan()).strip().lower()
+                        user_input = input(text.Colour("Looks like you gotta make some sense of this and figure out the key word\nEnter the key\n\n\nHelp Menu - h\n:").input_cyan()).strip().lower()
                         time.sleep(1)
                         
                         if user_input == answer:
@@ -112,8 +111,8 @@ Save and Exit - e
                             main.save_progress(self.username, "puzzle_two")
                             # Continue game menu.
                             options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
-Continue - "c"
-Exit - "e"
+Continue - c
+Exit - e
 :''').input_cyan())
                             options = options.lower().strip(" ")
                             
@@ -140,7 +139,7 @@ Exit - "e"
                             text.Colour("Oh dust!, the writing changed?!\n\n\n").cyan()
                             time.sleep(2)
                             # Continue puzzle menu.
-                            cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
+                            cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
                             cont = cont.lower().strip(" ")
                             
                             if cont == "y":
@@ -211,9 +210,9 @@ Exit - "e"
         # Hint menu.
         while True: 
             choice = input(text.Colour('''How'd you wana respond partner?
-Yes - "y"
-No - "n"
-Check inventory - "c"
+Yes - y
+No - n
+Check inventory - c
 ''').input_cyan())
             choice = choice.lower().strip(" ")
         
@@ -267,7 +266,7 @@ Save and Exit - e
                         # Show text image two.
                         text.Typed.image_two()
 
-                        answer = input(text.Colour("\nWhat's the height of the arch at the center of the railway track? Enter your answer to the nearest metre.\n\n\nHelp Menu - 'h'\n:").input_cyan())
+                        answer = input(text.Colour("\nWhat's the height of the arch at the center of the railway track? Enter your answer to the nearest metre.\n\n\nHelp Menu - h\n:").input_cyan())
                         answer = answer.lower().strip(" ")
                         
                         # Help Menu
@@ -292,8 +291,8 @@ Save and Exit - e
                                     main.save_progress(self.username, "puzzle_three")
                                     # Continue game menu.
                                     options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
-Continue - "c"
-Exit - "e"
+Continue - c
+Exit - e
 :''').input_cyan())
                                     options = options.lower().strip(" ")
                                     
@@ -316,7 +315,7 @@ Exit - "e"
                                     
                                     time.sleep(2)
                                     # Continue puzzle menu.
-                                    cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
+                                    cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
                                     cont = cont.lower().strip(" ")
                                     
                                     if cont == "y":
@@ -390,9 +389,9 @@ Exit - "e"
         text.Colour(f"{self.npc.get_prompt('miner_crawlspace')}\n").magenta()
         while True:
             choice = input(text.Colour('''How'd you wana respond partner?
-Yes - "y"
-No - "n"
-Check inventory - "c"
+Yes - y
+No - n
+Check inventory - c
 ''').input_cyan())
             choice = choice.lower().strip(" ")
         
@@ -445,7 +444,7 @@ Save and Exit - e
                         #Show text image
                         text.Typed.image_six()
                         time.sleep(2)
-                        user_input = input(text.Colour("\nThink hard and enter the minimum number of breaks needed to fix this chain.\n\n\nHelp Menu - 'h'\n:").input_cyan()).strip()
+                        user_input = input(text.Colour("\nThink hard and enter the minimum number of breaks needed to fix this chain.\n\n\nHelp Menu - h\n:").input_cyan()).strip()
 
                         # Help Menu
                         if user_input == 'h':
@@ -469,8 +468,8 @@ Save and Exit - e
                             main.save_progress(self.username, "puzzle_four")
                             # Continue game menu.
                             options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
-Continue - "c"
-Exit - "e"
+Continue - c
+Exit - e
 :''').input_cyan())
                             options = options.lower().strip(" ")
                                 
@@ -494,7 +493,7 @@ Exit - "e"
                             text.Colour("\nNope, that ain't it. You gotta think like you're spendin' links, not silver dollars. Try again...\n").red()
                             time.sleep(2)
                             # Continue puzzle menu.
-                            cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
+                            cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
                             cont = cont.lower().strip(" ")
                             
                             if cont == "y":
@@ -584,9 +583,9 @@ D - Take Nothing Across/Back
         # Hint menu.
         while True: 
             choice = input(text.Colour('''How'd you wana respond partner?
-Yes - "y"
-No - "n"
-Check inventory - "c"
+Yes - y
+No - n
+Check inventory - c
 ''').input_cyan())
             choice = choice.lower().strip(" ")        
             if choice == "y":
@@ -867,7 +866,7 @@ Exit - "e"
                                                                                                     text.Colour("\nThat don't sound quite right, we ain't got forever...\n\n").red()
                                                                                                     time.sleep(1)
                                                                                                     # Continue puzzle menu.
-                                                                                                    cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
+                                                                                                    cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
                                                                                                     cont = cont.lower().strip(" ")
                                                                                                     
                                                                                                     if cont == "y":
@@ -897,7 +896,7 @@ Exit - "e"
                                                                                         time.sleep(2)
                                                                                         text.Colour("\nThat don't sound quite right, we ain't got forever...\n\n").red()
                                                                                         time.sleep(1)
-                                                                                        cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
+                                                                                        cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
                                                                                         cont = cont.lower().strip(" ")
                                                                                         
                                                                                         if cont == "y":
@@ -924,7 +923,7 @@ Exit - "e"
                                                                             time.sleep(2)
                                                                             text.Colour("\nThat don't sound quite right, we ain't got forever...\n\n").red()
                                                                             time.sleep(1)
-                                                                            cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
+                                                                            cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
                                                                             cont = cont.lower().strip(" ")
                                                                             
                                                                             if cont == "y":
@@ -951,7 +950,7 @@ Exit - "e"
                                                                 time.sleep(2)
                                                                 text.Colour("\nThat don't sound quite right, we ain't got forever...\n\n").red()
                                                                 time.sleep(1)
-                                                                cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
+                                                                cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
                                                                 cont = cont.lower().strip(" ")
                                                                 
                                                                 if cont == "y":
@@ -978,7 +977,7 @@ Exit - "e"
                                                     time.sleep(2)
                                                     text.Colour("\nThat don't sound quite right, we ain't got forever...\n\n").red()
                                                     time.sleep(1)
-                                                    cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
+                                                    cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
                                                     cont = cont.lower().strip(" ")
                                                     
                                                     if cont == "y":
@@ -1005,7 +1004,7 @@ Exit - "e"
                                         time.sleep(2)
                                         text.Colour("\nThat don't sound quite right, we ain't got forever...\n\n").red()
                                         time.sleep(1)
-                                        cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
+                                        cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
                                         cont = cont.lower().strip(" ")
                                         
                                         if cont == "y":
@@ -1032,7 +1031,7 @@ Exit - "e"
                             time.sleep(2)
                             text.Colour("\nThat don't sound quite right, we ain't got forever...\n\n").red()
                             time.sleep(1)
-                            cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
+                            cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
                             cont = cont.lower().strip(" ")
                             
                             if cont == "y":
@@ -1146,9 +1145,9 @@ D - Take Nothing Across
         # Hint menu.
         while True: 
             choice = input(text.Colour('''How'd you wana respond partner?
-Yes - "y"
-No - "n"
-Check inventory - "c"
+Yes - y
+No - n
+Check inventory - c
 ''').input_cyan())
             choice = choice.lower().strip(" ")
             
@@ -1210,7 +1209,7 @@ Save and Exit - e
                     else:
                         # Start timer.
                         start_time = time.perf_counter()
-                        answer = input(text.Colour("\nSo what's your answer partner?\n\nYou got 98, 7, 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter each operation at a time\n\nHelp Menu - 'h'\n:").input_cyan())
+                        answer = input(text.Colour("\nSo what's your answer partner?\n\nYou got 98, 7, 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter each operation at a time\n\nHelp Menu - h\n:").input_cyan())
                         answer = answer.lower().strip(" ")
                     
                         if answer in solution[1]:
@@ -1224,7 +1223,7 @@ Save and Exit - e
                                 else: 
                                     text.Colour("\nYa'll got 91.\n").cyan()
                                     
-                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - 'h'\n:").input_cyan())
+                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 6, 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - h\n:").input_cyan())
                                     answer = answer.lower().strip(" ")
                                     
                                     if answer in solution[2]:
@@ -1238,7 +1237,7 @@ Save and Exit - e
                                             else:
                                                 text.Colour("\nYa'll got 85.\n").cyan()
                                                 
-                                                answer = input(text.Colour("\nWhat next partner??\n\nYou got 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - 'h'\n:").input_cyan())
+                                                answer = input(text.Colour("\nWhat next partner??\n\nYou got 5, 4, 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - h\n:").input_cyan())
                                                 answer = answer.lower().strip(" ")
                                             
                                                 if answer in solution[3]:
@@ -1252,7 +1251,7 @@ Save and Exit - e
                                                         else:
                                                             text.Colour("\nYa'll got 90.\n").cyan()
                                                             
-                                                            answer = input(text.Colour("\nWhat next partner??\n\nYou got 4, 3, 2, 1,and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - 'h'\n:").input_cyan())
+                                                            answer = input(text.Colour("\nWhat next partner??\n\nYou got 4, 3, 2, 1,and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - h\n:").input_cyan())
                                                             answer = answer.lower().strip(" ")
                                                             
                                                             if answer in solution[4]:
@@ -1265,7 +1264,7 @@ Save and Exit - e
                                                                        break
                                                                     else:
                                                                         text.Colour("\nYa'll got 94.\n").cyan()
-                                                                        answer = input(text.Colour("\nWhat next partner??\n\nYou got 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - 'h'\n:").input_cyan())
+                                                                        answer = input(text.Colour("\nWhat next partner??\n\nYou got 3, 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - h\n:").input_cyan())
                                                                         answer = answer.lower().strip(" ")
                     
                                                                         if answer in solution[5]:
@@ -1278,7 +1277,7 @@ Save and Exit - e
                                                                                    break
                                                                                 else:
                                                                                     text.Colour("\nYa'll got 97.\n").cyan()
-                                                                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - 'h'\n:").input_cyan())
+                                                                                    answer = input(text.Colour("\nWhat next partner?\n\nYou got 2, 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - h\n:").input_cyan())
                                                                                     answer = answer.lower().strip(" ")
                         
                                                                                     if answer in solution[6]:
@@ -1292,7 +1291,7 @@ Save and Exit - e
                                                                                             else:
                                                                                                 text.Colour("\nYa'll got 99.\n").cyan()
                                                                                                 
-                                                                                                answer = input(text.Colour("\nWhat next partner?\n\nYou got 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - 'h'\n:").input_cyan())
+                                                                                                answer = input(text.Colour("\nWhat next partner?\n\nYou got 1, and as many + and - as ya'll want to work with\n\nEnter one stage at a time:\n\nHelp Menu - h\n:").input_cyan())
                                                                                                 answer = answer.lower().strip(" ")
                                                                                                 
                                                                                                 if answer in solution[7]:
@@ -1326,7 +1325,7 @@ Save and Exit - e
                                                                                                     text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
                                                                                                     time.sleep(2)
                                                                                                     # Continue puzzle menu.
-                                                                                                    cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit puzzle - \"e\"\n:").input_cyan())
+                                                                                                    cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
                                                                                                     cont = cont.lower().strip(" ")
                                                                                                     
                                                                                                     if cont == "y":
@@ -1353,7 +1352,7 @@ Save and Exit - e
                                                                                         time.sleep(2)
                                                                                         text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
                                                                                         time.sleep(2)
-                                                                                        cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
+                                                                                        cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit to start menu - e\n:").input_cyan())
                                                                                         cont = cont.lower().strip(" ")
                                                                                         
                                                                                         if cont == "y":
@@ -1375,7 +1374,7 @@ Save and Exit - e
                                                                             time.sleep(2)
                                                                             text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
                                                                             time.sleep(2)
-                                                                            cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
+                                                                            cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit to start menu - e\n:").input_cyan())
                                                                             cont = cont.lower().strip(" ")
                                                                             
                                                                             if cont == "y":
@@ -1397,7 +1396,7 @@ Save and Exit - e
                                                                 time.sleep(2)
                                                                 text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
                                                                 time.sleep(2)
-                                                                cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
+                                                                cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit to start menu - e\n:").input_cyan())
                                                                 cont = cont.lower().strip(" ")
                                                                 
                                                                 if cont == "y":
@@ -1419,7 +1418,7 @@ Save and Exit - e
                                                     time.sleep(2)
                                                     text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
                                                     time.sleep(2)
-                                                    cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
+                                                    cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit to start menu - e\n:").input_cyan())
                                                     cont = cont.lower().strip(" ")
                                                     
                                                     if cont == "y":
@@ -1441,7 +1440,7 @@ Save and Exit - e
                                         time.sleep(2)
                                         text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
                                         time.sleep(2)
-                                        cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
+                                        cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit to start menu - e\n:").input_cyan())
                                         cont = cont.lower().strip(" ")
                                         
                                         if cont == "y":
@@ -1463,7 +1462,7 @@ Save and Exit - e
                             time.sleep(2)
                             text.Colour("That don't sound quite right, we ain't got forever...\n\n").red()
                             time.sleep(2)
-                            cont = input(text.Colour("Want to have another go fella?\n\nYes - \"y\"\nExit to start menu - \"e\"\n:").input_cyan())
+                            cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit to start menu - e\n:").input_cyan())
                             cont = cont.lower().strip(" ")
                             
                             if cont == "y":

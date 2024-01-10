@@ -68,8 +68,8 @@ class Leaderboard:
                         time = line[3]
                         new_lb.write(f"{user},{status},{puzzle_time},{time}\n")
                         
-            os.remove("../Resources/Leaderboard.txt")
-            os.rename("../Resources/new_leaderboard.txt", "../Resources/Leaderboard.txt")
+            os.remove("../Resources/leaderboard.txt")
+            os.rename("../Resources/new_leaderboard.txt", "../Resources/leaderboard.txt")
         
             lb.close()
         
@@ -113,7 +113,7 @@ class Leaderboard:
         file_set = []
         agg_times_set = []
         
-        with open("../Resources/Leaderboard.txt", "r") as lb:
+        with open("../Resources/leaderboard.txt", "r") as lb:
             
             lines = lb.readlines()
             
@@ -133,7 +133,7 @@ class Leaderboard:
                for item in file_set: 
                     if item[1] == "finished":
                         if math.floor(float(item[3])) == ele:
-                            print(f" #{count:<5}{item[0]:^15}{item[1]:^10}{str(datetime.timedelta(seconds = int(item[2]))):^20}{str(datetime.timedelta(seconds = int(ele))):^20}\n")
+                            print(f" #{count:<5}{item[0]:^15}{item[1]:^10}{str(datetime.timedelta(seconds = int(item[2]))):^21}{str(datetime.timedelta(seconds = int(ele))):^20}\n")
                             count += 1
             for ele in agg_times_set:
                for item in file_set: 

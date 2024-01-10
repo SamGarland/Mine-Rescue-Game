@@ -102,7 +102,6 @@ Back to start menu - e
             if options == "1":    
                 text.Typed.typed_text("\nAlright partner! Have another go...\n\n")
                 time.sleep(2)
-                continue
             elif options == "2":
                 register_user()
             elif options == "e":
@@ -110,7 +109,6 @@ Back to start menu - e
             else:
                 time.sleep(2)
                 text.Typed.typed_text("\nDo'ya know what? I don't understand a thang you just said... Have another go!\n")
-                continue
                 
     f.close()
 
@@ -146,8 +144,17 @@ def load_progress(username):
             elif current_puzzle == "finished":
                 text.Typed.typed_text("\n\nSeems you already completed this fella!\nLet's see how you did\n\n")
                 leaderboard.Leaderboard.show_Leaderboard()
-            break
-
+                # Restart game menu
+                while True:
+                    options = input("\nYa'll wana restart the game and have another go? Ya'll can keep your username and password but all your progress will be lost.\nYes - y\nNo - n\n:")
+                    if options == "y":
+                        text.Typed.typed_text("\nYipeee! We's bout to go on another adventure ya'll!\n\n")
+                        restart_game(username)
+                        return False
+                    elif options == "n":
+                        break
+                    else:
+                        text.Colour("That ain't no choice ya'll can make partner!").red()
     if not character_found:
         text.Typed.typed_text("\nTime to saddle up and create yer character!")
         character.Character.create_character(username)
@@ -184,6 +191,72 @@ def save_progress(username, puzzle):
         text.Colour(f"User '{username}' not found in file. Unable to load progress.").red()
 
     char_file.close()
+    
+# This function allows a player who has completed the game to create a new character and start again.
+# It wipes their previous character and leaderboard entries.
+
+def restart_game(username):
+    
+    try:
+        try:
+            # Stripping leaderboard info for user.
+            with open("../Resources/leaderboard.txt", "r") as lb:
+                lines = lb.readlines()
+            
+                new_lines = []
+                lb_deleted = False
+                
+                for line in lines:
+                    items = line.strip().split(',')
+                    if items[0] == username:
+                        line.strip()
+                        lb_deleted = True
+                    else:
+                        new_line = line.strip()
+                        new_lines.append(new_line)
+            
+                if lb_deleted:
+                    
+                    with open("../Resources/leaderboard.txt", "w") as lb:
+                        for line in new_lines:
+                            lb.write(line + '\n')
+                text.Typed.typed_text(f"\nHowdy, {username}. Ya'll no longer in the leaderboard!\n\n")
+            lb.close()
+        except:
+            text.Colour("\nSorry friend, we can't find ya'll in the leaderboard.\n\n").red()
+        
+        try:
+            # Stripping character info for user.
+            with open("../Resources/characters.txt", "r") as char:
+                lines = char.readlines()
+            
+                new_lines = []
+                char_deleted = False
+                
+                for line in lines:
+                    items = line.strip().split(',')
+                    if items[0] == username:
+                        line.strip()
+                        char_deleted = True
+                    else:
+                        new_line = line.strip()
+                        new_lines.append(new_line)
+            
+                if char_deleted:
+                    
+                    with open("../Resources/characters.txt", "w") as char:
+                        for line in new_lines:
+                            char.write(line + '\n')
+                text.Typed.typed_text(f"\nHowdy, {username}. Ya'll gona be starting the game again any second!\n\n")
+            char.close()
+        except:
+            text.Colour("\nSorry friend, we can't find ya'll character.\n\n").red()
+        # Loading progress, which will go to create_character().
+        load_progress(username)
+        
+    except:
+        text.Colour("\nSorry friend, something went wrong with tryin'a restart the game for ya'll!\n\n").red()
+    
 
 #==== Start Menu ====#
 

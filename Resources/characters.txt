@@ -1,2 +1,3 @@
-Yrsa,cowgirl,female,blue,brown hat,work boots,notebook,puzzle_one
 Woody,sheriff,female,blue,cream hat,fashion boots,None,finished
+Yrsa,cowgirl,female,blue,red hat,fashion boots,None,finished
+Dave,blacksmith,female,red,black hat,work boots,mask,puzzle_one
