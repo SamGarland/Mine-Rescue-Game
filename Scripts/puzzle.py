@@ -196,7 +196,7 @@ Exit - e
         
         time.sleep(3)
         text.Colour("\n\n[As you mosey along the rusty old railway, you hear someone shouting at you to stop.]\n\n").magenta()
-        text.Colour(f"Who's that dusty man?\nYou wipe the sweat off your {self.hair_colour} hair and squint to see\n").cyan()
+        text.Colour(f"Who's that dusty man?\nYou wipe the sweat off your {self.hair_colour} hair and squint to see.\n").cyan()
         time.sleep(2)
         # Use Npc class for intro speech.
         text.Colour(f"[A railwayman runs up to you and says:]\n\n{self.npc.get_intro('railwayman_two')}\n\n").magenta()
@@ -269,76 +269,74 @@ Save and Exit - e
                         answer = input(text.Colour("\nWhat's the height of the arch at the center of the railway track? Enter your answer to the nearest metre.\n\n\nHelp Menu - h\n:").input_cyan())
                         answer = answer.lower().strip(" ")
                         
-                        # Help Menu
-                        if answer == 'h':
-                            help.Help(self.username, "puzzle_two").get_help()
-                            continue
-                            
-                            try:
-                                
-                                if answer in solution:
-                                    # End timer.
-                                    end_time = time.perf_counter()
-                                    time.sleep(2)
-                                    text.Colour(f"\nYou've only gone and done it {self.username.title()}, seems our cart is about a metre long so we should make it over.\n").cyan()
-                                    # Count the time taken.
-                                    count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                    # Update leaderboard.
-                                    leaderboard.Leaderboard(self.username, "puzzle_three", count_time).update_leaderboard()
-                                    # Show leaderboard.
-                                    leaderboard.Leaderboard.show_Leaderboard()
-                                    # Save progress.
-                                    main.save_progress(self.username, "puzzle_three")
-                                    # Continue game menu.
-                                    options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
+                        try:
+                            # Help Menu
+                            if answer == 'h':
+                                help.Help(self.username, "puzzle_two").get_help()
+                                continue
+                            elif answer in solution:
+                                # End timer.
+                                end_time = time.perf_counter()
+                                time.sleep(2)
+                                text.Colour(f"\nYou've only gone and done it {self.username.title()}, seems our cart is about a metre long so we should make it over.\n").cyan()
+                                # Count the time taken.
+                                count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                # Update leaderboard.
+                                leaderboard.Leaderboard(self.username, "puzzle_three", count_time).update_leaderboard()
+                                # Show leaderboard.
+                                leaderboard.Leaderboard.show_Leaderboard()
+                                # Save progress.
+                                main.save_progress(self.username, "puzzle_three")
+                                # Continue game menu.
+                                options = input(text.Colour('''You did real well there partner!\n\nYa'll wana carry on into this here mine and rescue them miners?
 Continue - c
 Exit - e
 :''').input_cyan())
-                                    options = options.lower().strip(" ")
-                                    
-                                    if options == "c":
-                                        # Go to next puzzle.
-                                        main.load_progress(self.username)
-                                        return False
-                                    
-                                    elif options == "e":
-                                        # Exit
-                                        time.sleep(2)
-                                        text.Colour("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n").cyan()
-                                        return False
-                                    
-                                    else:
-                                        time.sleep(2)
-                                        text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
-                                        continue
-                                elif answer not in solution:
-                                    
+                                options = options.lower().strip(" ")
+                                
+                                if options == "c":
+                                    # Go to next puzzle.
+                                    main.load_progress(self.username)
+                                    return False
+                                
+                                elif options == "e":
+                                    # Exit
                                     time.sleep(2)
-                                    # Continue puzzle menu.
-                                    cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
-                                    cont = cont.lower().strip(" ")
-                                    
-                                    if cont == "y":
-                                        continue
-                                    elif cont == "e":
-                                        # End time.
-                                        end_time = time.perf_counter()
-                                        # Count time.
-                                        count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
-                                        # Update leaderboard.
-                                        leaderboard.Leaderboard(self.username, "puzzle_two", count_time).update_leaderboard()
-                                        break
-                                    
-                                    else:
-                                        time.sleep(2)
-                                        text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
-                                        continue
+                                    text.Colour("\nSorry to see you go partner! Mines aren't for the faint hearted...\n\n\n").cyan()
+                                    return False
+                                
                                 else:
-                                    time.sleep(1)
-                                    text.Colour("\nHmm, that don't seem quite right, have another go eh?\n\n").red()
-                            except:
+                                    time.sleep(2)
+                                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
+                                    continue
+                            elif answer not in solution:
+                                
+                                time.sleep(2)
+                                # Continue puzzle menu.
+                                cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
+                                cont = cont.lower().strip(" ")
+                                
+                                if cont == "y":
+                                    continue
+                                elif cont == "e":
+                                    # End time.
+                                    end_time = time.perf_counter()
+                                    # Count time.
+                                    count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
+                                    # Update leaderboard.
+                                    leaderboard.Leaderboard(self.username, "puzzle_two", count_time).update_leaderboard()
+                                    break
+                                
+                                else:
+                                    time.sleep(2)
+                                    text.Colour("\nWhoa there, partner! That ain't somethin' you can pick.\nHave another go...\n\n").red()
+                                    continue
+                            else:
                                 time.sleep(1)
-                                text.Colour("\nNow now, enter a number, not some gibberish you fool!\n\n").red()
+                                text.Colour("\nHmm, that don't seem quite right, have another go eh?\n\n").red()
+                        except:
+                            time.sleep(1)
+                            text.Colour("\nNow now, enter a number, not some gibberish you fool!\n\n").red()
                        
                 # Rehear puzzle.
                 elif options == "2":
@@ -450,8 +448,7 @@ Save and Exit - e
                         if user_input == 'h':
                             help.Help(self.username, "puzzle_three").get_help()
                             continue
-                        
-                        if user_input in solution:
+                        elif user_input in solution:
                             # End time.
                             end_time = time.perf_counter()
                             time.sleep(2)

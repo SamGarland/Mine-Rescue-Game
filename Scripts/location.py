@@ -59,7 +59,7 @@ Back to the puzzle - e
         try:
             if self.puzzle == "puzzle_one":
                 # Use of the Player's Gender
-                text.Colour(f"\nYa'll at the entrance to the Lower Creek Gold Mine. Heard they got a lot of {self.gender} folk work'n here. Damn, it's hot out here!\n").cyan() #TODO 1
+                text.Colour(f"\nYa'll at the entrance to the Lower Creek Gold Mine. Heard they got a lot of folk work'n here. Damn, it's hot out here!\n").cyan() #TODO 1
                 time.sleep(2)
                 text.Colour("Have a looky around and see if there's anything that might come in handy...\n").cyan()
                 time.sleep(2)
