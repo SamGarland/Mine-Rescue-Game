@@ -192,13 +192,14 @@ class Colour:
     def __init__(self, text):
         
         self.text = text
-    
+        
     def green(self): 
+                
         for char in self.text:
             time.sleep(0.05)
             char = "\u001b[32m{ele}\u001b[0m".format(ele=char)
             print(char, end="", flush=True)
-    
+           
     def cyan(self): 
         for char in self.text:
             time.sleep(0.05)
