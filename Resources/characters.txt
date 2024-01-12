@@ -1,3 +1,5 @@
 Woody,sheriff,female,blue,cream hat,fashion boots,None,finished
 Yrsa,cowgirl,female,blue,red hat,fashion boots,None,finished
 Dave,blacksmith,female,red,black hat,work boots,mask,puzzle_four
+Sam,gunslinger,non-binary,black,black hat,riding boots,notebook,puzzle_three
+Leaderboardcheck32,sheriff,male,brown,black hat,riding boots,lasso,puzzle_two

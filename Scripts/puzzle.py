@@ -92,7 +92,7 @@ Save and Exit - e
                     shift = random.randint(1, 25)  # Random shift value
                     ciphered_text = self.caesar_cipher(original_sentence, shift)
                     while True:
-                        text.Colour(f"[The writing says:]'{ciphered_text}'\n\n\n").magenta()
+                        text.Colour(f"\n\n[The writing says:]'{ciphered_text}'\n\n\n").magenta()
                         time.sleep(2)
                         user_input = input(text.Colour("Looks like you gotta make some sense of this and figure out the key word\nEnter the key\n\n\nHelp Menu - h\n:").input_cyan()).strip().lower()
                         time.sleep(1)
@@ -135,8 +135,9 @@ Exit - e
                         elif user_input == 'h':
                             help.Help(self.username, "puzzle_one").get_help()
                         elif user_input != answer:
-                            
-                            text.Colour("Oh dust!, the writing changed?!\n\n\n").cyan()
+                            text.Colour("\nNope! That ain't right...\n\n").cyan()
+                            time.sleep(1)
+                            text.Colour("\nOh dust! the writing changed?!\n\n\n").cyan()
                             time.sleep(2)
                             # Continue puzzle menu.
                             cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
@@ -199,7 +200,7 @@ Exit - e
         text.Colour(f"Who's that dusty man?\nYou wipe the sweat off your {self.hair_colour} hair and squint to see.\n").cyan()
         time.sleep(2)
         # Use Npc class for intro speech.
-        text.Colour(f"[A railwayman runs up to you and says:]\n\n{self.npc.get_intro('railwayman_two')}\n\n").magenta()
+        text.Colour(f"\n[A railwayman runs up to you and says:]\n\n{self.npc.get_intro('railwayman_two')}\n\n").magenta()
         time.sleep(2)
         
         # Set the required item for puzzle hint.
@@ -255,7 +256,7 @@ Save and Exit - e
                 
                 options = options.lower().strip(" ")
                 solution = ['7','7m','7 m','7 metres','7metres','7metre','7 metre','7 meter','7meter','7 meters','7meters',
-                            'seven metres','seven meters']
+                            'seven metres','seven meters','seven']
                 
                 # Puzzle Logic.
                 if options == "1":
@@ -313,7 +314,7 @@ Exit - e
                                 
                                 time.sleep(2)
                                 # Continue puzzle menu.
-                                cont = input(text.Colour("Want to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
+                                cont = input(text.Colour("\nWant to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
                                 cont = cont.lower().strip(" ")
                                 
                                 if cont == "y":

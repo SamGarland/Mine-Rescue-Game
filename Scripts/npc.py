@@ -37,7 +37,7 @@ if it ain't that high you might just make it.\n\n'''),
 Each piece has 4 links. I can only mend it by breakin' each links and then joinin' 'em back together.
 
 How many links do I gotta break to fix this chain up?\n\n'''),    
-                "prompt_hint": "\nI might have some old tricks up me sleeves, y'all got a lasso?\nIf so, I'll swap ya'll a lasso for a hint?\n\n",
+                "prompt_hint": "I might have some old tricks up me sleeves, y'all got a lasso?\nIf so, I'll swap ya'll a lasso for a hint?\n\n",
                 "hint": "\nGosh dang! I finally did get me a lasso! Might give up this mining lark and become a rancher.\nOh right, the hint.\nDon't one chain got 4 links? dunno if you gotta break em all...\n\n"},
             
             # npc for puzzle_four.
