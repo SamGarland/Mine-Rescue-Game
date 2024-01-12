@@ -8,12 +8,14 @@ These puzzles form the bulk of the gameplay.
 import random
 import time
 import npc
-import mine_rescue_main as main
 import location
 import leaderboard
 import text
 import inventory
 import help
+import sys
+sys.path.append('../scripts')
+import main
 
 #==== Class and methods ====#
 
@@ -137,6 +139,8 @@ Exit - e
                         elif user_input != answer:
                             text.Colour("\nNope! That ain't right...\n\n").cyan()
                             time.sleep(1)
+                            shift = random.randint(1, 25)
+                            ciphered_text = self.caesar_cipher(original_sentence, shift)
                             text.Colour("\nOh dust! the writing changed?!\n\n\n").cyan()
                             time.sleep(2)
                             # Continue puzzle menu.
@@ -237,7 +241,8 @@ Check inventory - c
             # Player checks inventory.
             elif choice == "c":
                 time.sleep(2)
-                text.Colour(f"\n\nYour equipment: {inventory.Inventory(self.username).show_player_inventory()}\n\n").green()
+                text.Colour("\nYour equipment:").green()
+                inventory.Inventory(self.username).show_player_inventory()
                 continue
             else:
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
@@ -414,7 +419,8 @@ Check inventory - c
             # Player checks inventory.
             elif choice == "c":
                 time.sleep(2)
-                text.Colour(f"Your equipment: {inventory.Inventory(self.username).show_player_inventory()}\n\n").green()
+                text.Colour("\nYour equipment:").green()
+                inventory.Inventory(self.username).show_player_inventory()
                 continue
             else:
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
@@ -573,11 +579,11 @@ A - Take Rat Across/Back
 B - Take Dynamite Across/Back
 C - Take Miner Across/Back
 D - Take Nothing Across/Back
-''').magenta()
+\n''').magenta()
         
         # Prompting for a hint.
         time.sleep(3)
-        text.Colour(f"{self.npc.get_prompt('miner_two')}\n\n\n").magenta()
+        text.Colour(f"\n{self.npc.get_prompt('miner_two')}\n\n\n").magenta()
         # Hint menu.
         while True: 
             choice = input(text.Colour('''How'd you wana respond partner?
@@ -605,8 +611,8 @@ Check inventory - c
                 break
             # Player checks inventory.
             elif choice == "c":
-                time.sleep(2)
-                text.Colour(f"Your equipment: {inventory.Inventory(self.username).show_player_inventory()}\n\n").green()
+                text.Colour("\nYour equipment:").green()
+                inventory.Inventory(self.username).show_player_inventory()
                 continue
             else:
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()
@@ -1168,8 +1174,8 @@ Check inventory - c
                 break
             # Player checks inventory.
             elif choice == "c":
-                time.sleep(2)
-                text.Colour(f"Your equipment: {inventory.Inventory(self.username).show_player_inventory()}\n\n").green()
+                text.Colour("\nYour equipment:").green()
+                inventory.Inventory(self.username).show_player_inventory()
                 continue
             else:
                 text.Colour("\nThat aint a choice my friend...Try again.\n\n").red()

@@ -5,8 +5,7 @@ Tests for the Leaderboard class in leaderboard.py.
 import unittest
 import time
 import sys
-
-sys.path.append('../scripts')
+sys.path.append('../scripts/modules')
 import leaderboard
 
 class TestLeaderboard(unittest.TestCase):

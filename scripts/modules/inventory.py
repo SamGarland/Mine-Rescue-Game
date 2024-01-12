@@ -4,6 +4,10 @@ These are used to check "characters.txt" for equipment, and
 updating the inventory by removing or adding equipment.
 
 '''
+#==== Imports ====#
+
+import text
+
 #==== Class and methods ====#
 
 class Inventory:
@@ -21,7 +25,8 @@ class Inventory:
                 if line_parts[0].strip() == self.username:
                     item_list = line_parts[6:-1]
                     return item_list
-                    
+        char_file.close()
+                           
         # Returns a default message if no item is found.
         return "No item found"
     
@@ -37,10 +42,11 @@ class Inventory:
     def show_player_inventory(self):
         
         inventory = self.get_inventory_item()
-        
+            
         for item in inventory:
-            return item
-
+            text.Colour(f"\n{item}").green()
+        print("\n\n")
+            
     # Method to remove equipment or set the equipment to default "None" if all has been used.
 
     def update_equipment(self, item):
@@ -75,6 +81,8 @@ class Inventory:
             with open("../Resources/characters.txt", "w") as char_file:
                 for line in new_lines:
                     char_file.write(line + '\n')
+            
+            char_file.close()
 
     # Method to add new equipment in the character file.
 
@@ -107,3 +115,5 @@ class Inventory:
             with open("../Resources/characters.txt", "w") as char_file:
                 for line in new_lines:
                     char_file.write(line + '\n')
+            
+            char_file.close()

@@ -111,7 +111,7 @@ Back to the puzzle - e
                 text.Colour("Looks like there are about six or seven different lines. I wonder which one I need to take?\n").cyan()
                 time.sleep(2)
                 # Use of the Player's Hat
-                text.Colour(f"Maybe you can toss my {self.hat} and see where it goes!\n").cyan() #TODO 2
+                text.Colour(f"Maybe I can toss my {self.hat} and see where it goes!\n").cyan() #TODO 2
                 time.sleep(2)
                 text.Colour("\nHey look! There's a lasso there on the wall!\n").cyan()
                 time.sleep(2)

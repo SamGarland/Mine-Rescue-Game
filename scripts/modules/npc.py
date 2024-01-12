@@ -34,7 +34,7 @@ if it ain't that high you might just make it.\n\n'''),
                 "intro": (
                     '''I can pull ya through with this here chain, but my good riddens, it's in 5 pieces!
                     
-Each piece has 4 links. I can only mend it by breakin' each links and then joinin' 'em back together.
+Each piece has 4 links. I can only mend it by breakin' each link and then joinin' 'em back together.
 
 How many links do I gotta break to fix this chain up?\n\n'''),    
                 "prompt_hint": "I might have some old tricks up me sleeves, y'all got a lasso?\nIf so, I'll swap ya'll a lasso for a hint?\n\n",

@@ -32,7 +32,7 @@ A terrible accident has caused the locals who work in the mine to be trapped!
 Your mission, if you choose to accept, is a race against time to save the miners trapped below.
 A critical expedition lies before you in the dark and dangerous tunnels of the mine.
 
-So gather your resolve explorer, and prepare to venture into the unknown. The mysteries of the mines are  yours to solve, each bringing you a step closer to the miners below. 
+So gather your resolve explorer, and prepare to venture into the unknown. The mysteries of the mines are yours to solve, each bringing you a step closer to the miners below. 
 \n\n\n""")
 
     # Intro_Image_One.

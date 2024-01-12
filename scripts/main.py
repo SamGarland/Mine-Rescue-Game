@@ -11,6 +11,8 @@ It also contains the start menu.
 #==== Imports ====#
 
 import time
+import sys
+sys.path.append('/modules')
 import character
 import leaderboard
 import puzzle

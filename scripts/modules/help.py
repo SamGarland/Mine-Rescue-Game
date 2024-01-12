@@ -90,7 +90,7 @@ e.g. with 25,50,12,13 can be 25+50+12+13 = 100.''').cyan()
 - Don't guess it, calculate it!''').cyan()
             elif self.puzzle == "puzzle_three":
                 time.sleep(1)
-                text.Colour("Make sure you break enough links to join all of the parts together").cyan()
+                text.Colour("\nMake sure you break enough links to join all of the parts together").cyan()
             elif self.puzzle == "puzzle_four":
                 time.sleep(1)
                 text.Colour('''

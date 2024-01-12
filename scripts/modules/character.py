@@ -4,9 +4,10 @@ These are used to create and save a character to: "characters.txt" in Resources.
 
 '''
 #==== Imports ====#
-
-import mine_rescue_main as main
 import text
+import sys
+sys.path.append('../scripts')
+import main
 
 #==== Class and methods ====#
 
