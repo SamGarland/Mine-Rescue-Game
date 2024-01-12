@@ -32,7 +32,7 @@ class Inventory:
     
     # Method to check if the user has the required equipment.
 
-    def has_required_epuipment(self, required_item):
+    def has_required_equipment(self, required_item):
            
             if required_item in self.get_inventory_item():
                 return required_item

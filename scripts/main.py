@@ -12,7 +12,7 @@ It also contains the start menu.
 
 import time
 import sys
-sys.path.append('/modules')
+sys.path.append('./modules')
 import character
 import leaderboard
 import puzzle
