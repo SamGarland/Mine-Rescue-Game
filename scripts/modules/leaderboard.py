@@ -45,7 +45,7 @@ class Leaderboard:
         
         try:
             # Look for username already in "leaderboard.txt" and update entry.
-            with open("../Resources/leaderboard.txt", "r") as lb, open("../Resources/new_leaderboard.txt", "a+") as new_lb:
+            with open("../resources/leaderboard.txt", "r") as lb, open("../resources/new_leaderboard.txt", "a+") as new_lb:
                 
                 lines = lb.readlines()
                 
@@ -68,15 +68,15 @@ class Leaderboard:
                         time = line[3]
                         new_lb.write(f"{user},{status},{puzzle_time},{time}\n")
                         
-            os.remove("../Resources/leaderboard.txt")
-            os.rename("../Resources/new_leaderboard.txt", "../Resources/leaderboard.txt")
+            os.remove("../resources/leaderboard.txt")
+            os.rename("../resources/new_leaderboard.txt", "../resources/leaderboard.txt")
         
             lb.close()
         
         except:
             text.Colour("Failure to update the leaderboard!").red()
         
-        with open("../Resources/leaderboard.txt", "r+") as lb:
+        with open("../resources/leaderboard.txt", "r+") as lb:
              # Add new leaderboard entry.
              lines = lb.readlines()
              
@@ -113,7 +113,7 @@ class Leaderboard:
         file_set = []
         agg_times_set = []
         
-        with open("../Resources/leaderboard.txt", "r") as lb:
+        with open("../resources/leaderboard.txt", "r") as lb:
             
             lines = lb.readlines()
             

@@ -3,4 +3,3 @@ Yrsa, hello
 Dave, dave32
 Sam, sam2024
 Mary2024, mary2024
-newbie, newtothegame

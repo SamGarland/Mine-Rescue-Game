@@ -106,7 +106,7 @@ Save and Exit - e
                             # Count the time taken.
                             count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                             # Update leaderboard.
-                            leaderboard.Leaderboard(self.username, "puzzle_two", count_time).update_leaderboard()
+                            leaderboard.Leaderboard(self.username, "puzzle_one", count_time).update_leaderboard()
                             # Show leaderboard.
                             leaderboard.Leaderboard.show_Leaderboard()
                             # Save progress.
@@ -288,7 +288,7 @@ Save and Exit - e
                                 # Count the time taken.
                                 count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                 # Update leaderboard.
-                                leaderboard.Leaderboard(self.username, "puzzle_three", count_time).update_leaderboard()
+                                leaderboard.Leaderboard(self.username, "puzzle_two", count_time).update_leaderboard()
                                 # Show leaderboard.
                                 leaderboard.Leaderboard.show_Leaderboard()
                                 # Save progress.
@@ -465,7 +465,7 @@ Save and Exit - e
                             # Count time.
                             count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                             # Update leaderboard.
-                            leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
+                            leaderboard.Leaderboard(self.username, "puzzle_three", count_time).update_leaderboard()
                             # Show leaderboard.
                             leaderboard.Leaderboard.show_Leaderboard()
                             # Save progress.
@@ -835,7 +835,7 @@ Help Menu - h
                                                                                                     # Count time.
                                                                                                     count_time = leaderboard.Leaderboard.count_time(start_time, end_time)
                                                                                                     # Update leaderboard.
-                                                                                                    leaderboard.Leaderboard(self.username, "puzzle_five", count_time).update_leaderboard()
+                                                                                                    leaderboard.Leaderboard(self.username, "puzzle_four", count_time).update_leaderboard()
                                                                                                     # Show leaderboard.
                                                                                                     leaderboard.Leaderboard.show_Leaderboard()
                                                                                                     # Save progress.

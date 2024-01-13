@@ -3,9 +3,3 @@ Yrsa,cowgirl,female,blue,red hat,fashion boots,None,finished
 Dave,blacksmith,female,red,black hat,work boots,mask,puzzle_four
 Sam,gunslinger,non-binary,black,black hat,riding boots,notebook,puzzle_three
 Mary2024,cowgirl,female,blue,brown hat,work boots,notebook,puzzle_four
-newbie,blacksmith,male,black,brown hat,riding boots,notebook,puzzle_five
-test0,blacksmith,male,black,black hat,work boots,hammer,puzzle_one
-test1,blacksmith,male,black,black hat,work boots,lasso,puzzle_two
-test2,blacksmith,male,black,black hat,work boots,mask,puzzle_three
-test3,blacksmith,male,black,black hat,work boots,notebook,puzzle_four
-test4,blacksmith,male,black,black hat,work boots,None,puzzle_five

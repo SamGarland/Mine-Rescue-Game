@@ -19,7 +19,7 @@ class Inventory:
     # Method to return player inventory.
 
     def get_inventory_item(self):
-        with open("../Resources/characters.txt", "r") as char_file:
+        with open("../resources/characters.txt", "r") as char_file:
             for line in char_file:
                 line_parts = line.strip().split(',')
                 if line_parts[0].strip() == self.username:
@@ -53,7 +53,7 @@ class Inventory:
         new_lines = []
         user_found = False
         
-        with open("../Resources/characters.txt", "r") as char_file:
+        with open("../resources/characters.txt", "r") as char_file:
             lines = char_file.readlines()
 
             for line in lines:
@@ -78,11 +78,11 @@ class Inventory:
                 
         # File updated if user found.
         if user_found:
-            with open("../Resources/characters.txt", "w") as char_file:
+            with open("../resources/characters.txt", "w") as char_file:
                 for line in new_lines:
                     char_file.write(line + '\n')
             
-            char_file.close()
+            #char_file.close()
 
     # Method to add new equipment in the character file.
 
@@ -91,7 +91,7 @@ class Inventory:
         new_lines = []
         user_found = False
         
-        with open("../Resources/characters.txt", "r") as char_file:
+        with open("../resources/characters.txt", "r") as char_file:
             lines = char_file.readlines()
 
             for line in lines:
@@ -112,8 +112,8 @@ class Inventory:
                 
         # File updated if user found.
         if user_found:
-            with open("../Resources/characters.txt", "w") as char_file:
+            with open("../resources/characters.txt", "w") as char_file:
                 for line in new_lines:
                     char_file.write(line + '\n')
             
-            char_file.close()
+            #char_file.close()

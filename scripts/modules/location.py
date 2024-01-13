@@ -120,7 +120,7 @@ Back to the puzzle - e
                 equip = equip.lower().strip(" ")
                 if equip == "y":
                     # Check equipment for lasso.
-                    if inventory.Inventory(self.username).has_required_epuipment("lasso"):
+                    if inventory.Inventory(self.username).has_required_equipment("lasso"):
                         text.Colour("\nNow now, I see you already got a lasso!\n\nNo need for another one...\n").cyan()
                         time.sleep(1)
                     else:
@@ -214,7 +214,7 @@ Back to the puzzle - e
                 equip = equip.lower().strip(" ")
                 if equip == "y":
                     # Check equipment for mask.
-                    if inventory.Inventory(self.username).has_required_epuipment("mask"):
+                    if inventory.Inventory(self.username).has_required_equipment("mask"):
                         text.Colour("\nNow now, I see you already got a mask!\n\nNo need for another one...\n").cyan()
                         time.sleep(1)
                     else:
@@ -246,7 +246,7 @@ Back to the puzzle - e
     def look_down(self):
         try:
             if self.puzzle == "puzzle_one":
-                text.Colour("\nNothing much around here on the floor. Just a bunch of dust bits of old oily rag...\n").cyan()
+                text.Colour("\nNothing much around here on the floor. Just a bunch of dust and bits of old oily rag...\n").cyan()
                 time.sleep(1)
                 text.Colour("\nOh my! Looks like someone dropped their notebook!\n").cyan()
                 time.sleep(2)
@@ -255,11 +255,11 @@ Back to the puzzle - e
                 equip = equip.lower().strip(" ")
                 if equip == "y":
                     # Check equipment for notebook.
-                    if inventory.Inventory(self.username).has_required_epuipment("notebook"):
+                    if inventory.Inventory(self.username).has_required_equipment("notebook"):
                         text.Colour("\nNow now, I see you already got a notebook!\n\nNo need for another one...\n").cyan()
                         time.sleep(1)
                     else:
-                        # Add lasso to inventory.
+                        # Add notebook to inventory.
                         inventory.Inventory(self.username).pickup_equipment("notebook")
                         text.Colour("\nYa'll picked-up a notebook! Yeeehaaaww!\n").cyan()
                         time.sleep(1)
@@ -291,4 +291,4 @@ Back to the puzzle - e
             else:
                 text.Colour("\nSeems like you're lost my friend. I don't know where ya'll at!\n").red()
         except:
-            text.Colour("\nSeems like you're lost my friend. I don't know where ya'll at!\n").red()
+           text.Colour("\nSeems like you're lost my friend. I don't know where ya'll at!\n").red()

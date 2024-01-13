@@ -221,7 +221,7 @@ Mask - m
         new_character = Character(username, category, gender, hair_colour, hat, boots, equipment)
         
         # Write the character's information to file.
-        with open("../Resources/characters.txt", "a") as char_file:
+        with open("../resources/characters.txt", "a") as char_file:
             
             char_file.write(f"{Character.__str__(new_character)},puzzle_one\n")
             char_file.close()

@@ -24,7 +24,7 @@ import text
 
 def register_user():
         
-    with open("../Resources/users.txt", "r+") as f:
+    with open("../resources/users.txt", "r+") as f:
          
          new_username = ""
          usernames = []
@@ -67,7 +67,7 @@ def register_user():
 
 def login():
     
-    f = open("../Resources/users.txt", "r")
+    f = open("../resources/users.txt", "r")
     
     authenticated = False
     
@@ -117,7 +117,7 @@ Back to start menu - e
 # This functions loads game progress by looking at the puzzle number for a player in "characters.txt". 
 
 def load_progress(username):
-    with open("../Resources/characters.txt", "r") as char_file:
+    with open("../resources/characters.txt", "r") as char_file:
         lines = char_file.readlines()
 
     character_found = False
@@ -166,7 +166,7 @@ def load_progress(username):
 # This function saves the player game progress.
 
 def save_progress(username, puzzle):
-    with open("../Resources/characters.txt", "r") as char_file:
+    with open("../resources/characters.txt", "r") as char_file:
         lines = char_file.readlines()
 
     character_found = False
@@ -186,7 +186,7 @@ def save_progress(username, puzzle):
 
     if character_found:
         
-        with open("../Resources/characters.txt", "w") as file:
+        with open("../resources/characters.txt", "w") as file:
             for line in new_lines:
                 file.write(line + '\n')
     else:
@@ -202,7 +202,7 @@ def restart_game(username):
     try:
         try:
             # Stripping leaderboard info for user.
-            with open("../Resources/leaderboard.txt", "r") as lb:
+            with open("../resources/leaderboard.txt", "r") as lb:
                 lines = lb.readlines()
             
                 new_lines = []
@@ -219,7 +219,7 @@ def restart_game(username):
             
                 if lb_deleted:
                     
-                    with open("../Resources/leaderboard.txt", "w") as lb:
+                    with open("../resources/leaderboard.txt", "w") as lb:
                         for line in new_lines:
                             lb.write(line + '\n')
                 text.Typed.typed_text(f"\nHowdy, {username}. Ya'll no longer in the leaderboard!\n\n")
@@ -229,7 +229,7 @@ def restart_game(username):
         
         try:
             # Stripping character info for user.
-            with open("../Resources/characters.txt", "r") as char:
+            with open("../resources/characters.txt", "r") as char:
                 lines = char.readlines()
             
                 new_lines = []
@@ -246,7 +246,7 @@ def restart_game(username):
             
                 if char_deleted:
                     
-                    with open("../Resources/characters.txt", "w") as char:
+                    with open("../resources/characters.txt", "w") as char:
                         for line in new_lines:
                             char.write(line + '\n')
                 text.Typed.typed_text(f"\nHowdy, {username}. Ya'll gona be starting the game again any second!\n\n")
