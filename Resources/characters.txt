@@ -1,3 +1,8 @@
 Woody,sheriff,female,blue,cream hat,fashion boots,None,finished
 Demo2,blacksmith,non-binary,purple,red hat,riding boots,None,puzzle_five
 Sam,gunslinger,non-binary,purple,cream hat,work boots,hammer,puzzle_one
+test0,blacksmith,male,black,black hat,work boots,hammer,puzzle_one
+test1,blacksmith,female,brown,brown hat,riding boots,lasso,puzzle_two
+test2,sheriff,non-binary,blonde,cream hat,fashion boots,mask,puzzle_three
+test3,gunslinger,non-binary,red,red hat,riding boots,notebook,puzzle_four
+test4,cowgirl,female,purple,red hat,fashion boots,None,puzzle_five
