@@ -1,2 +1,2 @@
 Woody,finished,79,762
-Demo2,puzzle_four,75,270
+Demo2,puzzle_four,152,182

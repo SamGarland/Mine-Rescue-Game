@@ -60,7 +60,7 @@ Blacksmith - b
                 text.Typed.typed_text("\n\nYou've chosen Cowgirl!\n")
                 break
             else:
-                text.Colour("\n\nWhoa there, partner! That ain't somethin' y'all can pick.").red()
+                text.Colour("\n\nWhoa there, partner! That ain't somethin' y'all can pick.\n").red()
 
         # Gender selection.
         while True:
@@ -223,7 +223,7 @@ Mask - m
         # Write the character's information to file.
         with open("../resources/characters.txt", "a") as char_file:
             
-            char_file.write(f"{Character.__str__(new_character)},puzzle_one\n")
+            char_file.write(f"{Character.__str__(new_character)},puzzle_one")
             char_file.close()
         
         # Gameplay message.

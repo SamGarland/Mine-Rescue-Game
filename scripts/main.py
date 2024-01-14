@@ -24,7 +24,7 @@ import text
 
 def register_user():
         
-    with open("../resources/users.txt", "r+") as f:
+    with open("../resources/users.txt", "r+") as f:#r+
          
          new_username = ""
          usernames = []
@@ -52,7 +52,6 @@ def register_user():
               confirm_password = input("\nTell me one more time:\n")
               if new_password != confirm_password:
                   text.Colour("\nSorry, no matcheroo...\n").red()
-                  continue
               else:
                   text.Typed.typed_text("\nWelcome partner! That's all been taken care of for you!\n")
                   f.write(f"{new_username}, {new_password}\n")
