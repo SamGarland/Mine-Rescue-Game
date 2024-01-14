@@ -201,7 +201,9 @@ Exit - e
         
         time.sleep(3)
         text.Colour("\n\n[As you mosey along the rusty old railway, you hear someone shouting at you to stop.]\n\n").magenta()
-        text.Colour(f"Who's that dusty man?\nYou wipe the sweat off your {self.hair_colour} hair and squint to see.\n").cyan()
+        text.Colour("Who's that dusty man?\n").cyan()
+        time.sleep(1)
+        text.Colour(f"You wipe the sweat off your {self.hair_colour} hair and squint to see.\n").magenta()
         time.sleep(2)
         # Use Npc class for intro speech.
         text.Colour(f"\n[A railwayman runs up to you and says:]\n\n{self.npc.get_intro('railwayman_two')}\n\n").magenta()
@@ -223,7 +225,7 @@ Check inventory - c
         
             if choice == "y":
                 # Checking player equipment.
-                if inventory.Inventory(self.username).has_required_epuipment(puzzle_two_item):
+                if inventory.Inventory(self.username).has_required_equipment(puzzle_two_item):
                     time.sleep(2)
                     # Get hint.
                     text.Colour(f"\n\n{self.npc.get_hint('railwayman_two')}\n\n").magenta()
@@ -319,6 +321,8 @@ Exit - e
                                 
                                 time.sleep(2)
                                 # Continue puzzle menu.
+                                text.Colour("\nNope! That ain't right...\n\n").cyan()
+                                time.sleep(1)
                                 cont = input(text.Colour("\nWant to have another go fella?\n\nYes - y\nExit puzzle - e\n:").input_cyan())
                                 cont = cont.lower().strip(" ")
                                 
@@ -376,7 +380,7 @@ Exit - e
         time.sleep(2)
         text.Colour("Wait look!\n\n").cyan()
         time.sleep(2)
-        text.Colour(f"There's just a narrow crawl space left.\nYou kick your {self.boots} to see if it'll get any bigger\n\n").cyan()
+        text.Colour(f"There's just a narrow crawl space left.\nYou kick your {self.boots} to see if it'll get any bigger.\n\n").cyan()
         time.sleep(2)
         # Show text image.
         text.Typed.image_three()
@@ -401,7 +405,7 @@ Check inventory - c
         
             if choice == "y":
                 # Checking player equipment.
-                if inventory.Inventory(self.username).has_required_epuipment(puzzle_three_item):
+                if inventory.Inventory(self.username).has_required_equipment(puzzle_three_item):
                     time.sleep(2)
                     # Get hint.
                     text.Colour(f"\n{self.npc.get_hint('miner_crawlspace')}\n\n").magenta()
@@ -594,7 +598,7 @@ Check inventory - c
             choice = choice.lower().strip(" ")        
             if choice == "y":
                 # Checking player equipment.
-                if inventory.Inventory(self.username).has_required_epuipment(puzzle_four_item):
+                if inventory.Inventory(self.username).has_required_equipment(puzzle_four_item):
                     time.sleep(2)
                     # Get hint.
                     text.Colour(f"{self.npc.get_hint('miner_two')}\n\n").magenta()
@@ -1157,7 +1161,7 @@ Check inventory - c
             
             if choice == "y":
                 # Checking player equipment.
-                if inventory.Inventory(self.username).has_required_epuipment(puzzle_five_item):
+                if inventory.Inventory(self.username).has_required_equipment(puzzle_five_item):
                     time.sleep(2)
                     # Give hint.
                     text.Colour(f"{self.npc.get_hint('trapped_miner')}\n\n").magenta()

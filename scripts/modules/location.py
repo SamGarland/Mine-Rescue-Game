@@ -59,13 +59,13 @@ Back to the puzzle - e
         try:
             if self.puzzle == "puzzle_one":
                 # Use of the Player's Gender
-                text.Colour(f"\nYa'll at the entrance to the Lower Creek Gold Mine. Heard they got a lot of folk work'n here. Damn, it's hot out here!\n").cyan() #TODO 1
+                text.Colour("\nYa'll at the entrance to the Lower Creek Gold Mine. Heard they got a lot of folk work'n here. Damn, it's hot out here!\n").cyan()
                 time.sleep(2)
                 text.Colour("Have a looky around and see if there's anything that might come in handy...\n").cyan()
                 time.sleep(2)
             elif self.puzzle == "puzzle_two":
                 # Use of the Player's Hair Colour
-                text.Colour(f"\nYou're inside the mine, heading down the railway track, hot air blowing at ya {self.hair_colour} hair. Boy, it's a loooong way!\n").cyan() #TODO 2
+                text.Colour(f"\nYou're inside the mine, heading down the railway track, hot air blowing at ya {self.hair_colour} hair. Boy, it's a loooong way!\n").cyan()
                 time.sleep(2)
                 text.Colour("There's someone approaching. Quickly, go see what they want. Maybe they can help figure out what's going on in here...\n").cyan()
                 time.sleep(2)
@@ -73,7 +73,7 @@ Back to the puzzle - e
                 text.Colour("\nIt's getting tight in here partner.\n").cyan()
                 time.sleep(2)
                 # Use of the Player's Hair Colour
-                text.Colour(f"Damn, I can hardly breathe! My {self.hair_colour} hair is getting all sweaty\n").cyan() #TODO 3
+                text.Colour(f"Damn, I can hardly breathe! My {self.hair_colour} hair is getting all sweaty.\n").cyan()
                 time.sleep(2)
                 text.Colour("Cough! Cough!\n").cyan()
                 time.sleep(2)
@@ -89,7 +89,7 @@ Back to the puzzle - e
                 time.sleep(2)
                 text.Colour("Hey look! There's a fella crouching over there in the shadows. Let's see what he wants...\n").cyan()
             elif self.puzzle == "puzzle_five":
-                text.Colour("\nThis must be it! I can hear the miners!").cyan()
+                text.Colour("\nThis must be it! I can hear the miners!\n").cyan()
                 time.sleep(2)
                 text.Colour("They're trapped in the lift shaft. Go over to the panel and see if you can figure out how to get it up and running again...\n").cyan()
                 time.sleep(2)
@@ -111,7 +111,7 @@ Back to the puzzle - e
                 text.Colour("Looks like there are about six or seven different lines. I wonder which one I need to take?\n").cyan()
                 time.sleep(2)
                 # Use of the Player's Hat
-                text.Colour(f"Maybe I can toss my {self.hat} and see where it goes!\n").cyan() #TODO 2
+                text.Colour(f"Maybe I can toss my {self.hat} and see where it goes!\n").cyan()
                 time.sleep(2)
                 text.Colour("\nHey look! There's a lasso there on the wall!\n").cyan()
                 time.sleep(2)
@@ -151,7 +151,7 @@ Back to the puzzle - e
                 text.Colour("\nThere's the panel! Looks kind of rusty and old, but maybe you can figure something out...\n").cyan()
                 time.sleep(2)
                 # Use of the Player's Hat
-                text.Colour(f"Ahah! Take off that {self.hat} and look on the wall there!\n\n[Written on the wall] (98 - 7) ...+, -, 6, 5, 4, 3, 2, 1... = 100...?\n").cyan() #TODO 5
+                text.Colour(f"Ahah! Take off that {self.hat} and look on the wall there!\n\n[Written on the wall] (98 - 7) ...+, -, 6, 5, 4, 3, 2, 1... = 100...?\n").cyan()
                 time.sleep(2)
                 text.Colour("Them must be the notes that they's talking bout!").cyan()
                 time.sleep(2)
@@ -184,7 +184,7 @@ Back to the puzzle - e
                 text.Colour("\nLooks like some sort of substation...\n").cyan()
                 time.sleep(2)
                 # Use of the Player's Boots
-                text.Colour(f"Better not get too close in case it got flooded! Gotta make sure my {self.boots} don't slip over 'ere \n").cyan() #TODO 5
+                text.Colour(f"Better not get too close in case it got flooded! Gotta make sure my {self.boots} don't slip over 'ere.\n").cyan()
                 time.sleep(2)
             else:
                 text.Colour("\nSeems like you're lost my friend. I don't know where ya'll at!\n").red()
@@ -197,7 +197,7 @@ Back to the puzzle - e
         try:
             if self.puzzle == "puzzle_one":
                 # Use of the Player's Hair Colour
-                text.Colour(f"\nBeautiful blue! Not a cloud in the sky! It's burning my {self.hair_colour} hair, gotta head in\n").cyan() #TODO 1
+                text.Colour(f"\nBeautiful blue! Not a cloud in the sky! It's burning my {self.hair_colour} hair, betta' head in...\n").cyan()
                 time.sleep(2)
             elif self.puzzle == "puzzle_two":
                 text.Colour("\nThey've sure put a lot of effort into holding up that ceiling!\nThose beams look mighty strong.\n").cyan()
@@ -231,7 +231,7 @@ Back to the puzzle - e
                 text.Colour("\nI can jus about see the roof of this thing.\n").cyan()
                 time.sleep(2)
                 # Use of the Player's Hat
-                text.Colour(f"It's damn enormous in here! Gotta keep my {self.hat} dry\n").cyan() #TODO 4
+                text.Colour(f"It's damn enormous in here! Gotta keep my {self.hat} dry!\n").cyan()
                 time.sleep(2)
             elif self.puzzle == "puzzle_five":
                 text.Colour("\nJust a load of mesh I guess.\n").cyan()
@@ -275,13 +275,13 @@ Back to the puzzle - e
                 time.sleep(2)
             elif self.puzzle == "puzzle_three":
                 # Use of the Player's Boots
-                text.Colour(f"\nYep, jus my {self.boots}...\n").cyan() #TODO 3
+                text.Colour(f"\nYep, jus my {self.boots}...\n").cyan()
                 time.sleep(2)
                 text.Colour("I can't see much in here.\n").cyan()
                 time.sleep(2)
             elif self.puzzle == "puzzle_four":
                 # Use of the Player's Boots
-                text.Colour(f"\nAw man! My {self.boots} are all wet...\n").cyan() #TODO 4
+                text.Colour(f"\nAw man! My {self.boots} are all wet...\n").cyan()
                 time.sleep(2)
             elif self.puzzle == "puzzle_five":
                 text.Colour("\nThere's loads of bits of wire all over the floor... What in the name happened here?\n").cyan()
